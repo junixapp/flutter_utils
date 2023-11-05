@@ -5,52 +5,42 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class WidgetUtil {
   WidgetUtil._();
   ///快捷创建输入框
-  static Widget textField(
-    BuildContext context,
-    TextEditingController controller,
-    String hint, {
-    Color? hintColor,
-    double? fontSize,
-    TextInputType? inputType,
-    int maxLength = 50,
-    TextAlign? textAlign,
-    FocusNode? focusNode,
-    bool? obscureText,
-    bool? disabled,
-    List<TextInputFormatter>? inputFormatters,
-    Key? key,
-    TextStyle? hintStyle,
-    TextStyle? style,
-    int maxLines = 1,
-  }) {
-    return TextField(
-      key: key, controller: controller, maxLines: maxLines,
-      maxLength: maxLength,
-      keyboardType: inputType ?? TextInputType.text,
+  static Widget textField(BuildContext context, TextEditingController controller,
+      String hint, { Color? hintColor, double? fontSize,double? hintFontSize, TextInputType? inputType,
+        int maxLength = 50, TextAlign? textAlign, FocusNode? focusNode, bool? obscureText,
+        bool? disabled, List<TextInputFormatter>? inputFormatters, Key? key,
+        int maxLines = 1, String? errorText, Color? errorColor, double? errorFontSize,
+        double? borderWidth, Color? borderColor, double? radius, EdgeInsets? padding,
+        bool bold = false, EdgeInsets? margin,
+      }){
+    return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller, maxLines: maxLines, maxLength: maxLength,
+      keyboardType: inputType??TextInputType.text,
       enabled: !(disabled ?? false),
-      textInputAction: TextInputAction.done,
+      // textInputAction: TextInputAction.done,
       textAlignVertical: TextAlignVertical.center,
-      textAlign: textAlign ?? TextAlign.left,
+      textAlign: textAlign??TextAlign.left,
       focusNode: focusNode,
-      obscureText: obscureText ?? false,
+      obscureText: obscureText??false,
       decoration: InputDecoration(
-        isCollapsed: true,
-        counterText: "",
-        hintText: hint,
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.zero,
-        hintStyle: hintStyle ??
-            TextStyle(
-              color: hintColor ?? Theme.of(context).hintColor,
-              fontSize: fontSize ?? 14.w,
-            ),
-      ),
-      style: style ??
-          TextStyle(
-            color: Theme.of(context).colorScheme.primary,
-            fontSize: fontSize ?? 14.w,
-          ),
-    );
+          isCollapsed: true,
+          counterText: "",
+          focusedBorder: borderWidth!=null || borderColor!=null|| radius!=null ?
+          OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w, color: Theme.of(context).primaryColor),
+              borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
+          hintText: hint,
+          errorText: errorText!=null && errorText.isNotEmpty ? errorText : null,
+          errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
+          contentPadding: padding ?? EdgeInsets.zero,
+          border: borderWidth!=null || borderColor!=null|| radius!=null ?
+          OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w, color: borderColor??Colors.transparent),
+              borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
+          hintStyle: TextStyle(
+              color: hintColor??Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14.w),
+              fontWeight: bold ? FontWeight.bold : FontWeight.normal
+          )),
+      style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: fontSize??14.w,
+          fontWeight: bold ? FontWeight.bold : FontWeight.normal),
+    ),);
   }
 
   static Widget popup<T>(

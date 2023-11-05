@@ -13,7 +13,7 @@ class SuperText extends StatelessWidget {
   final double? height;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
-  final Color bgColor;
+  final Color? bgColor;
   final AlignmentGeometry alignment;
   final BorderRadiusGeometry? borderRadius;
   final double? radius;
@@ -39,7 +39,7 @@ class SuperText extends StatelessWidget {
       this.height,
       this.padding = const EdgeInsets.all(0),
       this.margin = const EdgeInsets.all(0),
-      this.bgColor = Colors.transparent,
+      this.bgColor,
       this.alignment = Alignment.center,
       this.borderRadius,
       this.gradient,

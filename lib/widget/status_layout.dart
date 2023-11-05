@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fuck_utils/flutter_utils.dart';
 import 'package:get/get.dart';
-
-enum UIState { none, loading, success, error, empty }
 
 /// 状态切换布局
 class StatusLayout extends StatefulWidget {
-  final UIState status;
+  final RxStatus? status;
   final Widget? loadingWidget, errorWidget, emptyWidget, contentWidget;
   final VoidCallback? onRetry;
   final double? width, height;
 
   const StatusLayout({
     super.key,
-    this.status = UIState.loading,
+    this.status,
     this.loadingWidget,
     this.errorWidget,
     this.emptyWidget,
@@ -39,25 +38,20 @@ class _StatusLayoutState extends State<StatusLayout> {
   }
 
   Widget buildChild() {
-    switch (widget.status) {
-      case UIState.loading:
-        return buildLoading();
-      case UIState.error:
-        return GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: widget.onRetry,
-            child: buildError());
-      case UIState.empty:
-        return buildEmpty();
-      case UIState.success:
-        return widget.contentWidget ?? Container();
-      case UIState.none:
-        break;
+    if(widget.status==null) return const SizedBox();
+    if(widget.status!.isLoading){
+      return buildLoading();
     }
-    return const SizedBox(
-      width: 0,
-      height: 0,
-    );
+    if(widget.status!.isError){
+      return OnClick(buildError(), onTap: widget.onRetry,);
+    }
+    if(widget.status!.isEmpty){
+      return buildEmpty();
+    }
+    if(widget.status!.isSuccess){
+      return widget.contentWidget ?? const SizedBox();
+    }
+    return const SizedBox();
   }
 
   Widget buildLoading() {
@@ -102,14 +96,13 @@ class _StatusLayoutState extends State<StatusLayout> {
   Widget buildEmpty() {
     return widget.emptyWidget != null
         ? widget.emptyWidget!
-        : Padding(
-            padding: const EdgeInsets.all(10),
+        : const Padding(
+            padding: EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  "nodata".tr,
-                  style: const TextStyle(
+                Text('暂无数据',
+                  style: TextStyle(
                     color: Color(0xFF9CA1B7),
                     fontSize: 12,
                   ),

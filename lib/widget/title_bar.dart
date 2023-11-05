@@ -1,71 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fuck_utils/flutter_utils.dart';
 
 /// 标题栏
 class TitleBar extends StatelessWidget {
   final VoidCallback? onBackClick;
   final VoidCallback? onRightClick;
-  final bool hasLeft;
-  final String? leftTitle;
+  final bool hasDivider;
   final String? rightIcon;
-  final Widget? rightWidget;
   final String title;
   final Widget? titleWidget;
-  final double? width;
   final double? height;
 
   const TitleBar({
     super.key,
     this.onBackClick,
     this.onRightClick,
-    this.hasLeft = true,
-    this.leftTitle,
+    this.hasDivider = true,
     this.title = "",
     this.titleWidget,
     this.rightIcon = "",
-    this.rightWidget,
-    this.width,
     this.height,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      height: height ?? 44.w,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            child: hasLeft
-                ? Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        width: 42.w,
-                        height: 42.w,
-                        margin: EdgeInsets.only(left: 5.w),
-                        child: Icon(Icons.arrow_back_ios, size: 16.w,),
-                      ),
-                      if (leftTitle != null)
-                        Text(
-                          leftTitle!,
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontSize: 14.w,
-                              fontWeight: FontWeight.w600),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        )
-                    ],
-                  )
-                : SizedBox(
-                    width: 42.w,
-                  ),
-            onTap: () {
-              if (!hasLeft) return;
+    return SafeArea(child: Container(
+      height: height ?? 46.w,
+      decoration: hasDivider ? BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor,
+        width: 1.w),)) : null,
+      child: Stack(children: [
+          OnClick(Container(alignment: Alignment.center,
+            width: 42.w, height: 42.w,
+            margin: EdgeInsets.only(left: 5.w),
+            child: Icon(Icons.arrow_back, size: 16.w,),
+          ), onTap: () {
               if (onBackClick != null) {
                 onBackClick!();
               } else {
@@ -73,43 +42,18 @@ class TitleBar extends StatelessWidget {
               }
             },
           ),
-          titleWidget ??
-              Container(
-                  width: 200.w,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(right: 5.w),
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 16.w,
-                        fontWeight: FontWeight.w600),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  )),
-          if (leftTitle != null)
-            Text(leftTitle!,
-                style: TextStyle(
-                  color: Colors.transparent,
-                  fontSize: 14.w,
-                )),
-          (rightWidget != null || (rightIcon != null && rightIcon!.isNotEmpty))
-              ? GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: onRightClick,
-                  child: rightWidget ??
-                      Container(
-                        alignment: Alignment.center,
-                        width: 42.w,
-                        height: 42.w,
-                        child: Image.asset(rightIcon!),
-                      ),
-                )
-              : SizedBox(
-                  width: 42.w,
-                )
+          Center(child: titleWidget ?? Container(width: 200.w, alignment: Alignment.center,
+              margin: EdgeInsets.only(right: 5.w),
+              child: Text(title, style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 16.w,
+                  fontWeight: FontWeight.w600),
+                maxLines: 1, overflow: TextOverflow.ellipsis,)),),
+         if(rightIcon!=null) OnClick(Container(alignment: Alignment.center,
+                margin: EdgeInsets.only(right: 5.w), width: 42.w, height: 42.w,
+                child: Image.asset(rightIcon!),), onTap: onRightClick,)
         ],
       ),
-    );
+    ));
   }
 }

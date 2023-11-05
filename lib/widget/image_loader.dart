@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fuck_utils/widget/super_container.dart';
 
-/// 图片加载
+/// 图片加载，可以加载网络图和本地图片
 class ImageLoader extends StatelessWidget {
   final String uri;
   final double? width;
@@ -22,6 +22,7 @@ class ImageLoader extends StatelessWidget {
   final EdgeInsets? padding;
   final bool blur;
   final bool animated;
+  final Color? imageColor;
 
   const ImageLoader(
     this.uri, {
@@ -41,6 +42,7 @@ class ImageLoader extends StatelessWidget {
     this.padding,
     this.blur = false,
     this.animated = false,
+    this.imageColor,
   });
 
   @override
@@ -64,7 +66,9 @@ class ImageLoader extends StatelessWidget {
               top: 0,
               right: 0,
               bottom: 0,
-              child: buildImage(),
+              child: imageColor==null ? buildImage()
+              : ColorFiltered(colorFilter: ColorFilter.mode(imageColor!, BlendMode.srcIn),
+              child: buildImage(),)
             )
           ],
         ));
