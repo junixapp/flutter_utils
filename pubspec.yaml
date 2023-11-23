@@ -1,6 +1,6 @@
 name: fuck_utils
 description: Awesome flutter util code.
-version: 0.0.1
+version: 0.0.3
 homepage: https://github.com/li-xiaojun/flutter_utils
 
 environment:
@@ -18,8 +18,9 @@ dependencies:
   dio: ^5.3.2
   webview_flutter: ^4.2.2
   shared_preferences: ^2.2.0
-  wechat_assets_picker: ^8.5.0
   keyboard_dismisser: ^3.0.0
+  permission_handler: ^10.4.3
+  image_gallery_saver: ^2.0.3
 
 dev_dependencies:
   flutter_test:

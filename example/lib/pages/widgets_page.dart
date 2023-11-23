@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fuck_utils/flutter_utils.dart';
+import 'package:fuck_utils/fuck_utils.dart';
 import 'package:fuck_utils/util/dialog_util.dart';
+import 'package:fuck_utils/util/log_util.dart';
 
 class WidgetsPage extends StatelessWidget {
   const WidgetsPage({super.key});
@@ -22,6 +23,7 @@ class WidgetsPage extends StatelessWidget {
         DialogUtil.showBottomList(['选项1','选项2', '选项3'], (i){
 
         });
+        LogUtil.i("msg");
       }),
       button(context,"bottom自定义弹窗", (){
         DialogUtil.showBottom(SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [

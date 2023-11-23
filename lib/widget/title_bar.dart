@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fuck_utils/flutter_utils.dart';
+import 'package:fuck_utils/fuck_utils.dart';
 
 /// 标题栏
 class TitleBar extends StatelessWidget {

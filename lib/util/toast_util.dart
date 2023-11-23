@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class ToastUtil {
   ToastUtil._();
-  static void toast(String? msg) {
+  static void toast(String? msg, {BuildContext? context}) {
     if (msg == null || msg.isEmpty) return;
     Fluttertoast.cancel();
     Fluttertoast.showToast(
@@ -13,8 +13,8 @@ class ToastUtil {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Theme.of(Get.context!!).primaryColor,
-        textColor: Theme.of(Get.context!!).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context ?? Get.context!).primaryColor,
+        textColor: Theme.of(context ?? Get.context!).colorScheme.onPrimary,
         fontSize: 14.w);
   }
 }

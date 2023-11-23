@@ -12,6 +12,11 @@ and the Flutter guide for
 -->
 
 Awesome flutter util code for speed flutter development!
+## pub
+```agsl
+flutter packages pub publish --dry-run
+flutter packages pub publish --server=https:\\\\pub.dartlang.org 
+```
 
 ## Features
 
