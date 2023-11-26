@@ -10,6 +10,7 @@ class CommonScaffold extends StatelessWidget {
   final Color? bgColor;
   final bool safeArea;
   final Widget? titleBar;
+  final bool hasTitleBar;
   ///下面是titlebar的属性
   final VoidCallback? onBackClick;
   final VoidCallback? onRightClick;
@@ -26,6 +27,7 @@ class CommonScaffold extends StatelessWidget {
     this.bgColor,
     this.bottomNavigationBar,
     this.safeArea = true,
+    this.hasTitleBar = true,
     this.titleBar,
     this.onBackClick,
     this.onRightClick,
@@ -51,7 +53,7 @@ class CommonScaffold extends StatelessWidget {
   Widget _buildBody(){
     return Column(children: [
       const SizedBox(width: double.infinity,),
-      titleBar ?? TitleBar(onBackClick: onBackClick, onRightClick: onRightClick,
+      if(hasTitleBar) TitleBar(onBackClick: onBackClick, onRightClick: onRightClick,
         title: title, titleWidget: titleWidget, hasDivider: hasDivider,
         rightIcon: rightIcon, height: titleBarHeight,),
       Expanded(child: body)

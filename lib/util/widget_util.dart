@@ -66,17 +66,14 @@ class WidgetUtil {
         maxWidth: itemWidth ?? 100.w,
       ),
       itemBuilder: (builder) => items
-          .map(
-            (e) => PopupMenuItem<T>(
+          .map((e) => PopupMenuItem<T>(
               padding: const EdgeInsets.symmetric(horizontal: 0),
               height: 36.w,
               value: e!,
-              child: item ??
-                  Container(
+              child: item ?? Container(
                     width: itemWidth ?? 100.w,
                     alignment: Alignment.center,
-                    child: Text(
-                      e.toString(),
+                    child: Text(e.toString(),
                       style: TextStyle(fontSize: 13.w),
                     ),
                   ),
@@ -112,15 +109,12 @@ class WidgetUtil {
       color: Theme.of(context).canvasColor,
       onSelected: onSelect,
       itemBuilder: (builder) => items
-          .map(
-            (e) => PopupMenuItem<T>(
+          .map((e) => PopupMenuItem<T>(
               padding: const EdgeInsets.symmetric(vertical: 0),
               height: height ?? 36.w,
               value: e!,
               child: itemBuilder(context, items.indexOf(e)),
-            ),
-          )
-          .toList(),
+            ),).toList(),
       child: child,
     );
   }

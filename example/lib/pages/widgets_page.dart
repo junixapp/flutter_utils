@@ -1,4 +1,5 @@
 
+import 'package:example/DemoBottomDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,14 +27,9 @@ class WidgetsPage extends StatelessWidget {
         LogUtil.i("msg");
       }),
       button(context,"bottom自定义弹窗", (){
-        DialogUtil.showBottom(SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Container(height: 100, color: Colors.amber,),
-          WidgetUtil.textField(context, TextEditingController(), "请输入搜索内容", padding: EdgeInsets.symmetric(
-            horizontal: 15.w, vertical: 8.w,), borderWidth: 1.w, borderColor: Theme.of(context).dividerColor,
-            radius: 30.w, margin: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.w)),
-          Container(height: 100, color: Colors.white,),
-        ],),), radius: 8.w, bgColor: Colors.white);
+        DialogUtil.showBottom( DemoBottomDialog(), radius: 18.w,);
       }),
+      SuperContainer(width: 100.w, height: 100.w, color: Colors.white,),
     ],),);
   }
 

@@ -19,7 +19,7 @@ class TitleBar extends StatelessWidget {
     this.hasDivider = true,
     this.title = "",
     this.titleWidget,
-    this.rightIcon = "",
+    this.rightIcon,
     this.height,
   });
 
@@ -49,7 +49,7 @@ class TitleBar extends StatelessWidget {
                   fontSize: 16.w,
                   fontWeight: FontWeight.w600),
                 maxLines: 1, overflow: TextOverflow.ellipsis,)),),
-         if(rightIcon!=null) OnClick(Container(alignment: Alignment.center,
+         if(rightIcon!=null && rightIcon!.isNotEmpty) OnClick(Container(alignment: Alignment.center,
                 margin: EdgeInsets.only(right: 5.w), width: 42.w, height: 42.w,
                 child: Image.asset(rightIcon!),), onTap: onRightClick,)
         ],

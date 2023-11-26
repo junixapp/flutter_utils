@@ -7,6 +7,8 @@ export 'getx/rxx_bool.dart';
 export 'getx/rxx_list.dart';
 export 'getx/rxx_string.dart';
 
+export 'type/pair.dart';
+
 export 'util/dialog_util.dart';
 export 'util/log_util.dart';
 export 'util/object_util.dart';
