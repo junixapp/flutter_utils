@@ -124,7 +124,7 @@ class DialogUtil {
     bool enableDrag = false}) async {
     return await showModalBottomSheet<T>(
         context: Get.context!,
-        backgroundColor: null,
+        backgroundColor: Colors.transparent,
         barrierColor: null,
         isScrollControlled: true, // 设置滚动控制为 true, 取消高度限制
         enableDrag: enableDrag,
@@ -132,14 +132,16 @@ class DialogUtil {
           return BottomSheet(
               enableDrag: false,
               shadowColor: null,
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(radius??10.w),
-                  topRight: Radius.circular(radius??10.w))),
-              backgroundColor: bgColor ?? Theme.of(context).dialogBackgroundColor,
+              backgroundColor: Colors.transparent,
               onClosing: () {},
               builder: (BuildContext context) {
                 return AnimatedContainer(
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    color: bgColor ?? Theme.of(context).dialogBackgroundColor,
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(radius ?? 10.w),
+                        topLeft: Radius.circular(radius ?? 10.w))
+                  ),
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
@@ -154,7 +156,7 @@ class DialogUtil {
   static Future<T?> showBottomList<T>(
       List<String> list,
       Function(int) onItemClick, {
-        double? radius, Color? bgColor
+        double? radius, Color? bgColor, String cancelText = "取消"
       }) async {
     return await showBottom<T>(Column(mainAxisSize: MainAxisSize.min,
             children: [
@@ -175,7 +177,7 @@ class DialogUtil {
               Container(height: 8.w, color: Theme.of(Get.context!).dividerColor.withOpacity(0.2),),
               OnClick(Container(padding: EdgeInsets.symmetric(vertical: 15.w),
                 width: double.infinity, alignment: Alignment.center,
-              child: Text("取消", style: TextStyle(color: Theme.of(Get.context!).textTheme.bodyMedium!.color,
+              child: Text(cancelText, style: TextStyle(color: Theme.of(Get.context!).textTheme.bodyMedium!.color,
                   fontSize: 14.w),),), onTap: (){
                   Navigator.of(Get.context!).pop();
                 },)
