@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fuck_utils/widget/common_scaffold.dart';
-import 'package:fuck_utils/widget/title_bar.dart';
 import 'package:fuck_utils/widget/webview.dart';
 
 class WebViewPage extends StatefulWidget {
@@ -19,19 +18,14 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
     return CommonScaffold(
-      body: Column(
-        children: [
-          TitleBar(title: widget.title ?? title),
-          Expanded(
-              child: WebView(
-            widget.url ?? "",
-            onGetTitle: (t) {
-              setState(() {
-                title = t ?? "";
-              });
-            },
-          ))
-        ],
+      title: widget.title ?? title,
+      body: WebView(
+        widget.url ?? "",
+        onGetTitle: (t) {
+          setState(() {
+            title = t ?? "";
+          });
+        },
       ),
     );
   }

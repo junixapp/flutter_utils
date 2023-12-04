@@ -9,6 +9,7 @@ export 'getx/rxx_string.dart';
 
 export 'type/pair.dart';
 
+export 'util/date_util.dart';
 export 'util/dialog_util.dart';
 export 'util/log_util.dart';
 export 'util/object_util.dart';
@@ -24,6 +25,7 @@ export 'util/http/token_interceptor.dart';
 export 'widget/common_scaffold.dart';
 export 'widget/image_loader.dart';
 export 'widget/on_click.dart';
+export 'widget/search_container.dart';
 export 'widget/status_layout.dart';
 export 'widget/super_container.dart';
 export 'widget/super_text.dart';

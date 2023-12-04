@@ -68,18 +68,18 @@ class DialogUtil {
         bool showClose = true, bool dismissOnTouch = true, Color? leftBtnBg, Color? rightBtnBg,
         bool dismissOnBackPressed = true, Color? bgColor, double? radius}) async {
     Color textColor = Theme.of(Get.context!).textTheme.bodyLarge?.color ?? Colors.black87;
-    Widget c = child ?? Padding(padding: EdgeInsets.only(top: 16.w, bottom: 25.w),
+    Widget c = child ?? Padding(padding: EdgeInsets.only(top: 18.w, bottom: 25.w),
       child: Text(content??"", textAlign: TextAlign.center, style:
       TextStyle(color: textColor, fontSize: 14.w)),);
     return await showCenter<T>(Stack(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 12.w,),
+          SizedBox(height: 16.w,),
           if(title!=null)Text(title, textAlign: TextAlign.center, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
-              fontSize: 16.w),),
+              fontSize: 16.w, fontWeight: FontWeight.w600),),
           c,
-          Divider(height: 1, color: Theme.of(Get.context!).dividerColor,),
+          Divider(height: 1.w,),
           Row(mainAxisSize: MainAxisSize.max, children: [
             Expanded(child: SuperText(leftBtnText ?? "取消", expand: true,
                 bgColor: leftBtnBg , style: TextStyle(color: textColor, fontSize: 14.w),
@@ -156,13 +156,14 @@ class DialogUtil {
   static Future<T?> showBottomList<T>(
       List<String> list,
       Function(int) onItemClick, {
-        double? radius, Color? bgColor, String cancelText = "取消"
+        double? radius, Color? bgColor, String cancelText = "取消",
+        NullableIndexedWidgetBuilder? builder,
       }) async {
     return await showBottom<T>(Column(mainAxisSize: MainAxisSize.min,
             children: [
               ConstrainedBox(constraints: BoxConstraints(maxHeight: ScreenUtil().screenHeight*0.8),
                 child: ListView.separated(itemBuilder: (c,i){
-                  return OnClick(Container(
+                  return OnClick( builder!=null ? builder.call(c,i)! : Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(vertical: 15.w),
                     child: Text(list[i],

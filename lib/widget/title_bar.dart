@@ -4,56 +4,72 @@ import 'package:fuck_utils/fuck_utils.dart';
 
 /// 标题栏
 class TitleBar extends StatelessWidget {
-  final VoidCallback? onBackClick;
+  final VoidCallback? onLeftClick;
   final VoidCallback? onRightClick;
   final bool hasDivider;
-  final String? rightIcon;
+  final bool leftTitle;
+  final bool boldTitle;
+  final String? rightImage;
+  final Widget? rightWidget;
+  final Widget? leftWidget;
   final String title;
+  final double? titleSize;
+  final Color? titleColor;
+  final Color? bgColor;
   final Widget? titleWidget;
   final double? height;
 
   const TitleBar({
     super.key,
-    this.onBackClick,
+    this.onLeftClick,
     this.onRightClick,
     this.hasDivider = true,
+    this.leftTitle = false,
+    this.boldTitle = false,
+    this.titleSize,
+    this.titleColor,
+    this.bgColor,
     this.title = "",
     this.titleWidget,
-    this.rightIcon,
+    this.leftWidget,
+    this.rightWidget,
+    this.rightImage,
     this.height,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Container(
-      height: height ?? 46.w,
-      decoration: hasDivider ? BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor,
-        width: 1.w),)) : null,
+    return Container(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      height: height ?? (46.w +  MediaQuery.of(context).padding.top ),
+      decoration:BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor,
+        width:  hasDivider ? 1.w : 0),),
+        color: bgColor),
       child: Stack(children: [
           OnClick(Container(alignment: Alignment.center,
             width: 42.w, height: 42.w,
-            margin: EdgeInsets.only(left: 5.w),
-            child: Icon(Icons.arrow_back, size: 16.w,),
+            child: leftWidget ?? Icon(Icons.arrow_back, size: 22.w,),
           ), onTap: () {
-              if (onBackClick != null) {
-                onBackClick!();
+              if (onLeftClick != null) {
+                onLeftClick!();
               } else {
                 Navigator.pop(context);
               }
             },
           ),
-          Center(child: titleWidget ?? Container(width: 200.w, alignment: Alignment.center,
-              margin: EdgeInsets.only(right: 5.w),
+          Align( alignment: leftTitle ? Alignment.centerLeft : Alignment.center,
+            child: titleWidget ?? Container(width: 200.w, height: 42.w,
+                alignment: leftTitle ? Alignment.centerLeft : Alignment.center,
+              margin: EdgeInsets.only(right: 5.w, left: leftTitle ? 50.w : 0),
               child: Text(title, style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 16.w,
-                  fontWeight: FontWeight.w600),
+                  color: titleColor ?? Theme.of(context).colorScheme.primary,
+                  fontSize: titleSize ?? 16.w,
+                  fontWeight: boldTitle ? FontWeight.w600 : FontWeight.normal),
                 maxLines: 1, overflow: TextOverflow.ellipsis,)),),
-         if(rightIcon!=null && rightIcon!.isNotEmpty) OnClick(Container(alignment: Alignment.center,
-                margin: EdgeInsets.only(right: 5.w), width: 42.w, height: 42.w,
-                child: Image.asset(rightIcon!),), onTap: onRightClick,)
+          Align(alignment: Alignment.centerRight, child: rightWidget ?? OnClick( Container(alignment: Alignment.center,
+             width: 42.w, height: 42.w,
+            child: (rightImage!=null ? Image.asset(rightImage??"") : const SizedBox())), onTap: onRightClick,))
         ],
-      ),
-    ));
+      ),);
   }
 }

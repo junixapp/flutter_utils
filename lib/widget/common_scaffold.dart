@@ -9,16 +9,23 @@ class CommonScaffold extends StatelessWidget {
   final bool? resizeToAvoidBottomInset;
   final Color? bgColor;
   final bool safeArea;
+  final bool paddingStatusBar;
   final Widget? titleBar;
-  final bool hasTitleBar;
   ///下面是titlebar的属性
-  final VoidCallback? onBackClick;
+  final VoidCallback? onLeftClick;
   final VoidCallback? onRightClick;
+  final bool leftTitle;
+  final bool boldTitle;
   final bool hasDivider;
-  final String? rightIcon;
+  final String? rightImage;
   final String title;
+  final double? titleSize;
+  final Color? titleColor;
+  final Color? titleBarBg;
   final Widget? titleWidget;
   final double? titleBarHeight;
+  final Widget? rightWidget;
+  final Widget? leftWidget;
 
   const CommonScaffold({
     super.key,
@@ -27,22 +34,29 @@ class CommonScaffold extends StatelessWidget {
     this.bgColor,
     this.bottomNavigationBar,
     this.safeArea = true,
-    this.hasTitleBar = true,
     this.titleBar,
-    this.onBackClick,
+    this.onLeftClick,
     this.onRightClick,
+    this.paddingStatusBar = false,
+    this.leftTitle = false,
+    this.boldTitle = false,
     this.hasDivider = true,
     this.title = "",
+    this.titleSize,
+    this.titleColor,
+    this.titleBarBg,
     this.titleWidget,
-    this.rightIcon = "",
     this.titleBarHeight,
+    this.rightImage,
+    this.leftWidget,
+    this.rightWidget,
   });
 
   @override
   Widget build(BuildContext context) {
     return KeyboardDismisser(
       child: Scaffold(
-        body: safeArea ? SafeArea(child: _buildBody()) : _buildBody(),
+        body: safeArea ? SafeArea(top: !paddingStatusBar, child: _buildBody()) : _buildBody(),
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
         backgroundColor: bgColor,
         bottomNavigationBar: bottomNavigationBar,
@@ -53,9 +67,11 @@ class CommonScaffold extends StatelessWidget {
   Widget _buildBody(){
     return Column(children: [
       const SizedBox(width: double.infinity,),
-      if(hasTitleBar) TitleBar(onBackClick: onBackClick, onRightClick: onRightClick,
+      titleBar ?? TitleBar(onLeftClick: onLeftClick, onRightClick: onRightClick,
         title: title, titleWidget: titleWidget, hasDivider: hasDivider,
-        rightIcon: rightIcon, height: titleBarHeight,),
+        rightImage: rightImage, height: titleBarHeight, leftTitle: leftTitle,
+          titleSize: titleSize, titleColor: titleColor, leftWidget: leftWidget,
+          rightWidget: rightWidget, bgColor: titleBarBg, boldTitle: boldTitle),
       Expanded(child: body)
     ],);
   }

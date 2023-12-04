@@ -6,12 +6,12 @@ class WidgetUtil {
   WidgetUtil._();
   ///快捷创建输入框
   static Widget textField(BuildContext context, TextEditingController controller,
-      String hint, { Color? hintColor, double? fontSize,double? hintFontSize, TextInputType? inputType,
+      String hint, { Color? fontColor, Color? hintColor, double? fontSize,double? hintFontSize, TextInputType? inputType,
         int maxLength = 50, TextAlign? textAlign, FocusNode? focusNode, bool? obscureText,
         bool? disabled, List<TextInputFormatter>? inputFormatters, Key? key,
         int maxLines = 1, String? errorText, Color? errorColor, double? errorFontSize,
         double? borderWidth, Color? borderColor, double? radius, EdgeInsets? padding,
-        bool bold = false, EdgeInsets? margin,
+        bool bold = false, EdgeInsets? margin,  ValueChanged<String>? onSubmit
       }){
     return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller, maxLines: maxLines, maxLength: maxLength,
       keyboardType: inputType??TextInputType.text,
@@ -21,6 +21,7 @@ class WidgetUtil {
       textAlign: textAlign??TextAlign.left,
       focusNode: focusNode,
       obscureText: obscureText??false,
+      onSubmitted: (v)=> onSubmit?.call(v),
       decoration: InputDecoration(
           isCollapsed: true,
           counterText: "",
@@ -35,10 +36,10 @@ class WidgetUtil {
           OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w, color: borderColor??Colors.transparent),
               borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
           hintStyle: TextStyle(
-              color: hintColor??Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14.w),
+              color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14.w),
               fontWeight: bold ? FontWeight.bold : FontWeight.normal
           )),
-      style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: fontSize??14.w,
+      style: TextStyle(color: fontColor ?? Theme.of(context).colorScheme.primary, fontSize: fontSize??14.w,
           fontWeight: bold ? FontWeight.bold : FontWeight.normal),
     ),);
   }

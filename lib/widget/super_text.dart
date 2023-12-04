@@ -77,7 +77,7 @@ class SuperText extends StatelessWidget {
     return Opacity(
       opacity: disabled ? 0.4 : 1,
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           expand ? Expanded(child: buildInner(child)) : buildInner(child)
@@ -121,15 +121,12 @@ class SuperText extends StatelessWidget {
     if (childPosition == ChildPosition.left ||
         childPosition == ChildPosition.right) {
       return Row(
-          mainAxisSize: MainAxisSize.min,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
           mainAxisAlignment: _fixAlign(),
           children: buildChildren());
     }
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      // mainAxisAlignment: MainAxisAlignment.center,
-      // crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
       mainAxisAlignment: _fixAlign(),
       children: buildChildren(),
     );
