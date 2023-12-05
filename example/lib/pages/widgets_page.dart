@@ -29,7 +29,11 @@ class WidgetsPage extends StatelessWidget {
       button(context,"bottom自定义弹窗", (){
         DialogUtil.showBottom( DemoBottomDialog(), radius: 18.w,);
       }),
-      SuperContainer(width: 100.w, height: 100.w, color: Colors.white,),
+      CommonTabBar(["试试","dd", "打湿水"], (i){
+
+      }, tabPadding: EdgeInsets.symmetric(horizontal: 10.w), indicatorHeight: 3.w,
+      tabStyle: TabStyle.card, selectBgColor: Colors.red, height: 20.w,
+      tabSpace: 10.w, unselectBgColor: Colors.grey,),
     ],),);
   }
 

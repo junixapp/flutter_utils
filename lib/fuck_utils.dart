@@ -1,5 +1,7 @@
 library fuck_utils;
 
+export 'extension/string_extension.dart';
+
 export 'getx/rx_extensions.dart';
 export 'getx/rx_state_types.dart';
 export 'getx/rxx.dart';
@@ -8,6 +10,7 @@ export 'getx/rxx_list.dart';
 export 'getx/rxx_string.dart';
 
 export 'type/pair.dart';
+export 'type/sliver_fix_header_delegate.dart';
 
 export 'util/date_util.dart';
 export 'util/dialog_util.dart';
@@ -23,7 +26,9 @@ export 'util/http/http_util.dart';
 export 'util/http/token_interceptor.dart';
 
 export 'widget/common_scaffold.dart';
+export 'widget/common_tabbar.dart';
 export 'widget/image_loader.dart';
+export 'widget/index_bar.dart';
 export 'widget/on_click.dart';
 export 'widget/search_container.dart';
 export 'widget/status_layout.dart';

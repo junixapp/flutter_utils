@@ -1,5 +1,6 @@
 
-class Pair{
-  String first, second;
+class Pair<K, V>{
+  K first;
+  V second;
   Pair(this.first, this.second);
 }
