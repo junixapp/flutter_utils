@@ -11,12 +11,13 @@ class WidgetUtil {
         bool? disabled, List<TextInputFormatter>? inputFormatters, Key? key,
         int maxLines = 1, String? errorText, Color? errorColor, double? errorFontSize,
         double? borderWidth, Color? borderColor, double? radius, EdgeInsets? padding,
-        bool bold = false, EdgeInsets? margin,  ValueChanged<String>? onSubmit
+        bool bold = false, EdgeInsets? margin,  ValueChanged<String>? onSubmit,
+        TextInputAction? inputAction, Color? bgColor
       }){
     return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller, maxLines: maxLines, maxLength: maxLength,
       keyboardType: inputType??TextInputType.text,
       enabled: !(disabled ?? false),
-      // textInputAction: TextInputAction.done,
+      textInputAction: inputAction ?? TextInputAction.done,
       textAlignVertical: TextAlignVertical.center,
       textAlign: textAlign??TextAlign.left,
       focusNode: focusNode,
@@ -25,16 +26,19 @@ class WidgetUtil {
       decoration: InputDecoration(
           isCollapsed: true,
           counterText: "",
-          focusedBorder: borderWidth!=null || borderColor!=null|| radius!=null ?
+          filled: bgColor!=null,
+          fillColor: bgColor,
+          focusedBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
           OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w, color: Theme.of(context).primaryColor),
               borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
           hintText: hint,
           errorText: errorText!=null && errorText.isNotEmpty ? errorText : null,
           errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
           contentPadding: padding ?? EdgeInsets.zero,
-          border: borderWidth!=null || borderColor!=null|| radius!=null ?
-          OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w, color: borderColor??Colors.transparent),
-              borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
+          border: (borderWidth!=null || borderColor!=null|| radius!=null) ?
+          OutlineInputBorder(borderSide: (borderWidth!=null || borderColor!=null) ? BorderSide(width: borderWidth??1.w, color: Colors.red,
+          style: BorderStyle.none) : BorderSide.none,
+              borderRadius: BorderRadius.circular(radius??0), gapPadding: 0) : InputBorder.none,
           hintStyle: TextStyle(
               color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14.w),
               fontWeight: bold ? FontWeight.bold : FontWeight.normal
