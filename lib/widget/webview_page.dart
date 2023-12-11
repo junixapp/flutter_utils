@@ -13,7 +13,7 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewPageState extends State<WebViewPage> {
-  var title = "...";
+  var title = "";
 
   @override
   Widget build(BuildContext context) {

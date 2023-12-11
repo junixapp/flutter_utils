@@ -1,5 +1,5 @@
-## 0.0.11
-* add countdown_controller.dart
+## 0.0.12
+* add asset_util
 
 ## 0.0.5
 * 丰富框架

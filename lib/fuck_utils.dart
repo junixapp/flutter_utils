@@ -14,6 +14,7 @@ export 'getx/rxx_string.dart';
 export 'type/pair.dart';
 export 'type/sliver_fix_header_delegate.dart';
 
+export 'util/asset_util.dart';
 export 'util/date_util.dart';
 export 'util/dialog_util.dart';
 export 'util/log_util.dart';

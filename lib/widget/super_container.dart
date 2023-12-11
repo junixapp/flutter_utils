@@ -5,6 +5,7 @@ import 'package:fuck_utils/widget/on_click.dart';
 class SuperContainer extends StatelessWidget {
   final Widget? child;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final bool disabled;
   final double radius;
   final BorderRadius? borderRadius;
@@ -27,6 +28,7 @@ class SuperContainer extends StatelessWidget {
       {super.key,
       this.child,
       this.onTap,
+      this.onLongPress,
       this.radius = 0,
       this.padding,
       this.disabled = false,
@@ -60,7 +62,8 @@ class SuperContainer extends StatelessWidget {
               ],
             ),
           ),
-          onTap: disabled ? null : onTap),
+          onTap: disabled ? null : onTap,
+          onLongPress: onLongPress),
     );
   }
 

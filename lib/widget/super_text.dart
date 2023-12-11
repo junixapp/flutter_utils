@@ -20,6 +20,7 @@ class SuperText extends StatelessWidget {
   final Gradient? gradient;
   final BoxBorder? border;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final BoxConstraints? constraints;
   final bool hasInkWell;
   final bool spaceBetween;
@@ -45,6 +46,7 @@ class SuperText extends StatelessWidget {
       this.gradient,
       this.border,
       this.onTap,
+      this.onLongPress,
       this.hasInkWell = false,
       this.spaceBetween = false,
       this.shadow = 0,
@@ -63,11 +65,13 @@ class SuperText extends StatelessWidget {
         : (hasInkWell
             ? InkWell(
                 onTap: disabled ? null : onTap,
+                onLongPress: onLongPress,
                 child: buildContainer(
                     /*this.image == null ? buildChild() :*/ buildDirection()))
             : GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: disabled ? null : onTap,
+                onLongPress: onLongPress,
                 child: buildContainer(
                   /*this.image == null ? buildChild() :*/ buildDirection(),
                 )));

@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 class OnClick extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
-  const OnClick(this.child, {super.key, this.onTap});
+  final VoidCallback? onLongPress;
+  const OnClick(this.child, {super.key, this.onTap, this.onLongPress});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
+      onLongPress: onLongPress,
       child: child,
     );
   }

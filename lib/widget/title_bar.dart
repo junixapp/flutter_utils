@@ -57,7 +57,7 @@ class TitleBar extends StatelessWidget {
               }
             },
           ),
-          Align( alignment: leftTitle ? Alignment.centerLeft : Alignment.center,
+          Align(alignment: leftTitle ? Alignment.centerLeft : Alignment.center,
             child: titleWidget ?? Container(width: 200.w, height: 42.w,
                 alignment: leftTitle ? Alignment.centerLeft : Alignment.center,
               margin: EdgeInsets.only(right: 5.w, left: leftTitle ? 50.w : 0),
@@ -66,9 +66,9 @@ class TitleBar extends StatelessWidget {
                   fontSize: titleSize ?? 16.w,
                   fontWeight: boldTitle ? FontWeight.w600 : FontWeight.normal),
                 maxLines: 1, overflow: TextOverflow.ellipsis,)),),
-          Align(alignment: Alignment.centerRight, child: rightWidget ?? OnClick( Container(alignment: Alignment.center,
+          Align(alignment: Alignment.centerRight, child: rightWidget ?? OnClick(Container(alignment: Alignment.center,
              width: 42.w, height: 42.w,
-            child: (rightImage!=null ? Image.asset(rightImage??"") : const SizedBox())), onTap: onRightClick,))
+             child: (rightImage!=null ? Image.asset(rightImage??"") : const SizedBox())), onTap: onRightClick,))
         ],
       ),);
   }
