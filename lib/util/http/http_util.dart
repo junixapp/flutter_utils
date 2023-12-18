@@ -47,6 +47,7 @@ class HttpUtil {
     _successCode = successCode;
   }
 
+  ///will auto override the same header
   static void addHeader(Map<String, dynamic> header) {
     _dio?.options.headers.addAll(header);
   }

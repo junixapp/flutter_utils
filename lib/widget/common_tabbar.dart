@@ -27,10 +27,14 @@ class CommonTabBar extends StatefulWidget {
   final double? tabSpace;
   final double? height;
   final bool thinIndicator;
+  final Color? dividerColor;
+  final double? dividerHeight;
+  final bool tabEqual;
   const CommonTabBar(this.tabs, this.onTabChange,{super.key, this.defaultTab = 0, this.height, this.thinIndicator = true,
     this.tabPadding, this.tabSpace, this.tabWidth, this.padding, this.tabStyle = TabStyle.line,
     this.selectColor, this.unselectColor, this.selectBgColor, this.unselectBgColor,
-    this.selectFontSize, this.unselectFontSize, this.indicatorColor, this.indicatorHeight, this.tabRadius});
+    this.selectFontSize, this.unselectFontSize, this.indicatorColor, this.indicatorHeight, this.tabRadius,
+    this.dividerColor, this.dividerHeight, this.tabEqual = false});
 
   @override
   State<CommonTabBar> createState() => _CommonTabBarState();
@@ -72,8 +76,13 @@ class _CommonTabBarState extends State<CommonTabBar> with SingleTickerProviderSt
         padding: EdgeInsets.symmetric(horizontal: widget.padding ?? 0),
         itemCount: widget.tabs.length, scrollDirection: Axis.horizontal),)
     : Container(height: widget.height ?? 40.w,
+      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: widget.dividerColor ?? Theme.of(context).dividerColor,
+        width: widget.dividerHeight ?? 0
+      ))),
+      padding: EdgeInsets.symmetric(horizontal: widget.padding ?? 0),
       child: TabBar(
-      isScrollable: true,
+      isScrollable: !widget.tabEqual,
+      dividerHeight: 0,
       padding: widget.tabPadding ?? EdgeInsets.symmetric(horizontal: 8.w),
       // labelPadding: EdgeInsets.symmetric(horizontal: 16.w),
       indicatorPadding: EdgeInsets.zero,

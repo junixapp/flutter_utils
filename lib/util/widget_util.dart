@@ -12,7 +12,7 @@ class WidgetUtil {
         int maxLines = 1, String? errorText, Color? errorColor, double? errorFontSize,
         double? borderWidth, Color? borderColor, double? radius, EdgeInsets? padding,
         bool bold = false, EdgeInsets? margin,  ValueChanged<String>? onSubmit,
-        TextInputAction? inputAction, Color? bgColor
+        TextInputAction? inputAction, Color? bgColor, Widget? prefix, Widget? suffix,
       }){
     return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller, maxLines: maxLines, maxLength: maxLength,
       keyboardType: inputType??TextInputType.text,
@@ -24,6 +24,8 @@ class WidgetUtil {
       obscureText: obscureText??false,
       onSubmitted: (v)=> onSubmit?.call(v),
       decoration: InputDecoration(
+          prefixIcon: prefix,
+          suffixIcon: suffix,
           isCollapsed: true,
           counterText: "",
           filled: bgColor!=null,
