@@ -12,6 +12,7 @@ class SuperContainer extends StatelessWidget {
   final Border? border;
   final double? width;
   final double? height;
+  final double? opacity;
   final Color color;
   final Color? foregroundColor;
   final Color borderColor;
@@ -32,6 +33,7 @@ class SuperContainer extends StatelessWidget {
       this.radius = 0,
       this.padding,
       this.disabled = false,
+      this.opacity,
       this.width,
       this.margin,
       this.height,
@@ -54,11 +56,11 @@ class SuperContainer extends StatelessWidget {
       constraints: constraints,
       child: OnClick(
           Opacity(
-            opacity: disabled ? 0.5 : 1,
+            opacity: opacity ?? (disabled ? 0.5 : 1),
             child: Stack(
               children: [
                 _buildBackground(),
-                if (foregroundColor != null) _buildForeground(),
+                // if (foregroundColor != null) _buildForeground(),
               ],
             ),
           ),
@@ -75,6 +77,11 @@ class SuperContainer extends StatelessWidget {
       height: height,
       clipBehavior: Clip.antiAlias,
       decoration: _buildBoxDecoration(),
+      foregroundDecoration: BoxDecoration(
+        color: foregroundColor,
+        border: border ?? Border.all(color: borderColor, width: borderWidth),
+        borderRadius: borderRadius ?? BorderRadius.circular(radius),
+      ),
       child: child,
     );
   }
@@ -82,7 +89,7 @@ class SuperContainer extends StatelessWidget {
   BoxDecoration _buildBoxDecoration() {
     return BoxDecoration(
       color: color,
-      border: border ?? Border.all(color: borderColor, width: borderWidth),
+      // border: border ?? Border.all(color: borderColor, width: borderWidth),
       borderRadius: borderRadius ?? BorderRadius.circular(radius),
       image: bgImgName != null && bgImgName!.isNotEmpty
           ? DecorationImage(

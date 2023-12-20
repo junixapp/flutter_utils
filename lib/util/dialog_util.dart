@@ -68,7 +68,8 @@ class DialogUtil {
         bool showClose = true, bool dismissOnTouch = true, Color? leftBtnBg, Color? rightBtnBg,
         bool dismissOnBackPressed = true, Color? bgColor, double? radius}) async {
     Color textColor = Theme.of(Get.context!).textTheme.bodyLarge?.color ?? Colors.black87;
-    Widget c = child ?? Padding(padding: EdgeInsets.only(top: 18.w, bottom: 25.w),
+    Widget c = child ?? Padding(padding: EdgeInsets.only(top: 18.w, bottom: 25.w,
+      left: 20.w, right: 20.w),
       child: Text(content??"", textAlign: TextAlign.center, style:
       TextStyle(color: textColor, fontSize: 14.w)),);
     return await showCenter<T>(Stack(children: [
@@ -79,10 +80,10 @@ class DialogUtil {
           if(title!=null)Text(title, textAlign: TextAlign.center, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
               fontSize: 16.w, fontWeight: FontWeight.w600),),
           c,
-          Divider(height: 1.w,),
+          Divider(height: 1.w, color: Color(0x11000000),),
           Row(mainAxisSize: MainAxisSize.max, children: [
             Expanded(child: SuperText(leftBtnText ?? "取消", expand: true,
-                bgColor: leftBtnBg , style: TextStyle(color: textColor, fontSize: 14.w),
+                bgColor: leftBtnBg , style: TextStyle(color: textColor.withOpacity(0.6), fontSize: 14.w),
                 height: 44.w, onTap: onLeftTap ?? ()=> Get.back())),
             Container(height: 44.w, width: 1, color: Theme.of(Get.context!).dividerColor,),
             Expanded(child: SuperText(rightBtnText ?? "确定", expand: true,
@@ -97,17 +98,18 @@ class DialogUtil {
         size: 18.w,)),)
     ],),
        dismissOnBackPressed: dismissOnBackPressed, dismissOnTouch: dismissOnTouch,
-        bgColor: bgColor, radius: radius);
+        bgColor: bgColor, radius: radius, padding: EdgeInsets.all(50.w));
   }
 
   static Future<T?> showCenter<T>(Widget child, {bool dismissOnTouch = true,
-        bool dismissOnBackPressed = true, Color? bgColor, double? radius}) async {
+        bool dismissOnBackPressed = true, Color? bgColor, double? radius,
+        EdgeInsets? padding}) async {
     return await showDialog<T>(
       context: Get.context!,
       barrierDismissible: dismissOnTouch,
       builder: (context) => WillPopScope(
           child: Dialog(
-            insetPadding: EdgeInsets.all(50.w),
+            insetPadding: padding,
             clipBehavior: Clip.antiAlias,
             surfaceTintColor: Colors.transparent,
             backgroundColor: bgColor ?? Theme.of(context).dialogBackgroundColor,

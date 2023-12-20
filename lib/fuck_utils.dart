@@ -19,6 +19,7 @@ export 'util/date_util.dart';
 export 'util/dialog_util.dart';
 export 'util/log_util.dart';
 export 'util/object_util.dart';
+export 'util/regex_util.dart';
 export 'util/richtext_util.dart';
 export 'util/string_util.dart';
 export 'util/toast_util.dart';

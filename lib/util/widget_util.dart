@@ -37,9 +37,9 @@ class WidgetUtil {
           errorText: errorText!=null && errorText.isNotEmpty ? errorText : null,
           errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
           contentPadding: padding ?? EdgeInsets.zero,
-          border: (borderWidth!=null || borderColor!=null|| radius!=null) ?
-          OutlineInputBorder(borderSide: (borderWidth!=null || borderColor!=null) ? BorderSide(width: borderWidth??1.w, color: Colors.red,
-          style: BorderStyle.none) : BorderSide.none,
+          enabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
+          OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w,
+            color: borderColor ?? Theme.of(context).dividerColor) ,
               borderRadius: BorderRadius.circular(radius??0), gapPadding: 0) : InputBorder.none,
           hintStyle: TextStyle(
               color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14.w),
@@ -135,12 +135,12 @@ class WidgetUtil {
     ), overflow: overflow, textAlign: align??TextAlign.left, maxLines: maxLines,);
   }
 
-  static BorderRadius radius(double tl, double tr, double br, double bl) {
+  static BorderRadius radius({double? tl, double? tr, double? br, double? bl}) {
     return BorderRadius.only(
-      topLeft: Radius.circular(tl),
-      topRight: Radius.circular(tr),
-      bottomLeft: Radius.circular(bl),
-      bottomRight: Radius.circular(br),
+      topLeft: Radius.circular(tl??0),
+      topRight: Radius.circular(tr??0),
+      bottomLeft: Radius.circular(bl??0),
+      bottomRight: Radius.circular(br??0),
     );
   }
 }
