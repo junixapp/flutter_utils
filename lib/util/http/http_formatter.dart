@@ -10,6 +10,8 @@ const _startTimeKey = '$_prefix@start_time';
 
 class HttpFormatter extends Interceptor {
   // Logger object to pretty print the HTTP Request
+  final _reqSymbol = "========>";
+  final _resSymbol = "<========";
   final Logger _logger;
   final bool _includeRequest,
       _includeRequestHeaders,
@@ -118,10 +120,10 @@ class HttpFormatter extends Interceptor {
     var requestString = '', responseString = '';
 
     if (_includeRequest) {
-      requestString = '⤴ REQUEST ⤴\n\n';
+      // requestString = '⤴ REQUEST ⤴\n';
 
       requestString +=
-          '${requestOptions?.method ?? ''} ${requestOptions?.path ?? ''}\n';
+          '$_reqSymbol ${requestOptions?.method ?? ''} ${requestOptions?.uri ?? ''}\n';
 
       if (_includeRequestHeaders) {
         for (final header in (requestOptions?.headers ?? {}).entries) {
@@ -137,7 +139,7 @@ class HttpFormatter extends Interceptor {
 
       if (_includeRequestBody && requestOptions?.data != null) {
         requestString +=
-            '\n\n${_getBody(requestOptions?.data, requestOptions?.contentType)}';
+            '\n${_getBody(requestOptions?.data, requestOptions?.contentType)}';
       }
 
       requestString += '\n\n';
@@ -145,9 +147,9 @@ class HttpFormatter extends Interceptor {
 
     if (_includeResponse && response != null) {
       responseString =
-          '⤵ RESPONSE [${response.statusCode}/${response.statusMessage}] '
+          '$_resSymbol [${response.statusCode} ${response.statusMessage}] ${requestOptions?.uri ?? ''}\n'
           '${requestOptions?.extra[_startTimeKey] != null ? '[Time elapsed: ${DateTime.now().millisecondsSinceEpoch - requestOptions?.extra[_startTimeKey]} ms]' : ''}'
-          '⤵\n\n';
+          '\n';
 
       if (_includeResponseHeaders) {
         for (final header in response.headers.map.entries) {
@@ -157,7 +159,7 @@ class HttpFormatter extends Interceptor {
 
       if (_includeResponseBody && response.data != null) {
         responseString +=
-            '\n\n${_getBody(response.data, response.headers.value('content-type'))}';
+            '\n${_getBody(response.data, response.headers.value('content-type'))}';
       }
     }
 

@@ -80,15 +80,15 @@ class DialogUtil {
           if(title!=null)Text(title, textAlign: TextAlign.center, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
               fontSize: 16.w, fontWeight: FontWeight.w600),),
           c,
-          Divider(height: 1.w, color: Color(0x11000000),),
+          Divider(height: 1.w, color: const Color(0x11000000),),
           Row(mainAxisSize: MainAxisSize.max, children: [
-            Expanded(child: SuperText(leftBtnText ?? "取消", expand: true,
+            Expanded(child: SuperText(leftBtnText ?? "Cancel", expand: true,
                 bgColor: leftBtnBg , style: TextStyle(color: textColor.withOpacity(0.6), fontSize: 14.w),
-                height: 44.w, onTap: onLeftTap ?? ()=> Get.back())),
+                height: 44.w, onTap: onLeftTap ?? ()=> Get.back(result: false))),
             Container(height: 44.w, width: 1, color: Theme.of(Get.context!).dividerColor,),
-            Expanded(child: SuperText(rightBtnText ?? "确定", expand: true,
+            Expanded(child: SuperText(rightBtnText ?? "Confirm", expand: true,
               bgColor: rightBtnBg , style: TextStyle(color: textColor, fontSize: 14.w),
-              height: 44.w, onTap: onRightTap ?? ()=> Get.back(),
+              height: 44.w, onTap: onRightTap ?? ()=> Get.back(result: true),
             ))
           ],
           )

@@ -19,6 +19,7 @@ class HttpUtil {
   static String _codeField = "code";
   static String _dataField = "data";
   static String _msgField = "msg";
+  static const String _tokenHeader = "Authorization";
   static dynamic _successCode = 0;
 
   static Dio? get dio => _dio;
@@ -26,11 +27,11 @@ class HttpUtil {
   static void init({
     int timeout = 15,
     String baseUrl = "",
-    String codeField = "",
-    String dataField = "",
-    String msgField = "",
-    String successCode = "",
-    String tokenHeaderName = "token",
+    String? codeField,
+    String? dataField,
+    String? msgField,
+    String? successCode,
+    String? tokenHeaderName ,
     Function? tokenCreator,
     Function(dynamic)? onHookResponse,
   }) {
@@ -40,11 +41,11 @@ class HttpUtil {
     _dio!.options.receiveTimeout = Duration(seconds: timeout);
     _dio!.options.baseUrl = baseUrl;
     _dio!.interceptors.add(HttpFormatter());
-    _dio!.interceptors.add(TokenInterceptor(tokenHeaderName, tokenCreator, onHookResponse: onHookResponse));
-    _codeField = codeField;
-    _dataField = dataField;
-    _msgField = msgField;
-    _successCode = successCode;
+    _dio!.interceptors.add(TokenInterceptor(tokenHeaderName ?? _tokenHeader, tokenCreator, onHookResponse: onHookResponse));
+    if(ObjectUtil.isNotEmpty(codeField)) _codeField = codeField!;
+    if(ObjectUtil.isNotEmpty(dataField)) _dataField = dataField!;
+    if(ObjectUtil.isNotEmpty(msgField)) _msgField = msgField!;
+    if(ObjectUtil.isNotEmpty(successCode)) _successCode = successCode!;
   }
 
   ///will auto override the same header
@@ -57,19 +58,19 @@ class HttpUtil {
   }
 
   //业务是否成功
-  static bool isSuccess(Map<String, dynamic>? map) =>
+  static bool isSuccess(Map? map) =>
       map == null ? false : map[_codeField] == _successCode;
 
-  static String? getMsg(Map<String, dynamic>? res) {
-    return res == null ? null : res[_msgField];
+  static String? getMsg(Map? res) {
+    return res == null ? null : res[_msgField]?.toString();
   }
 
-  static dynamic getData(Map<String, dynamic>? res) {
+  static dynamic getData(Map? res) {
     return res == null ? null : res[_dataField];
   }
 
-  static String? getCode(Map<String, dynamic>? res) {
-    return res == null ? null : res[_codeField];
+  static String? getCode(Map? res) {
+    return res == null ? null : res[_codeField]?.toString();
   }
 
   static dynamic _convertException(DioException e, String url, {Map? params}) {
@@ -78,7 +79,7 @@ class HttpUtil {
   }
 
   ///get请求
-  static Future<Map?> get(String url, {Map<String, dynamic>? params}) async {
+  static Future<Map<dynamic,dynamic>?> get(String url, {Map<String, dynamic>? params}) async {
     try {
       var result = await _dio!.get(url, queryParameters: params);
       return result.isSuccessful ? (result.data ?? {}) : null;
@@ -88,9 +89,8 @@ class HttpUtil {
   }
 
   /// post请求，json编码
-  static Future<Map<String, dynamic>?> postJson(
-    String url,
-    Map<String, dynamic> params,
+  static Future<Map<dynamic,dynamic>?> post(
+    String url, {Map<String, dynamic>? params}
   ) async {
     try {
       var result = await _dio!.post(url, data: params);
@@ -111,7 +111,7 @@ class HttpUtil {
   ///       await MultipartFile.fromFile('./text2.txt', filename: 'text2.txt'),
   ///   ]
   /// }
-  static Future<Map?> postForm(
+  static Future<Map<dynamic,dynamic>?> postForm(
     String url,
     Map<String, dynamic> params, {
     Map<String, MultipartFile>? fileParams,
@@ -133,7 +133,7 @@ class HttpUtil {
   }
 
   ///直传文件
-  static Future<Map?> postFile(String url, File file) async {
+  static Future<Map<dynamic,dynamic>?> postFile(String url, File file) async {
     try {
       var result = await _dio!.post(
         url,
@@ -146,7 +146,7 @@ class HttpUtil {
   }
 
   ///put请求
-  static Future<Map?> put(String url, Map<String, dynamic> params) async {
+  static Future<Map<dynamic,dynamic>?> put(String url, Map<String, dynamic> params) async {
     try {
       var result = (await _dio!.put(url, data: FormData.fromMap(params)));
       return result.isSuccessful ? result.data : null;
@@ -156,7 +156,7 @@ class HttpUtil {
   }
 
   ///直传文件
-  static Future<Map?> putFile(String url, File file) async {
+  static Future<Map<dynamic,dynamic>?> putFile(String url, File file) async {
     try {
       var result = await _dio!.put(
         url,
@@ -169,7 +169,7 @@ class HttpUtil {
   }
 
   ///delete请求
-  static Future<Map?> delete(String url, Map<String, dynamic> params) async {
+  static Future<Map<dynamic,dynamic>?> delete(String url, Map<String, dynamic> params) async {
     try {
       var result = await _dio!.delete(url, data: FormData.fromMap(params));
       return result.isSuccessful ? result.data : null;
