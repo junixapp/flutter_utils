@@ -147,7 +147,7 @@ class HttpFormatter extends Interceptor {
 
     if (_includeResponse && response != null) {
       responseString =
-          '$_resSymbol [${response.statusCode} ${response.statusMessage}] ${requestOptions?.uri ?? ''}\n'
+          '$_resSymbol [${response.statusCode}${response.statusMessage !=null ? ' ${response.statusMessage}' : ''}] ${requestOptions?.uri ?? ''}\n'
           '${requestOptions?.extra[_startTimeKey] != null ? '[Time elapsed: ${DateTime.now().millisecondsSinceEpoch - requestOptions?.extra[_startTimeKey]} ms]' : ''}'
           '\n';
 

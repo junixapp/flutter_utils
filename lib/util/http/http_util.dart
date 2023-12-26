@@ -33,6 +33,7 @@ class HttpUtil {
     String? successCode,
     String? tokenHeaderName ,
     Function? tokenCreator,
+    Map<String, dynamic>? header,
     Function(dynamic)? onHookResponse,
   }) {
     _dio ??= Dio();
@@ -46,6 +47,7 @@ class HttpUtil {
     if(ObjectUtil.isNotEmpty(dataField)) _dataField = dataField!;
     if(ObjectUtil.isNotEmpty(msgField)) _msgField = msgField!;
     if(ObjectUtil.isNotEmpty(successCode)) _successCode = successCode!;
+    if(header!=null) _dio?.options.headers.addAll(header);
   }
 
   ///will auto override the same header
@@ -113,17 +115,17 @@ class HttpUtil {
   /// }
   static Future<Map<dynamic,dynamic>?> postForm(
     String url,
-    Map<String, dynamic> params, {
-    Map<String, MultipartFile>? fileParams,
+    { Map<String, dynamic>? params,
+      Map<String, MultipartFile>? fileParams,
     ProgressCallback? onSendProgress,
   }) async {
     try {
       if (fileParams != null && fileParams.isNotEmpty) {
-        params.addAll(fileParams);
+        params?.addAll(fileParams);
       }
       var result = (await _dio!.post(
         url,
-        data: FormData.fromMap(params),
+        data: params!=null ? FormData.fromMap(params) : null,
         onSendProgress: onSendProgress,
       ));
       return result.isSuccessful ? (result.data ?? {}) : null;

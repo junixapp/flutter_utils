@@ -3,6 +3,7 @@ library fuck_utils;
 export 'controller/countdown_controller.dart';
 
 export 'extension/string_extension.dart';
+export 'extension/ui_extension.dart';
 
 export 'getx/rx_extensions.dart';
 export 'getx/rx_state_types.dart';
