@@ -107,23 +107,4 @@ class SuperContainer extends StatelessWidget {
       ],
     );
   }
-
-  Widget _buildForeground() {
-    return Container(
-      constraints: constraints,
-      width: width,
-      height: height,
-      decoration: foregroundColor != null
-          ? BoxDecoration(
-              color: foregroundColor,
-              border: border ??
-                  Border.all(
-                    color: borderColor,
-                    width: borderWidth,
-                  ),
-              borderRadius: borderRadius ?? BorderRadius.circular(radius),
-            )
-          : null,
-    );
-  }
 }

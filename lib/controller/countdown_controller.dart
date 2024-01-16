@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:get/get.dart';
 
 ///倒计时，支持2个倒计时
@@ -24,7 +23,7 @@ class CountDownController extends GetxController {
   void startCountDown() {
     if (_isClosed) return;
     isCountingDown.value = true;
-    _timer1 = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
       if(timer.tick > 60){
         isCountingDown.value = false;
         countDownTime.value = 60;

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
@@ -59,15 +57,11 @@ class ImageUtil {
   static Future<String?> saveBytes2Album(Uint8List bytes, {ImageByteFormat format = ImageByteFormat.png,
     String? fileName, int quality = 80}) async {
     await _requestPermission();
-    if (bytes != null) {
-      final result = await ImageGallerySaver.saveImage(bytes,
-          name: fileName,
-          quality: quality,
-          isReturnImagePathOfIOS: true);
-      return result["filePath"] ;
-    }else{
-      return null;
-    }
+    final result = await ImageGallerySaver.saveImage(bytes,
+        name: fileName,
+        quality: quality,
+        isReturnImagePathOfIOS: true);
+    return result["filePath"] ;
   }
 
 }
