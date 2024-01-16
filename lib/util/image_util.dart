@@ -52,7 +52,7 @@ class ImageUtil {
   ///将图片保存到相册，返回路径
   static Future<String?> saveImage2Album(ByteData bytes, {ImageByteFormat format = ImageByteFormat.png,
     String? fileName, int quality = 80}) async {
-    await saveBytes2Album(bytes.buffer.asUint8List());
+    return await saveBytes2Album(bytes.buffer.asUint8List());
   }
 
   ///将图片保存到相册，返回路径

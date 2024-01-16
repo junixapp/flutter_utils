@@ -1,15 +1,14 @@
 
 
-import 'dart:ui';
-
 import 'package:fuck_utils/fuck_utils.dart';
+
 
 extension WithLoadingDialog on dynamic {
   ///给字符增加0宽字符，让文字自然换行，不跟随单词换行
-  void withLoading(VoidCallback action) {
+  Future<T> withLoading<T>(Future<T> Function() action) async{
     try{
       DialogUtil.showLoading();
-      action();
+      return await action();
     }finally{
       DialogUtil.dismissLoading();
     }

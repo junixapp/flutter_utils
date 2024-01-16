@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:fuck_utils/util/http/http_formatter.dart';
 import 'package:fuck_utils/util/http/token_interceptor.dart';
@@ -104,25 +105,26 @@ class HttpUtil {
   }
 
   /// post请求，form编码
-  /// 如需上传文件，则直接把文件放入params参数。
-  /// 单个文件：
-  /// {'file': await MultipartFile.fromFile('./text.txt', filename: 'upload.txt')}
-  /// 多个文件：
-  /// { 'files': [
-  ///       await MultipartFile.fromFile('./text1.txt', filename: 'text1.txt'),
-  ///       await MultipartFile.fromFile('./text2.txt', filename: 'text2.txt'),
-  ///   ]
-  /// }
+  /// 如需上传文件，则支持File/ByteData/Uint8List类型参数，如：
+  /// { 'file': File() }
   static Future<Map<dynamic,dynamic>?> postForm(
     String url,
     { Map<String, dynamic>? params,
-      Map<String, MultipartFile>? fileParams,
     ProgressCallback? onSendProgress,
   }) async {
     try {
-      if (fileParams != null && fileParams.isNotEmpty) {
-        params?.addAll(fileParams);
-      }
+      // if (fileParams != null && fileParams.isNotEmpty) {
+      //   params?.addAll(fileParams);
+      // }
+      params?.forEach((key, value) {
+        if(value is File){
+          params[key] = MultipartFile.fromFile((value).path);
+        }else if(value is ByteData){
+          params[key] = MultipartFile.fromBytes((value).buffer.asUint8List());
+        }else if(value is Uint8List){
+          params[key] = MultipartFile.fromBytes(value);
+        }
+      });
       var result = (await _dio!.post(
         url,
         data: params!=null ? FormData.fromMap(params) : null,
