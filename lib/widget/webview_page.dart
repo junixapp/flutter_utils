@@ -22,6 +22,7 @@ class _WebViewPageState extends State<WebViewPage> {
       body: WebView(
         widget.url ?? "",
         onGetTitle: (t) {
+          if(!mounted) return;
           setState(() {
             title = t ?? "";
           });

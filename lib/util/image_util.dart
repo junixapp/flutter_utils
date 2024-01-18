@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fuck_utils/util/log_util.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -64,4 +66,21 @@ class ImageUtil {
     return result["filePath"] ;
   }
 
+  ///将图片文件保存到相册，返回路径
+  static Future<String?> saveFile2Album(String filePath, {String? fileName,}) async {
+    await _requestPermission();
+    final result = await ImageGallerySaver.saveFile(filePath,
+        name: fileName, isReturnPathOfIOS: true);
+    return result["filePath"] ;
+  }
+
+  ///前提：你使用了cached_network_image来加载图片，将图片url保存到相册，返回路径
+  static Future<String?> saveCacheImage2Album(String imageUrl, {String? fileName}) async {
+    var file = await DefaultCacheManager().getSingleFile(imageUrl);
+    if(await file.exists()){
+      return await ImageUtil.saveFile2Album(file.path, fileName: fileName);
+    }else{
+      return null;
+    }
+  }
 }
