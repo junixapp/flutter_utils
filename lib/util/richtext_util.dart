@@ -8,17 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class RichTextUtil {
   List<InlineSpan> spans = [];
 
-  RichTextUtil appendText(String text,
-      {Color color = const Color(0xff222222),
-        double size = 14,
-        bool bold = false,
-        VoidCallback? onTap}) {
-    var span = TextSpan(
-        text: text,
-        style: TextStyle(
-            color: color,
-            fontSize: size,
-            fontWeight: bold ? FontWeight.w600 : FontWeight.normal),
+  RichTextUtil appendText(String text, {Color color = const Color(0xff222222),
+        double size = 14, bool bold = false, double? height, VoidCallback? onTap}) {
+    var span = TextSpan(text: text, style: TextStyle(color: color,
+            fontSize: size, height: height, fontWeight: bold ? FontWeight.w600 : FontWeight.normal),
         recognizer: TapGestureRecognizer()..onTap = onTap);
     spans.add(span);
     return this;

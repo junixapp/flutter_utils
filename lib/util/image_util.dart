@@ -19,7 +19,6 @@ class ImageUtil {
       Permission.storage,
     ].request();
     final info = statuses[Permission.storage].toString();
-    LogUtil.i(info);
   }
 
   ///key所在节点必须是RepaintBoundary节点，否则会报错，截取 RenderRepaintBoundary 的内容

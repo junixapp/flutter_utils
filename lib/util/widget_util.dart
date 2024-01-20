@@ -13,10 +13,12 @@ class WidgetUtil {
         double? borderWidth, Color? borderColor, double? radius, EdgeInsets? padding,
         bool bold = false, EdgeInsets? margin,  ValueChanged<String>? onSubmit,
         TextInputAction? inputAction, Color? bgColor, Widget? prefix, Widget? suffix,
+        bool autofocus = false
       }){
     return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller, maxLines: maxLines, maxLength: maxLength,
       keyboardType: inputType??TextInputType.text,
       enabled: !(disabled ?? false),
+      autofocus: autofocus,
       textInputAction: inputAction ?? TextInputAction.done,
       textAlignVertical: TextAlignVertical.center,
       textAlign: textAlign??TextAlign.left,
