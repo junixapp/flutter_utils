@@ -62,7 +62,7 @@ class _IndexBarState extends State<IndexBar> with AfterLayoutMixin<IndexBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 20.w,
       child: GestureDetector(
           behavior: HitTestBehavior.opaque,

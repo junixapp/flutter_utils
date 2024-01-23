@@ -1,5 +1,5 @@
 /// id card province dict.
-List<String> ID_CARD_PROVINCE_DICT = [
+List<String> idCardProvinceDict = [
   '11=北京',
   '12=天津',
   '13=河北',
@@ -159,7 +159,7 @@ class RegexUtil {
         '2'
       ];
       if (cityMap.isEmpty) {
-        List<String> list = ID_CARD_PROVINCE_DICT;
+        List<String> list = idCardProvinceDict;
         List<MapEntry<String, String>> mapEntryList = [];
         for (int i = 0, length = list.length; i < length; i++) {
           List<String> tokens = list[i].trim().split('=');

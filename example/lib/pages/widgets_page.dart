@@ -29,6 +29,8 @@ class WidgetsPage extends StatelessWidget {
       button(context,"bottom自定义弹窗", (){
         DialogUtil.showBottom( DemoBottomDialog(), radius: 18.w,);
       }),
+      WidgetUtil.textField(context, TextEditingController(), "sdadsa", margin: EdgeInsets.all(15.w),
+        borderWidth: 1.w, radius: 10.w, padding: EdgeInsets.all(10.w), borderColor: Colors.red,),
       CommonTabBar(["试试","dd", "打湿水"], (i){
 
       }, tabPadding: EdgeInsets.symmetric(horizontal: 10.w), indicatorHeight: 3.w,

@@ -69,7 +69,7 @@ class HttpFormatter extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     if (_httpLoggerFilter == null || _httpLoggerFilter!()) {
       final message = _prepareLog(err.requestOptions, err.response);
       if (message != '') {

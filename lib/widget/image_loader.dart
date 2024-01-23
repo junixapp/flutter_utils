@@ -23,7 +23,7 @@ class ImageLoader extends StatelessWidget {
   final bool blur;
   final bool animated;
   final Color? imageColor;
-
+  final BlendMode imageColorMode;
   const ImageLoader(
     this.uri, {
     super.key,
@@ -43,6 +43,7 @@ class ImageLoader extends StatelessWidget {
     this.blur = false,
     this.animated = false,
     this.imageColor,
+    this.imageColorMode = BlendMode.srcIn
   });
 
   @override
@@ -67,7 +68,7 @@ class ImageLoader extends StatelessWidget {
               right: 0,
               bottom: 0,
               child: imageColor==null ? buildImage()
-              : ColorFiltered(colorFilter: ColorFilter.mode(imageColor!, BlendMode.srcIn),
+              : ColorFiltered(colorFilter: ColorFilter.mode(imageColor!, imageColorMode),
               child: buildImage(),)
             )
           ],

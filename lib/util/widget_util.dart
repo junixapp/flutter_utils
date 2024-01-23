@@ -7,16 +7,17 @@ class WidgetUtil {
   ///快捷创建输入框
   static Widget textField(BuildContext context, TextEditingController controller,
       String hint, { Color? fontColor, Color? hintColor, double? fontSize,double? hintFontSize, TextInputType? inputType,
-        int maxLength = 50, TextAlign? textAlign, FocusNode? focusNode, bool? obscureText,
+        int maxLength = 100, TextAlign? textAlign, FocusNode? focusNode, bool? obscureText,
         bool? disabled, List<TextInputFormatter>? inputFormatters, Key? key,
-        int maxLines = 1, String? errorText, Color? errorColor, double? errorFontSize,
+        int? maxLines, String? errorText, Color? errorColor, double? errorFontSize,
         double? borderWidth, Color? borderColor, double? radius, EdgeInsets? padding,
         bool bold = false, EdgeInsets? margin,  ValueChanged<String>? onSubmit,
         TextInputAction? inputAction, Color? bgColor, Widget? prefix, Widget? suffix,
         bool autofocus = false
       }){
-    return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller, maxLines: maxLines, maxLength: maxLength,
-      keyboardType: inputType??TextInputType.text,
+    return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller, maxLines: maxLines,
+      maxLength: maxLength,
+      keyboardType: maxLines==null ? TextInputType.multiline : (inputType ?? TextInputType.text),
       enabled: !(disabled ?? false),
       autofocus: autofocus,
       textInputAction: inputAction ?? TextInputAction.done,
@@ -40,9 +41,9 @@ class WidgetUtil {
           errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
           contentPadding: padding ?? EdgeInsets.zero,
           enabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
-          OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w,
-            color: borderColor ?? Theme.of(context).dividerColor) ,
-              borderRadius: BorderRadius.circular(radius??0), gapPadding: 0) : InputBorder.none,
+            OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w,
+              color: borderColor ?? Theme.of(context).dividerColor) ,
+                borderRadius: BorderRadius.circular(radius??0), gapPadding: 0) : InputBorder.none,
           hintStyle: TextStyle(
               color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14.w),
               fontWeight: bold ? FontWeight.bold : FontWeight.normal
