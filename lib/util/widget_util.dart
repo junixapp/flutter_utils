@@ -15,9 +15,10 @@ class WidgetUtil {
         TextInputAction? inputAction, Color? bgColor, Widget? prefix, Widget? suffix,
         bool autofocus = false
       }){
-    return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller, maxLines: maxLines,
+    return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller,
+      maxLines: obscureText==true ?  1:  maxLines,
       maxLength: maxLength,
-      keyboardType: maxLines==null ? TextInputType.multiline : (inputType ?? TextInputType.text),
+      keyboardType: (maxLines==null&&obscureText==false) ? TextInputType.multiline : (inputType ?? TextInputType.text),
       enabled: !(disabled ?? false),
       autofocus: autofocus,
       textInputAction: inputAction ?? TextInputAction.done,

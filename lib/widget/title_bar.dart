@@ -43,7 +43,7 @@ class TitleBar extends StatelessWidget {
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
       height: height ?? (46.w +  MediaQuery.of(context).padding.top ),
       decoration:BoxDecoration(border: Border(bottom: BorderSide(color:
-        hasDivider ? Theme.of(context).dividerColor : Colors.transparent,
+        hasDivider ? (Theme.of(context).dividerTheme.color??Theme.of(context).dividerColor) : Colors.transparent,
         width:  hasDivider ? 1.w : 0),),
         color: bgColor),
       child: Stack(children: [
