@@ -10,7 +10,7 @@ extension WithLoadingDialog on dynamic {
       DialogUtil.showLoading();
       return await action();
     }finally{
-      DialogUtil.dismissLoading();
+      await DialogUtil.dismissLoading();
     }
   }
 }
