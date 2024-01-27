@@ -123,10 +123,11 @@ class DialogUtil {
 
   ///底部弹窗
   static Future<T?> showBottom<T>(Widget child, {double? radius, Color? bgColor,
-    bool enableDrag = false}) async {
+    bool enableDrag = true, bool dismissOnTouch = true,}) async {
     return await showModalBottomSheet<T>(
         context: Get.context!,
         backgroundColor: Colors.transparent,
+        isDismissible: dismissOnTouch,
         barrierColor: null,
         isScrollControlled: true, // 设置滚动控制为 true, 取消高度限制
         enableDrag: enableDrag,

@@ -27,7 +27,7 @@ class WidgetsPage extends StatelessWidget {
         LogUtil.i("msg");
       }),
       button(context,"bottom自定义弹窗", (){
-        DialogUtil.showBottom( DemoBottomDialog(), radius: 18.w,);
+        DialogUtil.showBottom( DemoBottomDialog(), radius: 18.w, enableDrag: true);
       }),
       WidgetUtil.textField(context, TextEditingController(), "sdadsa", margin: EdgeInsets.all(15.w),
         borderWidth: 1.w, radius: 10.w, padding: EdgeInsets.all(10.w), borderColor: Colors.red,),
