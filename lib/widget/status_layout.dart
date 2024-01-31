@@ -9,6 +9,7 @@ class StatusLayout extends StatefulWidget {
   final Widget? loadingWidget, errorWidget, emptyWidget, contentWidget;
   final VoidCallback? onRetry;
   final double? width, height;
+  final bool showLoadingOnce;
 
   const StatusLayout({
     super.key,
@@ -20,6 +21,7 @@ class StatusLayout extends StatefulWidget {
     this.width,
     this.height,
     this.onRetry,
+    this.showLoadingOnce = false
   }) : assert(contentWidget != null);
 
   @override
@@ -27,6 +29,13 @@ class StatusLayout extends StatefulWidget {
 }
 
 class _StatusLayoutState extends State<StatusLayout> {
+  bool hasLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,6 +49,7 @@ class _StatusLayoutState extends State<StatusLayout> {
   Widget buildChild() {
     if(widget.status==null) return const SizedBox();
     if(widget.status!.isLoading){
+      if(hasLoading && widget.showLoadingOnce) return buildChild();
       return buildLoading();
     }
     if(widget.status!.isError){
@@ -55,6 +65,7 @@ class _StatusLayoutState extends State<StatusLayout> {
   }
 
   Widget buildLoading() {
+    hasLoading = true;
     return widget.loadingWidget != null
         ? widget.loadingWidget!
         : const Padding(

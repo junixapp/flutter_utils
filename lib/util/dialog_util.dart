@@ -25,7 +25,7 @@ class DialogUtil {
                         color: Theme.of(context).dialogBackgroundColor,
                         borderRadius: BorderRadius.circular((10.w))),
                     padding: msg != null ? EdgeInsets.symmetric(vertical: 25.w) : null,
-                    width: msg != null ? 100.w : 60.w,
+                    width: msg != null ? 110.w : 60.w,
                     height: msg != null ? null : 60.w,
                     alignment: Alignment.center,
                     child: Column(
@@ -35,7 +35,8 @@ class DialogUtil {
                         if (msg != null)
                           Padding(padding: EdgeInsets.only(top: 15.w, left: 10.w, right: 10.w),
                             child: Text(msg, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
-                                fontSize: 12.w), textAlign: TextAlign.center,),)
+                                fontSize: 13.w), textAlign: TextAlign.center, maxLines: 1,
+                                overflow: TextOverflow.ellipsis,),)
                       ],
                     ),
                   )
@@ -82,11 +83,11 @@ class DialogUtil {
           c,
           Divider(height: 1.w, color: const Color(0x11000000),),
           Row(mainAxisSize: MainAxisSize.max, children: [
-            Expanded(child: SuperText(leftBtnText ?? "Cancel", expand: true,
+            Expanded(child: SuperText(leftBtnText ?? "取消", expand: true,
                 bgColor: leftBtnBg , style: TextStyle(color: textColor.withOpacity(0.6), fontSize: 14.w),
                 height: 44.w, onTap: onLeftTap ?? ()=> Get.back(result: false))),
             Container(height: 44.w, width: 1, color: Theme.of(Get.context!).dividerColor,),
-            Expanded(child: SuperText(rightBtnText ?? "Confirm", expand: true,
+            Expanded(child: SuperText(rightBtnText ?? "确定", expand: true,
               bgColor: rightBtnBg , style: TextStyle(color: textColor, fontSize: 14.w),
               height: 44.w, onTap: onRightTap ?? ()=> Get.back(result: true),
             ))
