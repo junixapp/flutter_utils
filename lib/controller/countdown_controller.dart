@@ -11,9 +11,13 @@ class CountDownController extends GetxController {
   Timer? _timer1;
   Timer? _timer2;
 
+  int totalDuration() => 60;
+
   @override
   void onInit() {
     super.onInit();
+    countDownTime = totalDuration().obs;
+    countDownTime2 = totalDuration().obs;
     isCountingDown.value = false;
     isCountingDown2.value = false;
     _isClosed = false;
@@ -24,16 +28,16 @@ class CountDownController extends GetxController {
     if (_isClosed) return;
     isCountingDown.value = true;
     _timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if(timer.tick > 60){
+      if(timer.tick > totalDuration()){
         isCountingDown.value = false;
-        countDownTime.value = 60;
+        countDownTime.value = totalDuration();
         timer.cancel();
         return;
       }
-      countDownTime.value = 60 - timer.tick;
+      countDownTime.value = totalDuration() - timer.tick;
       if (countDownTime.value == 0) {
         isCountingDown.value = false;
-        countDownTime.value = 60;
+        countDownTime.value = totalDuration();
         timer.cancel();
         return;
       }
@@ -44,16 +48,16 @@ class CountDownController extends GetxController {
     if (_isClosed) return;
     isCountingDown2.value = true;
     _timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if(timer.tick > 60){
+      if(timer.tick > totalDuration()){
         isCountingDown2.value = false;
-        countDownTime2.value = 60;
+        countDownTime2.value = totalDuration();
         timer.cancel();
         return;
       }
-      countDownTime2.value = 60 - timer.tick;
+      countDownTime2.value = totalDuration() - timer.tick;
       if (countDownTime2.value == 0) {
         isCountingDown2.value = false;
-        countDownTime2.value = 60;
+        countDownTime2.value = totalDuration();
         timer.cancel();
         return;
       }
