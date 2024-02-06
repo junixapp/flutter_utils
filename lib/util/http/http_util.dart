@@ -5,6 +5,7 @@ import 'package:fuck_utils/util/http/http_formatter.dart';
 import 'package:fuck_utils/util/http/token_interceptor.dart';
 import 'package:fuck_utils/util/log_util.dart';
 import 'package:fuck_utils/util/object_util.dart';
+import 'package:path/path.dart' as path;
 
 extension ResponseExtension on Response? {
   bool get isSuccessful =>
@@ -115,11 +116,11 @@ class HttpUtil {
     try {
       params?.forEach((key, value) async {
         if(value is File){
-          params[key] = await MultipartFile.fromFile((value).path);
+          params[key] = await MultipartFile.fromFile((value).path, filename: path.basename(value.path));
         }else if(value is ByteData){
-          params[key] = MultipartFile.fromBytes(value.buffer.asUint8List(), filename: "${DateTime.timestamp().millisecondsSinceEpoch}");
+          params[key] = MultipartFile.fromBytes(value.buffer.asUint8List(), filename: "${DateTime.timestamp().millisecondsSinceEpoch}.jpg");
         }else if(value is Uint8List){
-          params[key] = MultipartFile.fromBytes(value, filename: "${DateTime.timestamp().millisecondsSinceEpoch}");
+          params[key] = MultipartFile.fromBytes(value, filename: "${DateTime.timestamp().millisecondsSinceEpoch}.jpg");
         }
       });
       var result = (await _dio!.post(
