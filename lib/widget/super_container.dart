@@ -18,6 +18,7 @@ class SuperContainer extends StatelessWidget {
   final Color borderColor;
   final double borderWidth;
   final double shadow;
+  final Color shadowColor;
   final BoxFit bgImgFit;
   final String? bgImgName;
   final BoxConstraints? constraints;
@@ -40,6 +41,7 @@ class SuperContainer extends StatelessWidget {
       this.color = Colors.transparent,
       this.align = Alignment.center,
       this.shadow = 0,
+      this.shadowColor = const Color(0x10000000),
       this.borderColor = Colors.transparent,
       this.borderWidth = 0.0,
       this.bgImgFit = BoxFit.contain,
@@ -102,7 +104,7 @@ class SuperContainer extends StatelessWidget {
           BoxShadow(
             blurRadius: radius,
             spreadRadius: shadow,
-            color: const Color(0x10000000),
+            color: shadowColor,
           )
       ],
     );

@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 /// 索引栏
 class IndexBar extends StatefulWidget {
@@ -63,7 +61,7 @@ class _IndexBarState extends State<IndexBar> with AfterLayoutMixin<IndexBar> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 20.w,
+      width: 20,
       child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           child: Column(
@@ -77,7 +75,7 @@ class _IndexBarState extends State<IndexBar> with AfterLayoutMixin<IndexBar> {
                         color: _selectorIndex >= 0 && list[_selectorIndex] == e
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).colorScheme.primary,
-                        fontSize: 12.w),
+                        fontSize: 12),
                   ),
                 )
                 .toList(),

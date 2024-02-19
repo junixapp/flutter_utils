@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WidgetUtil {
   WidgetUtil._();
@@ -35,21 +34,21 @@ class WidgetUtil {
           filled: bgColor!=null,
           fillColor: bgColor,
           focusedBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
-          OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w, color: Theme.of(context).primaryColor),
+          OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1, color: Theme.of(context).primaryColor),
               borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
           hintText: hint,
           errorText: errorText!=null && errorText.isNotEmpty ? errorText : null,
           errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
           contentPadding: padding ?? EdgeInsets.zero,
           enabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
-            OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1.w,
+            OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1,
               color: borderColor ?? Theme.of(context).dividerColor) ,
                 borderRadius: BorderRadius.circular(radius??0), gapPadding: 0) : InputBorder.none,
           hintStyle: TextStyle(
-              color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14.w),
+              color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14),
               fontWeight: bold ? FontWeight.bold : FontWeight.normal
           )),
-      style: TextStyle(color: fontColor ?? Theme.of(context).colorScheme.primary, fontSize: fontSize??14.w,
+      style: TextStyle(color: fontColor ?? Theme.of(context).colorScheme.primary, fontSize: fontSize??14,
           fontWeight: bold ? FontWeight.bold : FontWeight.normal),
     ),);
   }
@@ -68,24 +67,24 @@ class WidgetUtil {
       padding: EdgeInsets.zero,
       offset: Offset(0, offsetY ?? 0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.w),
+        borderRadius: BorderRadius.circular(5),
       ),
       color: Theme.of(context).canvasColor,
       onSelected: onSelect,
       constraints: BoxConstraints(
-        minWidth: itemWidth ?? 100.w,
-        maxWidth: itemWidth ?? 100.w,
+        minWidth: itemWidth ?? 100,
+        maxWidth: itemWidth ?? 100,
       ),
       itemBuilder: (builder) => items
           .map((e) => PopupMenuItem<T>(
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              height: 36.w,
+              height: 36,
               value: e!,
               child: item ?? Container(
-                    width: itemWidth ?? 100.w,
+                    width: itemWidth ?? 100,
                     alignment: Alignment.center,
                     child: Text(e.toString(),
-                      style: TextStyle(fontSize: 13.w),
+                      style: TextStyle(fontSize: 13),
                     ),
                   ),
             ),
@@ -109,20 +108,20 @@ class WidgetUtil {
     return PopupMenuButton<T>(
       position: PopupMenuPosition.under,
       constraints: BoxConstraints(
-        minWidth: itemWidth ?? 100.w,
-        maxWidth: itemWidth ?? 100.w,
+        minWidth: itemWidth ?? 100,
+        maxWidth: itemWidth ?? 100,
       ),
       padding: EdgeInsets.zero,
       offset: Offset(0, offsetY ?? 0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.w),
+        borderRadius: BorderRadius.circular(5),
       ),
       color: Theme.of(context).canvasColor,
       onSelected: onSelect,
       itemBuilder: (builder) => items
           .map((e) => PopupMenuItem<T>(
               padding: const EdgeInsets.symmetric(vertical: 0),
-              height: height ?? 36.w,
+              height: height ?? 36,
               value: e!,
               child: itemBuilder(context, items.indexOf(e)),
             ),).toList(),
@@ -133,7 +132,7 @@ class WidgetUtil {
   static Text text(String text,{double? size, Color? color, bool bold = false, TextOverflow? overflow,
     TextAlign? align, int? maxLines, bool underline = false, bool lineThrough = false}) {
     return Text(text, style: TextStyle(color: color ?? Colors.black,
-      fontSize: size ?? 14.w,
+      fontSize: size ?? 14,
       fontWeight: bold ?FontWeight.w600: FontWeight.normal,
       decoration: underline ? TextDecoration.underline : (lineThrough? TextDecoration.lineThrough: TextDecoration.none),
     ), overflow: overflow, textAlign: align??TextAlign.left, maxLines: maxLines,);

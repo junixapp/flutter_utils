@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuck_utils/util/object_util.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -72,7 +71,7 @@ class _WebViewState extends State<WebView> {
             ? LinearProgressIndicator(
                 value: prog.value / 100,
                 color: Theme.of(context).primaryColor,
-                minHeight: 2.w,
+                minHeight: 2,
               )
             : const SizedBox()),
       ],

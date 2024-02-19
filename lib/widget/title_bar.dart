@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuck_utils/fuck_utils.dart';
 
 /// 标题栏
@@ -41,15 +40,15 @@ class TitleBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      height: height ?? (46.w +  MediaQuery.of(context).padding.top ),
+      height: height ?? (46 +  MediaQuery.of(context).padding.top ),
       decoration:BoxDecoration(border: Border(bottom: BorderSide(color:
         hasDivider ? (Theme.of(context).dividerTheme.color??Theme.of(context).dividerColor) : Colors.transparent,
-        width:  hasDivider ? 1.w : 0),),
+        width:  hasDivider ? 1 : 0),),
         color: bgColor),
       child: Stack(children: [
           OnClick(Container(alignment: Alignment.center,
-            width: 42.w, height: 42.w,
-            child: leftWidget ?? Icon(Icons.arrow_back, size: 22.w,),
+            width: 42, height: 42,
+            child: leftWidget ?? Icon(Icons.arrow_back, size: 22,),
           ), onTap: () {
               if (onLeftClick != null) {
                 onLeftClick!();
@@ -59,16 +58,16 @@ class TitleBar extends StatelessWidget {
             },
           ),
           Align(alignment: leftTitle ? Alignment.centerLeft : Alignment.center,
-            child: titleWidget ?? Container(width: 200.w, height: 42.w,
+            child: titleWidget ?? Container(width: 200, height: 42,
                 alignment: leftTitle ? Alignment.centerLeft : Alignment.center,
-              margin: EdgeInsets.only(right: 5.w, left: leftTitle ? 50.w : 0),
+              margin: EdgeInsets.only(right: 5, left: leftTitle ? 50 : 0),
               child: Text(title, style: TextStyle(
                   color: titleColor ?? Theme.of(context).colorScheme.primary,
-                  fontSize: titleSize ?? 16.w,
+                  fontSize: titleSize ?? 16,
                   fontWeight: boldTitle ? FontWeight.w600 : FontWeight.normal),
                 maxLines: 1, overflow: TextOverflow.ellipsis,)),),
           Align(alignment: Alignment.centerRight, child: rightWidget ?? OnClick(Container(alignment: Alignment.center,
-             width: 42.w, height: 42.w,
+             width: 42, height: 42,
              child: (rightImage!=null ? Image.asset(rightImage??"") : const SizedBox())), onTap: onRightClick,))
         ],
       ),);

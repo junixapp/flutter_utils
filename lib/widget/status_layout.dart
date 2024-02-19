@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuck_utils/fuck_utils.dart';
 import 'package:get/get.dart';
 
@@ -88,15 +87,15 @@ class _StatusLayoutState extends State<StatusLayout> {
               children: <Widget>[
                 Icon(
                   Icons.error,
-                  size: 42.w,
+                  size: 42,
                   color: const Color(0XFF999999),
                 ),
-                SizedBox(height: 15.w),
+                SizedBox(height: 15),
                 Text(
                   "加载失败，点击重试",
                   style: TextStyle(
                     color: const Color(0XFF999999),
-                    fontSize: 14.w,
+                    fontSize: 14,
                   ),
                 )
               ],

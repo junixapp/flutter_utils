@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuck_utils/widget/super_container.dart';
 
 enum TabStyle{
@@ -52,17 +51,17 @@ class _CommonTabBarState extends State<CommonTabBar> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return widget.tabStyle==TabStyle.card ? SizedBox(height: widget.height?? 28.w,
+    return widget.tabStyle==TabStyle.card ? SizedBox(height: widget.height?? 28,
       child: ListView.separated(itemBuilder: (c,i){
       Color selectColor = widget.selectColor ?? Theme.of(context).primaryColor;
       Color unselectColor = widget.unselectColor ?? Theme.of(context).primaryColor;
-      double selectSize = widget.selectFontSize ?? 14.w;
-      double unselectSize = widget.unselectFontSize ?? 14.w;
-      return SuperContainer(height: widget.height ?? 28.w, width: widget.tabWidth,
+      double selectSize = widget.selectFontSize ?? 14;
+      double unselectSize = widget.unselectFontSize ?? 14;
+      return SuperContainer(height: widget.height ?? 28, width: widget.tabWidth,
         padding: widget.tabPadding,
         color: (currTab == i ? widget.selectBgColor: widget.unselectBgColor) ?? Colors.transparent,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(widget.tabRadius ?? 8.w),
-            topRight: Radius.circular(widget.tabRadius ?? 8.w)),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(widget.tabRadius ?? 8),
+            topRight: Radius.circular(widget.tabRadius ?? 8)),
         child: Text(widget.tabs[i], style: TextStyle(color: currTab == i ? selectColor
             : unselectColor, fontSize:  currTab == i ? selectSize : unselectSize),),
         onTap: (){
@@ -72,10 +71,10 @@ class _CommonTabBarState extends State<CommonTabBar> with SingleTickerProviderSt
         });
         },
       );
-    }, separatorBuilder: (c,i) => SizedBox(width: widget.tabSpace ?? 4.w,),
+    }, separatorBuilder: (c,i) => SizedBox(width: widget.tabSpace ?? 4,),
         padding: EdgeInsets.symmetric(horizontal: widget.padding ?? 0),
         itemCount: widget.tabs.length, scrollDirection: Axis.horizontal),)
-    : Container(height: widget.height ?? 40.w,
+    : Container(height: widget.height ?? 40,
       decoration: BoxDecoration(border: Border(bottom: BorderSide(color: widget.dividerColor ?? Theme.of(context).dividerColor,
         width: widget.dividerHeight ?? 0
       ))),
@@ -83,19 +82,19 @@ class _CommonTabBarState extends State<CommonTabBar> with SingleTickerProviderSt
       child: TabBar(
       isScrollable: !widget.tabEqual,
       dividerHeight: 0,
-      padding: widget.tabPadding ?? EdgeInsets.symmetric(horizontal: 8.w),
-      // labelPadding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: widget.tabPadding ?? EdgeInsets.symmetric(horizontal: 8),
+      // labelPadding: EdgeInsets.symmetric(horizontal: 16),
       indicatorPadding: EdgeInsets.zero,
       indicatorColor: widget.indicatorColor ?? widget.selectColor ?? Theme.of(context).primaryColor,
-      indicatorWeight: widget.indicatorHeight ?? 2.w,
+      indicatorWeight: widget.indicatorHeight ?? 2,
       indicatorSize: widget.thinIndicator ? TabBarIndicatorSize.label : TabBarIndicatorSize.tab,
       labelColor: widget.selectColor ?? Theme.of(context).primaryColor,
       unselectedLabelColor: widget.unselectColor ?? Theme.of(context).colorScheme.tertiary,
       labelStyle: TextStyle(
-          color: widget.selectColor ?? Theme.of(context).primaryColor, fontSize: widget.selectFontSize ?? 14.w),
+          color: widget.selectColor ?? Theme.of(context).primaryColor, fontSize: widget.selectFontSize ?? 14),
       unselectedLabelStyle: TextStyle(
           color: widget.unselectColor ?? Theme.of(context).colorScheme.tertiary,
-          fontSize: widget.unselectFontSize ?? 14.w),
+          fontSize: widget.unselectFontSize ?? 14),
       tabs: widget.tabs.map((e) => Tab(text: e,)).toList(),
       onTap: (i) {
         widget.onTabChange(i);

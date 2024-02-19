@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:fuck_utils/util/http/http_formatter.dart';
 import 'package:fuck_utils/util/http/token_interceptor.dart';
 import 'package:fuck_utils/util/log_util.dart';
 import 'package:fuck_utils/util/object_util.dart';
-import 'package:path/path.dart' as path;
 
 extension ResponseExtension on Response? {
   bool get isSuccessful =>
@@ -106,23 +104,22 @@ class HttpUtil {
   }
 
   /// post请求，form编码
-  /// 如需上传文件，则支持File/ByteData/Uint8List类型参数，如：
-  /// { 'file': File() }
+  /// 如需上传文件，则传入MultipartFile类型，如：
   static Future<Map<dynamic,dynamic>?> postForm(
     String url,
     { Map<String, dynamic>? params,
     ProgressCallback? onSendProgress,
   }) async {
     try {
-      params?.forEach((key, value) async {
-        if(value is File){
-          params[key] = await MultipartFile.fromFile((value).path, filename: path.basename(value.path));
-        }else if(value is ByteData){
-          params[key] = MultipartFile.fromBytes(value.buffer.asUint8List(), filename: "${DateTime.timestamp().millisecondsSinceEpoch}.jpg");
-        }else if(value is Uint8List){
-          params[key] = MultipartFile.fromBytes(value, filename: "${DateTime.timestamp().millisecondsSinceEpoch}.jpg");
-        }
-      });
+      // params?.forEach((key, value) async {
+      //   if(value is File){
+      //     params[key] = await MultipartFile.fromFile((value).path, filename: path.basename(value.path));
+      //   }else if(value is ByteData){
+      //     params[key] = MultipartFile.fromBytes(value.buffer.asUint8List(), filename: "${DateTime.timestamp().millisecondsSinceEpoch}");
+      //   }else if(value is Uint8List){
+      //     params[key] = MultipartFile.fromBytes(value, filename: "${DateTime.timestamp().millisecondsSinceEpoch}");
+      //   }
+      // });
       var result = (await _dio!.post(
         url,
         data: params!=null ? FormData.fromMap(params) : null,

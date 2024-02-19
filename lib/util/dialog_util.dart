@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuck_utils/fuck_utils.dart';
 import 'package:get/get.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -23,19 +22,19 @@ class DialogUtil {
                   Container(
                     decoration: BoxDecoration(
                         color: Theme.of(context).dialogBackgroundColor,
-                        borderRadius: BorderRadius.circular((10.w))),
-                    padding: msg != null ? EdgeInsets.symmetric(vertical: 25.w) : null,
-                    width: msg != null ? 110.w : 60.w,
-                    height: msg != null ? null : 60.w,
+                        borderRadius: BorderRadius.circular((10))),
+                    padding: msg != null ? EdgeInsets.symmetric(vertical: 25) : null,
+                    width: msg != null ? 110 : 60,
+                    height: msg != null ? null : 60,
                     alignment: Alignment.center,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(width: 20.w, height: 20.w, child: const CircularProgressIndicator(),),
+                        SizedBox(width: 20, height: 20, child: const CircularProgressIndicator(),),
                         if (msg != null)
-                          Padding(padding: EdgeInsets.only(top: 15.w, left: 10.w, right: 10.w),
+                          Padding(padding: EdgeInsets.only(top: 15, left: 10, right: 10),
                             child: Text(msg, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
-                                fontSize: 13.w), textAlign: TextAlign.center, maxLines: 1,
+                                fontSize: 13), textAlign: TextAlign.center, maxLines: 1,
                                 overflow: TextOverflow.ellipsis,),)
                       ],
                     ),
@@ -69,37 +68,37 @@ class DialogUtil {
         bool showClose = true, bool dismissOnTouch = true, Color? leftBtnBg, Color? rightBtnBg,
         bool dismissOnBackPressed = true, Color? bgColor, double? radius}) async {
     Color textColor = Theme.of(Get.context!).textTheme.bodyLarge?.color ?? Colors.black87;
-    Widget c = child ?? Padding(padding: EdgeInsets.only(top: 18.w, bottom: 25.w,
-      left: 20.w, right: 20.w),
+    Widget c = child ?? Padding(padding: EdgeInsets.only(top: 18, bottom: 25,
+      left: 20, right: 20),
       child: Text(content??"", textAlign: TextAlign.center, style:
-      TextStyle(color: textColor, fontSize: 14.w)),);
+      TextStyle(color: textColor, fontSize: 14)),);
     return await showCenter<T>(Stack(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 16.w,),
+          SizedBox(height: 16,),
           if(title!=null)Text(title, textAlign: TextAlign.center, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
-              fontSize: 16.w, fontWeight: FontWeight.w600),),
+              fontSize: 16, fontWeight: FontWeight.w600),),
           c,
-          Divider(height: 1.w, color: const Color(0x11000000),),
+          Divider(height: 1, color: const Color(0x11000000),),
           Row(mainAxisSize: MainAxisSize.max, children: [
             Expanded(child: SuperText(leftBtnText ?? "取消", expand: true,
-                bgColor: leftBtnBg , style: TextStyle(color: textColor.withOpacity(0.6), fontSize: 14.w),
-                height: 44.w, onTap: onLeftTap ?? ()=> Get.back(result: false))),
-            Container(height: 44.w, width: 1, color: Theme.of(Get.context!).dividerColor,),
+                bgColor: leftBtnBg , style: TextStyle(color: textColor.withOpacity(0.6), fontSize: 14),
+                height: 44, onTap: onLeftTap ?? ()=> Get.back(result: false))),
+            Container(height: 44, width: 1, color: Theme.of(Get.context!).dividerColor,),
             Expanded(child: SuperText(rightBtnText ?? "确定", expand: true,
-              bgColor: rightBtnBg , style: TextStyle(color: textColor, fontSize: 14.w),
-              height: 44.w, onTap: onRightTap ?? ()=> Get.back(result: true),
+              bgColor: rightBtnBg , style: TextStyle(color: textColor, fontSize: 14),
+              height: 44, onTap: onRightTap ?? ()=> Get.back(result: true),
             ))
           ],
           )
         ],
       ),
-      if (showClose)Positioned(right: 3.w,child: IconButton(onPressed: ()=> Get.back(), icon: Icon(Icons.close,
-        size: 18.w,)),)
+      if (showClose)Positioned(right: 3,child: IconButton(onPressed: ()=> Get.back(), icon: Icon(Icons.close,
+        size: 18,)),)
     ],),
        dismissOnBackPressed: dismissOnBackPressed, dismissOnTouch: dismissOnTouch,
-        bgColor: bgColor, radius: radius, padding: EdgeInsets.all(50.w));
+        bgColor: bgColor, radius: radius, padding: EdgeInsets.all(50));
   }
 
   static Future<T?> showCenter<T>(Widget child, {bool dismissOnTouch = true,
@@ -114,7 +113,7 @@ class DialogUtil {
             clipBehavior: Clip.antiAlias,
             surfaceTintColor: Colors.transparent,
             backgroundColor: bgColor ?? Theme.of(context).dialogBackgroundColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 10.w)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 10)),
             child: child,),
           onWillPop: () {
             return Future.value(dismissOnBackPressed);
@@ -143,8 +142,8 @@ class DialogUtil {
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     color: bgColor ?? Theme.of(context).dialogBackgroundColor,
-                    borderRadius: BorderRadius.only(topRight: Radius.circular(radius ?? 10.w),
-                        topLeft: Radius.circular(radius ?? 10.w))
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(radius ?? 10),
+                        topLeft: Radius.circular(radius ?? 10))
                   ),
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -165,25 +164,25 @@ class DialogUtil {
       }) async {
     return await showBottom<T>(Column(mainAxisSize: MainAxisSize.min,
             children: [
-              ConstrainedBox(constraints: BoxConstraints(maxHeight: ScreenUtil().screenHeight*0.8),
+              ConstrainedBox(constraints: BoxConstraints(maxHeight: Get.height*0.8),
                 child: ListView.separated(itemBuilder: (c,i){
                   return OnClick( builder!=null ? builder.call(c,i)! : Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 15.w),
+                    padding: EdgeInsets.symmetric(vertical: 15),
                     child: Text(list[i],
-                      style: TextStyle(color: Theme.of(Get.context!).textTheme.bodyMedium!.color, fontSize: 14.w),),),
+                      style: TextStyle(color: Theme.of(Get.context!).textTheme.bodyMedium!.color, fontSize: 14),),),
                       onTap: () {
                         Navigator.of(Get.context!).pop();
                         onItemClick(i);
                       });
-                }, separatorBuilder: (c,i)=>Divider(height: 1.w,),
+                }, separatorBuilder: (c,i)=>Divider(height: 1,),
                     padding: EdgeInsets.zero, shrinkWrap: true,
                     itemCount: list.length),),
-              Container(height: 8.w, color: Theme.of(Get.context!).dividerColor.withOpacity(0.2),),
-              OnClick(Container(padding: EdgeInsets.symmetric(vertical: 15.w),
+              Container(height: 8, color: Theme.of(Get.context!).dividerColor.withOpacity(0.2),),
+              OnClick(Container(padding: EdgeInsets.symmetric(vertical: 15),
                 width: double.infinity, alignment: Alignment.center,
               child: Text(cancelText, style: TextStyle(color: Theme.of(Get.context!).textTheme.bodyMedium!.color,
-                  fontSize: 14.w),),), onTap: (){
+                  fontSize: 14),),), onTap: (){
                   Navigator.of(Get.context!).pop();
                 },)
             ],

@@ -42,3 +42,30 @@ export 'widget/super_text.dart';
 export 'widget/title_bar.dart';
 export 'widget/webview.dart';
 export 'widget/webview_page.dart';
+
+///dependency export
+export 'package:dio/dio.dart';
+
+export 'package:get/get_common/get_reset.dart';
+export 'package:get/get_core/get_core.dart';
+export 'package:get/get_instance/get_instance.dart';
+export 'package:get/get_navigation/get_navigation.dart';
+export 'package:get/get_rx/get_rx.dart';
+export 'package:get/get_state_manager/get_state_manager.dart';
+export 'package:get/get_utils/get_utils.dart';
+export 'package:get/route_manager.dart';
+
+export 'package:cached_network_image/cached_network_image.dart';
+
+export 'package:shared_preferences/shared_preferences.dart';
+
+export 'package:keyboard_dismisser/keyboard_dismisser.dart';
+
+export 'package:permission_handler/permission_handler.dart';
+
+export 'package:after_layout/after_layout.dart';
+
+// export 'package:path/path.dart';
+
+export 'package:http_parser/http_parser.dart';
+

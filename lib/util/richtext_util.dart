@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ///
 /// 富文本构造类
@@ -28,7 +27,7 @@ class RichTextUtil {
       WidgetSpan(
           child: Text(
             "\r\n",
-            style: TextStyle(fontSize: size ?? 14.w),
+            style: TextStyle(fontSize: size ?? 14),
           )),
     );
     return this;
