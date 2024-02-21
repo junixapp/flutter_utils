@@ -6,7 +6,7 @@ class OnClick extends StatelessWidget {
   final bool ripple;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
-  const OnClick(this.child, {super.key, this.onTap, this.ripple = true, this.onLongPress});
+  const OnClick(this.child, {super.key, this.onTap, this.ripple = false, this.onLongPress});
 
   @override
   Widget build(BuildContext context) {

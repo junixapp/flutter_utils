@@ -1,7 +1,7 @@
 
 import 'dart:ui';
 
-extension WithLoadingDialog on Color {
+extension FuckColorExtension on Color {
   ///给字符增加0宽字符，让文字自然换行，不跟随单词换行
   String rgbaString({bool withAlpha = true}) =>
       withAlpha ? '#${value.toRadixString(16).padLeft(8, '0')}'

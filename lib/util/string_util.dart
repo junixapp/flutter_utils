@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 
 class StringUtil{
@@ -15,5 +17,15 @@ class StringUtil{
 
   static bool isEmpty(String? s) {
     return s == null || s.isEmpty;
+  }
+
+  static bool isJson(String? s) {
+    if(s==null || s.isEmpty) return false;
+    try{
+      jsonDecode(s);
+      return true;
+    } catch(e) {
+      return false;
+    }
   }
 }

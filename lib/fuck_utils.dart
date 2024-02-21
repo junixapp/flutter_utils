@@ -2,6 +2,8 @@ library fuck_utils;
 
 export 'controller/countdown_controller.dart';
 
+export 'extension/color_extension.dart';
+export 'extension/map_extension.dart';
 export 'extension/string_extension.dart';
 export 'extension/ui_extension.dart';
 

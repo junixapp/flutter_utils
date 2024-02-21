@@ -95,6 +95,8 @@ class HttpFormatter extends Interceptor {
       return encoder.convert(jsonDecode(jsonEncode(jsonBody)));
     } else if (type?.contains("multipart/form-data") == true) {
       return const JsonEncoder.withIndent('  ').convert(formDataToJson(data));
+    } else if (type?.contains("text/event-stream") == true) {
+      return "${data.toString()} [event-stream]";
     } else {
       return data.toString();
     }

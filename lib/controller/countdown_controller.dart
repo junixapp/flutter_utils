@@ -32,6 +32,7 @@ class CountDownController extends GetxController {
         isCountingDown.value = false;
         countDownTime.value = totalDuration();
         timer.cancel();
+        onStop();
         return;
       }
       countDownTime.value = totalDuration() - timer.tick;
@@ -39,6 +40,7 @@ class CountDownController extends GetxController {
         isCountingDown.value = false;
         countDownTime.value = totalDuration();
         timer.cancel();
+        onStop();
         return;
       }
     });
@@ -52,6 +54,7 @@ class CountDownController extends GetxController {
         isCountingDown2.value = false;
         countDownTime2.value = totalDuration();
         timer.cancel();
+        onStop();
         return;
       }
       countDownTime2.value = totalDuration() - timer.tick;
@@ -59,9 +62,14 @@ class CountDownController extends GetxController {
         isCountingDown2.value = false;
         countDownTime2.value = totalDuration();
         timer.cancel();
+        onStop();
         return;
       }
     });
+  }
+
+  void onStop(){
+
   }
 
   @override
