@@ -51,7 +51,7 @@ class _SearchContainerState extends State<SearchContainer> {
       widget.searchIcon ?? Icon(Icons.search, color: widget.hintColor ?? Colors.grey,),
         SizedBox(width: 10,),
         Expanded(child: WidgetUtil.textField(context, controller, widget.hint ?? '',
-          fontSize: widget.inputSize ?? 14, hintFontSize: widget.hintSize ?? 14,
+          fontSize: widget.inputSize ?? 16, hintFontSize: widget.hintSize ?? 16,
           fontColor: widget.inputColor, hintColor: widget.hintColor,
             textAlign: widget.centerText==true ? TextAlign.center : TextAlign.left,
           maxLength: widget.maxLength ?? 50, onSubmit: widget.onSubmit

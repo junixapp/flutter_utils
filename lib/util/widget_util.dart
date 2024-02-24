@@ -45,10 +45,10 @@ class WidgetUtil {
               color: borderColor ?? Theme.of(context).dividerColor) ,
                 borderRadius: BorderRadius.circular(radius??0), gapPadding: 0) : InputBorder.none,
           hintStyle: TextStyle(
-              color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??14),
+              color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??16),
               fontWeight: bold ? FontWeight.bold : FontWeight.normal
           )),
-      style: TextStyle(color: fontColor ?? Theme.of(context).colorScheme.primary, fontSize: fontSize??14,
+      style: TextStyle(color: fontColor ?? Theme.of(context).colorScheme.primary, fontSize: fontSize??16,
           fontWeight: bold ? FontWeight.bold : FontWeight.normal),
     ),);
   }
@@ -84,7 +84,7 @@ class WidgetUtil {
                     width: itemWidth ?? 100,
                     alignment: Alignment.center,
                     child: Text(e.toString(),
-                      style: TextStyle(fontSize: 13),
+                      style: TextStyle(fontSize: 14),
                     ),
                   ),
             ),

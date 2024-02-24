@@ -95,7 +95,7 @@ class _StatusLayoutState extends State<StatusLayout> {
                   "加载失败，点击重试",
                   style: TextStyle(
                     color: const Color(0XFF999999),
-                    fontSize: 14,
+                    fontSize: 16,
                   ),
                 )
               ],
