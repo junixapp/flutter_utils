@@ -10,6 +10,7 @@ class CommonScaffold extends StatelessWidget {
   final Color? bgColor;
   final bool safeArea;
   final bool paddingStatusBar;
+  final EdgeInsets padding;
   final Widget? titleBar;
   ///下面是titlebar的属性
   final VoidCallback? onLeftClick;
@@ -38,6 +39,7 @@ class CommonScaffold extends StatelessWidget {
     this.onLeftClick,
     this.onRightClick,
     this.paddingStatusBar = false,
+    this.padding = EdgeInsets.zero,
     this.leftTitle = false,
     this.boldTitle = false,
     this.hasDivider = true,
@@ -65,14 +67,14 @@ class CommonScaffold extends StatelessWidget {
   }
 
   Widget _buildBody(){
-    return Column(children: [
+    return Padding(padding: padding, child: Column(children: [
       const SizedBox(width: double.infinity,),
       titleBar ?? TitleBar(onLeftClick: onLeftClick, onRightClick: onRightClick,
-        title: title, titleWidget: titleWidget, hasDivider: hasDivider,
-        rightImage: rightImage, height: titleBarHeight, leftTitle: leftTitle,
+          title: title, titleWidget: titleWidget, hasDivider: hasDivider,
+          rightImage: rightImage, height: titleBarHeight, leftTitle: leftTitle,
           titleSize: titleSize, titleColor: titleColor, leftWidget: leftWidget,
           rightWidget: rightWidget, bgColor: titleBarBg, boldTitle: boldTitle),
       Expanded(child: body)
-    ],);
+    ],),);
   }
 }

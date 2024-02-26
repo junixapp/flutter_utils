@@ -68,6 +68,13 @@ class CountDownController extends GetxController {
     });
   }
 
+  void stopCount1(){
+    if(_timer1?.isActive==true) _timer1?.cancel();
+  }
+  void stopCount2(){
+    if(_timer2?.isActive==true) _timer2?.cancel();
+  }
+
   void onStop(){
 
   }

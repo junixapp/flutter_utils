@@ -48,7 +48,7 @@ class TitleBar extends StatelessWidget {
       child: Stack(children: [
           OnClick(Container(alignment: Alignment.center,
             width: 42, height: 42,
-            child: leftWidget ?? Icon(Icons.arrow_back, size: 22,),
+            child: leftWidget ?? const Icon(Icons.arrow_back, size: 28,),
           ), onTap: () {
               if (onLeftClick != null) {
                 onLeftClick!();

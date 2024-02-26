@@ -111,15 +111,6 @@ class HttpUtil {
     ProgressCallback? onSendProgress,
   }) async {
     try {
-      // params?.forEach((key, value) async {
-      //   if(value is File){
-      //     params[key] = await MultipartFile.fromFile((value).path, filename: path.basename(value.path));
-      //   }else if(value is ByteData){
-      //     params[key] = MultipartFile.fromBytes(value.buffer.asUint8List(), filename: "${DateTime.timestamp().millisecondsSinceEpoch}");
-      //   }else if(value is Uint8List){
-      //     params[key] = MultipartFile.fromBytes(value, filename: "${DateTime.timestamp().millisecondsSinceEpoch}");
-      //   }
-      // });
       var result = (await _dio!.post(
         url,
         data: params!=null ? FormData.fromMap(params) : null,

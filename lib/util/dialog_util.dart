@@ -65,37 +65,37 @@ class DialogUtil {
   ///显示确认信息对话框
   static Future<T?> showConfirm<T>({Widget? child, String? title, String? content,
         String? leftBtnText, String? rightBtnText, VoidCallback? onLeftTap, VoidCallback? onRightTap,
-        bool showClose = true, bool dismissOnTouch = true, Color? leftBtnBg, Color? rightBtnBg,
+        bool showClose = true, bool dismissOnTouch = true, Color? leftBtnBg, Color? rightBtnBg, Color? rightBtnColor,
         bool dismissOnBackPressed = true, Color? bgColor, double? radius}) async {
     Color textColor = Theme.of(Get.context!).textTheme.bodyLarge?.color ?? Colors.black87;
-    Widget c = child ?? Padding(padding: EdgeInsets.only(top: 18, bottom: 25,
+    Widget c = child ?? Padding(padding: const EdgeInsets.only(top: 15, bottom: 25,
       left: 20, right: 20),
       child: Text(content??"", textAlign: TextAlign.center, style:
-      TextStyle(color: textColor, fontSize: 14)),);
+      TextStyle(color: textColor, fontSize: 16)),);
     return await showCenter<T>(Stack(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 16,),
+          const SizedBox(height: 15,),
           if(title!=null)Text(title, textAlign: TextAlign.center, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
-              fontSize: 16, fontWeight: FontWeight.w600),),
+              fontSize: 18, fontWeight: FontWeight.w600),),
           c,
-          Divider(height: 1, color: const Color(0x11000000),),
+          const Divider(height: 1, color: Color(0x11000000),),
           Row(mainAxisSize: MainAxisSize.max, children: [
             Expanded(child: SuperText(leftBtnText ?? "取消", expand: true,
-                bgColor: leftBtnBg , style: TextStyle(color: textColor.withOpacity(0.6), fontSize: 14),
-                height: 44, onTap: onLeftTap ?? ()=> Get.back(result: false))),
-            Container(height: 44, width: 1, color: Theme.of(Get.context!).dividerColor,),
+                bgColor: leftBtnBg , style: TextStyle(color: textColor.withOpacity(0.6), fontSize: 16),
+                height: 50, onTap: onLeftTap ?? ()=> Get.back(result: false))),
+            Container(height: 50, width: 1, color: Theme.of(Get.context!).dividerColor,),
             Expanded(child: SuperText(rightBtnText ?? "确定", expand: true,
-              bgColor: rightBtnBg , style: TextStyle(color: textColor, fontSize: 14),
-              height: 44, onTap: onRightTap ?? ()=> Get.back(result: true),
+              bgColor: rightBtnBg , style: TextStyle(color: rightBtnColor ?? textColor, fontSize: 16),
+              height: 50, onTap: onRightTap ?? ()=> Get.back(result: true),
             ))
           ],
           )
         ],
       ),
-      if (showClose)Positioned(right: 3,child: IconButton(onPressed: ()=> Get.back(), icon: Icon(Icons.close,
-        size: 18,)),)
+      if (showClose)Positioned(right: 3,child: IconButton(onPressed: ()=> Get.back(), icon: const Icon(Icons.close,
+        size: 24,)),)
     ],),
        dismissOnBackPressed: dismissOnBackPressed, dismissOnTouch: dismissOnTouch,
         bgColor: bgColor, radius: radius, padding: EdgeInsets.all(50));
@@ -187,5 +187,32 @@ class DialogUtil {
                 },)
             ],
           ), radius: radius, bgColor: bgColor);
+  }
+
+  static  Widget popupMenu <T>(BuildContext context, List<T> items,
+      PopupMenuItemSelected<T> onSelect, Widget child, IndexedWidgetBuilder itemBuilder, {double? offsetY,
+        double? height, double? itemWidth, EdgeInsets? padding, PopupMenuPosition? position,
+        Color? bgColor} ){
+    return PopupMenuButton<T>(
+      position: position ?? PopupMenuPosition.under,
+      constraints: BoxConstraints(
+        minWidth: itemWidth ?? 120,
+        maxWidth: itemWidth ?? 120,
+      ),
+      padding: EdgeInsets.zero,
+      surfaceTintColor: bgColor ?? Theme.of(context).dialogBackgroundColor,
+      shadowColor: bgColor ?? Theme.of(context).dialogBackgroundColor,
+      offset: Offset(0, offsetY??0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
+      color: bgColor ?? Theme.of(context).dialogBackgroundColor,
+      onSelected: onSelect,
+      itemBuilder: (builder) => items.map((e) => PopupMenuItem<T>(
+        padding: EdgeInsets.zero,
+        height: height ?? 36,
+        value: e!,
+        child: itemBuilder(context, items.indexOf(e)),
+      )).toList() ,child: child,);
   }
 }

@@ -17,7 +17,7 @@ class WidgetUtil {
     return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller,
       maxLines: obscureText==true ?  1:  maxLines,
       maxLength: maxLength,
-      keyboardType: (maxLines==null&&obscureText==false) ? TextInputType.multiline : (inputType ?? TextInputType.text),
+      keyboardType: (maxLines==null&&obscureText!=true) ? TextInputType.multiline : (inputType ?? TextInputType.text),
       enabled: !(disabled ?? false),
       autofocus: autofocus,
       textInputAction: inputAction ?? TextInputAction.done,
@@ -40,6 +40,7 @@ class WidgetUtil {
           errorText: errorText!=null && errorText.isNotEmpty ? errorText : null,
           errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
           contentPadding: padding ?? EdgeInsets.zero,
+          disabledBorder: InputBorder.none,
           enabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
             OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1,
               color: borderColor ?? Theme.of(context).dividerColor) ,
@@ -106,6 +107,7 @@ class WidgetUtil {
     EdgeInsets? padding,
   }) {
     return PopupMenuButton<T>(
+
       position: PopupMenuPosition.under,
       constraints: BoxConstraints(
         minWidth: itemWidth ?? 100,
