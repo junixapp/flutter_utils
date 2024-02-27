@@ -66,7 +66,7 @@ class DialogUtil {
   static Future<T?> showConfirm<T>({Widget? child, String? title, String? content,
         String? leftBtnText, String? rightBtnText, VoidCallback? onLeftTap, VoidCallback? onRightTap,
         bool showClose = true, bool dismissOnTouch = true, Color? leftBtnBg, Color? rightBtnBg, Color? rightBtnColor,
-        bool dismissOnBackPressed = true, Color? bgColor, double? radius}) async {
+    Color? contentColor, bool dismissOnBackPressed = true, Color? bgColor, double? radius}) async {
     Color textColor = Theme.of(Get.context!).textTheme.bodyLarge?.color ?? Colors.black87;
     Widget c = child ?? Padding(padding: const EdgeInsets.only(top: 15, bottom: 25,
       left: 20, right: 20),
@@ -77,7 +77,7 @@ class DialogUtil {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 15,),
-          if(title!=null)Text(title, textAlign: TextAlign.center, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
+          if(title!=null)Text(title, textAlign: TextAlign.center, style: TextStyle(color:contentColor?? Theme.of(Get.context!).textTheme.titleLarge!.color!,
               fontSize: 18, fontWeight: FontWeight.w600),),
           c,
           const Divider(height: 1, color: Color(0x11000000),),

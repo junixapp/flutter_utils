@@ -75,9 +75,9 @@ class HttpUtil {
     return res == null ? null : res[_codeField]?.toString();
   }
 
-  static dynamic _convertException(DioException e, String url, {Map? params}) {
-    LogUtil.e("error: ${e.error.toString()}\nurl: ${_dio?.options.baseUrl}$url\nparams: ${params?.toString()} ");
-    return null;
+  static dynamic _convertException(Exception e, String url, {Map? params}) {
+    LogUtil.e("error: ${e.toString()}\nurl: ${_dio?.options.baseUrl}$url\nparams: ${params?.toString()} ");
+    return {_codeField: -1, _msgField: e.toString()};
   }
 
   ///get请求
@@ -87,6 +87,8 @@ class HttpUtil {
       return result.isSuccessful ? (result.data ?? {}) : null;
     } on DioException catch (e) {
       return _convertException(e, url);
+    } on SocketException catch (e) {
+      return _convertException(e, url, params: params);
     }
   }
 
@@ -99,6 +101,8 @@ class HttpUtil {
       var data = ObjectUtil.isEmpty(result.data) ? <String, dynamic>{} : result.data;
       return result.isSuccessful ? data : null;
     } on DioException catch (e) {
+      return _convertException(e, url, params: params);
+    } on SocketException catch (e) {
       return _convertException(e, url, params: params);
     }
   }
@@ -119,6 +123,8 @@ class HttpUtil {
       return result.isSuccessful ? (result.data ?? {}) : null;
     } on DioException catch (e) {
       return _convertException(e, url, params: params);
+    } on SocketException catch (e) {
+      return _convertException(e, url, params: params);
     }
   }
 
@@ -132,6 +138,8 @@ class HttpUtil {
       return result.isSuccessful ? result.data : null;
     } on DioException catch (e) {
       return _convertException(e, url);
+    } on SocketException catch (e) {
+      return _convertException(e, url);
     }
   }
 
@@ -141,6 +149,8 @@ class HttpUtil {
       var result = (await _dio!.put(url, data: FormData.fromMap(params)));
       return result.isSuccessful ? result.data : null;
     } on DioException catch (e) {
+      return _convertException(e, url, params: params);
+    } on SocketException catch (e) {
       return _convertException(e, url, params: params);
     }
   }
@@ -155,6 +165,8 @@ class HttpUtil {
       return result.isSuccessful ? result.data : null;
     } on DioException catch (e) {
       return _convertException(e, url);
+    } on SocketException catch (e) {
+      return _convertException(e, url);
     }
   }
 
@@ -164,6 +176,8 @@ class HttpUtil {
       var result = await _dio!.delete(url, data: FormData.fromMap(params));
       return result.isSuccessful ? result.data : null;
     } on DioException catch (e) {
+      return _convertException(e, url, params: params);
+    } on SocketException catch (e) {
       return _convertException(e, url, params: params);
     }
   }
@@ -183,6 +197,8 @@ class HttpUtil {
         onReceiveProgress: onReceiveProgress,
       );
     } on DioException catch (e) {
+      return _convertException(e, url);
+    } on SocketException catch (e) {
       return _convertException(e, url);
     }
   }
