@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 
 class ToastUtil {
   ToastUtil._();
-  static void toast(String? msg, {BuildContext? context}) {
+  static void toast(String? msg, {BuildContext? context, bool long = false}) {
     if (msg == null || msg.isEmpty) return;
     if(!kIsWeb)Fluttertoast.cancel();
     Fluttertoast.showToast(
         msg: msg,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: long ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Theme.of(context ?? Get.context!).primaryColor,
