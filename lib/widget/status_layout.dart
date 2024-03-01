@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fuck_utils/fuck_utils.dart';
-import 'package:get/get.dart';
 
 /// 状态切换布局
 class StatusLayout extends StatefulWidget {
   final RxStatus? status;
-  final Widget? loadingWidget, errorWidget, emptyWidget, contentWidget;
+  final Widget? loading, error, empty, success;
   final VoidCallback? onRetry;
   final double? width, height;
   final bool showLoadingOnce;
@@ -13,15 +12,15 @@ class StatusLayout extends StatefulWidget {
   const StatusLayout({
     super.key,
     this.status,
-    this.loadingWidget,
-    this.errorWidget,
-    this.emptyWidget,
-    this.contentWidget,
+    this.loading,
+    this.error,
+    this.empty,
+    this.success,
     this.width,
     this.height,
     this.onRetry,
     this.showLoadingOnce = false
-  }) : assert(contentWidget != null);
+  }) : assert(success != null);
 
   @override
   State<StatusLayout> createState() => _StatusLayoutState();
@@ -58,15 +57,15 @@ class _StatusLayoutState extends State<StatusLayout> {
       return buildEmpty();
     }
     if(widget.status!.isSuccess){
-      return widget.contentWidget ?? const SizedBox();
+      return widget.success ?? const SizedBox();
     }
     return const SizedBox();
   }
 
   Widget buildLoading() {
     hasLoading = true;
-    return widget.loadingWidget != null
-        ? widget.loadingWidget!
+    return widget.loading != null
+        ? widget.loading!
         : const Padding(
             padding: EdgeInsets.all(20),
             child: SizedBox(
@@ -78,23 +77,23 @@ class _StatusLayoutState extends State<StatusLayout> {
   }
 
   Widget buildError() {
-    return widget.errorWidget != null
-        ? widget.errorWidget!
-        : Padding(
-            padding: const EdgeInsets.all(20),
+    return widget.error != null
+        ? widget.error!
+        : const Padding(
+            padding: EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(
                   Icons.error,
                   size: 42,
-                  color: const Color(0XFF999999),
+                  color: Color(0XFF999999),
                 ),
                 SizedBox(height: 15),
                 Text(
                   "加载失败，点击重试",
                   style: TextStyle(
-                    color: const Color(0XFF999999),
+                    color: Color(0XFF999999),
                     fontSize: 16,
                   ),
                 )
@@ -104,8 +103,8 @@ class _StatusLayoutState extends State<StatusLayout> {
   }
 
   Widget buildEmpty() {
-    return widget.emptyWidget != null
-        ? widget.emptyWidget!
+    return widget.empty != null
+        ? widget.empty!
         : const Padding(
             padding: EdgeInsets.all(10),
             child: Column(

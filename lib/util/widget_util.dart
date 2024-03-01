@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class WidgetUtil {
   WidgetUtil._();
@@ -54,87 +55,10 @@ class WidgetUtil {
     ),);
   }
 
-  static Widget popup<T>(
-    BuildContext context,
-    List<T> items,
-    PopupMenuItemSelected<T> onSelect,
-    Widget child, {
-    double? offsetY,
-    Widget? item,
-    double? itemWidth,
-  }) {
-    return PopupMenuButton<T>(
-      position: PopupMenuPosition.under,
-      padding: EdgeInsets.zero,
-      offset: Offset(0, offsetY ?? 0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
-      ),
-      color: Theme.of(context).canvasColor,
-      onSelected: onSelect,
-      constraints: BoxConstraints(
-        minWidth: itemWidth ?? 100,
-        maxWidth: itemWidth ?? 100,
-      ),
-      itemBuilder: (builder) => items
-          .map((e) => PopupMenuItem<T>(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              height: 36,
-              value: e!,
-              child: item ?? Container(
-                    width: itemWidth ?? 100,
-                    alignment: Alignment.center,
-                    child: Text(e.toString(),
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-            ),
-          )
-          .toList(),
-      child: child,
-    );
-  }
-
-  static Widget customPopup<T>(
-    BuildContext context,
-    List<T> items,
-    PopupMenuItemSelected<T> onSelect,
-    Widget child,
-    IndexedWidgetBuilder itemBuilder, {
-    double? offsetY,
-    double? height,
-    double? itemWidth,
-    EdgeInsets? padding,
-  }) {
-    return PopupMenuButton<T>(
-
-      position: PopupMenuPosition.under,
-      constraints: BoxConstraints(
-        minWidth: itemWidth ?? 100,
-        maxWidth: itemWidth ?? 100,
-      ),
-      padding: EdgeInsets.zero,
-      offset: Offset(0, offsetY ?? 0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
-      ),
-      color: Theme.of(context).canvasColor,
-      onSelected: onSelect,
-      itemBuilder: (builder) => items
-          .map((e) => PopupMenuItem<T>(
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              height: height ?? 36,
-              value: e!,
-              child: itemBuilder(context, items.indexOf(e)),
-            ),).toList(),
-      child: child,
-    );
-  }
-
   static Text text(String text,{double? size, Color? color, bool bold = false, TextOverflow? overflow,
     TextAlign? align, int? maxLines, bool underline = false, bool lineThrough = false}) {
     return Text(text, style: TextStyle(color: color ?? Colors.black,
-      fontSize: size ?? 14,
+      fontSize: size ?? 16,
       fontWeight: bold ?FontWeight.w600: FontWeight.normal,
       decoration: underline ? TextDecoration.underline : (lineThrough? TextDecoration.lineThrough: TextDecoration.none),
     ), overflow: overflow, textAlign: align??TextAlign.left, maxLines: maxLines,);
@@ -148,4 +72,29 @@ class WidgetUtil {
       bottomRight: Radius.circular(br??0),
     );
   }
+
+  ///infinite_scroll_pagination
+  static PagedChildBuilderDelegate<T> pagedDelegate<T>(
+      PagingController pagingController, ItemWidgetBuilder<T> itemBuilder){
+    return PagedChildBuilderDelegate<T>(
+      animateTransitions: true,
+      itemBuilder: itemBuilder,
+      firstPageErrorIndicatorBuilder: (_) => Center(child: InkResponse(onTap: pagingController.retryLastFailedRequest,
+        child: const Text("失败，点击重试",style: TextStyle(fontSize: 16),
+        ),),),
+      newPageErrorIndicatorBuilder: (_) => Center(child: InkResponse(onTap: pagingController.retryLastFailedRequest,
+        child: const Text("失败，点击重试",style: TextStyle(fontSize: 16),
+        ),),),
+      firstPageProgressIndicatorBuilder: (_) => Container(alignment: Alignment.center,
+        child: const SizedBox(width: 30, height: 30, child: CircularProgressIndicator(),),),
+      newPageProgressIndicatorBuilder: (_) => Container(alignment: Alignment.center,
+        child: const SizedBox(width: 30, height: 30, child: CircularProgressIndicator(),),),
+      noItemsFoundIndicatorBuilder: (_) => Container(alignment: Alignment.center,
+        child: Text("数据为空", style: TextStyle(color: Colors.black.withOpacity(0.5)),),),
+      noMoreItemsIndicatorBuilder: (_) => Container(alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: Text("没有更多数据", style: TextStyle(color: Colors.black.withOpacity(0.5)),),),
+    );
+  }
+
 }

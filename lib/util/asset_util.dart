@@ -6,10 +6,16 @@ import 'package:flutter/material.dart';
 class AssetUtil {
   AssetUtil._();
 
+
   static String imageRoot = "asset/images/";
+
+  static void init(String imagePath){
+    imageRoot = imagePath.endsWith("/") ? imagePath : "$imagePath/";
+  }
 
   ///拼接图片路径
   static String imagePath(String imageName) => imageRoot + imageName;
+
   static AssetImage raw(String imageName) => AssetImage(imagePath(imageName));
 
   ///传入图片名字获取图片Widget,注意不需要带路径

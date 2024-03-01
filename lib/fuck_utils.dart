@@ -71,3 +71,5 @@ export 'package:after_layout/after_layout.dart';
 
 export 'package:http_parser/http_parser.dart';
 
+export 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+

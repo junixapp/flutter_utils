@@ -21,16 +21,16 @@ class DialogUtil {
                     decoration: BoxDecoration(
                         color: Theme.of(context).dialogBackgroundColor,
                         borderRadius: BorderRadius.circular((10))),
-                    padding: msg != null ? EdgeInsets.symmetric(vertical: 25) : null,
+                    padding: msg != null ? const EdgeInsets.symmetric(vertical: 25) : null,
                     width: msg != null ? 110 : 60,
                     height: msg != null ? null : 60,
                     alignment: Alignment.center,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(width: 20, height: 20, child: const CircularProgressIndicator(),),
+                        const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(),),
                         if (msg != null)
-                          Padding(padding: EdgeInsets.only(top: 15, left: 10, right: 10),
+                          Padding(padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
                             child: Text(msg, style: TextStyle(color: Theme.of(Get.context!).textTheme.titleLarge!.color!,
                                 fontSize: 13), textAlign: TextAlign.center, maxLines: 1,
                                 overflow: TextOverflow.ellipsis,),)
@@ -96,7 +96,7 @@ class DialogUtil {
         size: 24,)),)
     ],),
        dismissOnBackPressed: dismissOnBackPressed, dismissOnTouch: dismissOnTouch,
-        bgColor: bgColor, radius: radius, padding: EdgeInsets.all(50));
+        bgColor: bgColor, radius: radius, padding: const EdgeInsets.all(50));
   }
 
   static Future<T?> showCenter<T>(Widget child, {bool dismissOnTouch = true,
@@ -166,18 +166,18 @@ class DialogUtil {
                 child: ListView.separated(itemBuilder: (c,i){
                   return OnClick( builder!=null ? builder.call(c,i)! : Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                     child: Text(list[i],
                       style: TextStyle(color: Theme.of(Get.context!).textTheme.bodyMedium!.color, fontSize: 14),),),
                       onTap: () {
                         Navigator.of(Get.context!).pop();
                         onItemClick(i);
                       });
-                }, separatorBuilder: (c,i)=>Divider(height: 1,),
+                }, separatorBuilder: (c,i)=> const Divider(height: 1,),
                     padding: EdgeInsets.zero, shrinkWrap: true,
                     itemCount: list.length),),
               Container(height: 8, color: Theme.of(Get.context!).dividerColor.withOpacity(0.2),),
-              OnClick(Container(padding: EdgeInsets.symmetric(vertical: 15),
+              OnClick(Container(padding: const EdgeInsets.symmetric(vertical: 15),
                 width: double.infinity, alignment: Alignment.center,
               child: Text(cancelText, style: TextStyle(color: Theme.of(Get.context!).textTheme.bodyMedium!.color,
                   fontSize: 14),),), onTap: (){

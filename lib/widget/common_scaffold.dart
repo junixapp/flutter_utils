@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fuck_utils/fuck_utils.dart';
-import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 /// 常用Scaffold，点击键盘外部的未消费事件区域，则让软键盘消失
 class CommonScaffold extends StatelessWidget {
