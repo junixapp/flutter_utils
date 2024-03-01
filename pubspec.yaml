@@ -1,6 +1,6 @@
 name: fuck_utils
 description: Awesome flutter util code.
-version: 0.0.36
+version: 0.0.37
 homepage: https://github.com/li-xiaojun/flutter_utils
 
 environment:
@@ -24,6 +24,7 @@ dependencies:
   flutter_cache_manager: ^3.3.1
   path: ^1.8.3
   http_parser: ^4.0.2
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fuck_utils/fuck_utils.dart';
-import 'package:get/get.dart';
-import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class DialogUtil {
   DialogUtil._();
