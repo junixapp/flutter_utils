@@ -75,6 +75,14 @@ class CountDownController extends GetxController {
     if(_timer2?.isActive==true) _timer2?.cancel();
   }
 
+  void reset(){
+    countDownTime = totalDuration().obs;
+    isCountingDown.value = false;
+
+    countDownTime2 = totalDuration().obs;
+    isCountingDown2.value = false;
+  }
+
   void onStop(){
 
   }

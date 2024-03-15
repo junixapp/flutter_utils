@@ -64,7 +64,8 @@ class DialogUtil {
   static Future<T?> showConfirm<T>({Widget? child, String? title, String? content,
         String? leftBtnText, String? rightBtnText, VoidCallback? onLeftTap, VoidCallback? onRightTap,
         bool showClose = true, bool dismissOnTouch = true, Color? leftBtnBg, Color? rightBtnBg, Color? rightBtnColor,
-    Color? contentColor, bool dismissOnBackPressed = true, Color? bgColor, double? radius}) async {
+    Color? contentColor, bool dismissOnBackPressed = true, Color? bgColor, double? radius,
+    bool showCancelBtn = true, }) async {
     Color textColor = Theme.of(Get.context!).textTheme.bodyLarge?.color ?? Colors.black87;
     Widget c = child ?? Padding(padding: const EdgeInsets.only(top: 15, bottom: 25,
       left: 20, right: 20),
@@ -80,10 +81,10 @@ class DialogUtil {
           c,
           const Divider(height: 1, color: Color(0x11000000),),
           Row(mainAxisSize: MainAxisSize.max, children: [
-            Expanded(child: SuperText(leftBtnText ?? "取消", expand: true,
+            if(showCancelBtn)Expanded(child: SuperText(leftBtnText ?? "取消", expand: true,
                 bgColor: leftBtnBg , style: TextStyle(color: textColor.withOpacity(0.6), fontSize: 16),
                 height: 50, onTap: onLeftTap ?? ()=> Get.back(result: false))),
-            Container(height: 50, width: 1, color: Theme.of(Get.context!).dividerColor,),
+            if(showCancelBtn)Container(height: 50, width: 1, color: Theme.of(Get.context!).dividerColor,),
             Expanded(child: SuperText(rightBtnText ?? "确定", expand: true,
               bgColor: rightBtnBg , style: TextStyle(color: rightBtnColor ?? textColor, fontSize: 16),
               height: 50, onTap: onRightTap ?? ()=> Get.back(result: true),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 typedef HttpLoggerFilter = bool Function();
@@ -61,7 +62,7 @@ class HttpFormatter extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     if (_httpLoggerFilter == null || _httpLoggerFilter!()) {
       final message = _prepareLog(response.requestOptions, response);
-      if (message != '') {
+      if (message != '' && !kReleaseMode) {
         _logger.i(message);
       }
     }
@@ -72,7 +73,7 @@ class HttpFormatter extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (_httpLoggerFilter == null || _httpLoggerFilter!()) {
       final message = _prepareLog(err.requestOptions, err.response);
-      if (message != '') {
+      if (message != '' && !kReleaseMode) {
         _logger.e(message);
       }
     }
