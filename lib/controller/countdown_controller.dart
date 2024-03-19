@@ -30,7 +30,6 @@ class CountDownController extends GetxController {
     _timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
       if(timer.tick > totalDuration()){
         isCountingDown.value = false;
-        countDownTime.value = totalDuration();
         timer.cancel();
         onStop();
         return;
@@ -38,7 +37,6 @@ class CountDownController extends GetxController {
       countDownTime.value = totalDuration() - timer.tick;
       if (countDownTime.value == 0) {
         isCountingDown.value = false;
-        countDownTime.value = totalDuration();
         timer.cancel();
         onStop();
         return;
@@ -52,7 +50,6 @@ class CountDownController extends GetxController {
     _timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
       if(timer.tick > totalDuration()){
         isCountingDown2.value = false;
-        countDownTime2.value = totalDuration();
         timer.cancel();
         onStop();
         return;
@@ -60,7 +57,6 @@ class CountDownController extends GetxController {
       countDownTime2.value = totalDuration() - timer.tick;
       if (countDownTime2.value == 0) {
         isCountingDown2.value = false;
-        countDownTime2.value = totalDuration();
         timer.cancel();
         onStop();
         return;
