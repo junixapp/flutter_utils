@@ -1,6 +1,6 @@
 name: fuck_utils
 description: Awesome flutter util code.
-version: 0.0.40
+version: 0.0.41
 homepage: https://github.com/li-xiaojun/flutter_utils
 
 environment:
@@ -20,6 +20,7 @@ dependencies:
   keyboard_dismisser: ^3.0.0
   permission_handler: ^11.1.0
   image_gallery_saver: ^2.0.3
+  file_saver: ^0.2.12
   after_layout: ^1.2.0
   flutter_cache_manager: ^3.3.1
   path: ^1.8.3

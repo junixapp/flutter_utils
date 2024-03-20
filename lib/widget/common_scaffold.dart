@@ -26,6 +26,7 @@ class CommonScaffold extends StatelessWidget {
   final double? titleBarHeight;
   final Widget? rightWidget;
   final Widget? leftWidget;
+  final double? bodyWidth;
 
   const CommonScaffold({
     super.key,
@@ -51,6 +52,7 @@ class CommonScaffold extends StatelessWidget {
     this.rightImage,
     this.leftWidget,
     this.rightWidget,
+    this.bodyWidth,
   });
 
   @override
@@ -66,7 +68,12 @@ class CommonScaffold extends StatelessWidget {
   }
 
   Widget _buildBody(){
-    return Padding(padding: padding, child: Column(children: [
+    return bodyWidth !=null ? Center(child: Container(width: bodyWidth, padding: padding, child: _buildInner(),),)
+      : _buildInner();
+  }
+
+  Widget _buildInner(){
+    return Column(children: [
       const SizedBox(width: double.infinity,),
       titleBar ?? TitleBar(onLeftClick: onLeftClick, onRightClick: onRightClick,
           title: title, titleWidget: titleWidget, hasDivider: hasDivider,
@@ -74,6 +81,6 @@ class CommonScaffold extends StatelessWidget {
           titleSize: titleSize, titleColor: titleColor, leftWidget: leftWidget,
           rightWidget: rightWidget, bgColor: titleBarBg, boldTitle: boldTitle),
       Expanded(child: body)
-    ],),);
+    ],);
   }
 }

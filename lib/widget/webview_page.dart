@@ -1,7 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fuck_utils/widget/common_scaffold.dart';
-import 'package:fuck_utils/widget/webview.dart';
+import 'package:fuck_utils/fuck_utils.dart';
 
 class WebViewPage extends StatefulWidget {
   final String? title;
@@ -16,13 +16,18 @@ class _WebViewPageState extends State<WebViewPage> {
   var title = "";
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CommonScaffold(
       title: widget.title ?? title,
       body: WebView(
         widget.url ?? "",
         onGetTitle: (t) {
-          if(!mounted) return;
+          if(!mounted || !StringUtil.isEmpty(widget.title)) return;
           setState(() {
             title = t ?? "";
           });

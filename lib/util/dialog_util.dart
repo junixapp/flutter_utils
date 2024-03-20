@@ -65,7 +65,7 @@ class DialogUtil {
         String? leftBtnText, String? rightBtnText, VoidCallback? onLeftTap, VoidCallback? onRightTap,
         bool showClose = true, bool dismissOnTouch = true, Color? leftBtnBg, Color? rightBtnBg, Color? rightBtnColor,
     Color? contentColor, bool dismissOnBackPressed = true, Color? bgColor, double? radius,
-    bool showCancelBtn = true, }) async {
+    bool showCancelBtn = true, double? width}) async {
     Color textColor = Theme.of(Get.context!).textTheme.bodyLarge?.color ?? Colors.black87;
     Widget c = child ?? Padding(padding: const EdgeInsets.only(top: 15, bottom: 25,
       left: 20, right: 20),
@@ -97,11 +97,11 @@ class DialogUtil {
         size: 24,)),)
     ],),
        dismissOnBackPressed: dismissOnBackPressed, dismissOnTouch: dismissOnTouch,
-        bgColor: bgColor, radius: radius, padding: const EdgeInsets.all(50));
+        bgColor: bgColor, radius: radius, width: 340, padding: EdgeInsets.symmetric(horizontal: (Get.width-340)/2));
   }
 
   static Future<T?> showCenter<T>(Widget child, {bool dismissOnTouch = true,
-        bool dismissOnBackPressed = true, Color? bgColor, double? radius,
+        bool dismissOnBackPressed = true, Color? bgColor, double? radius, double width = 340,
         EdgeInsets? padding}) async {
     return await showDialog<T>(
       context: Get.context!,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fuck_utils/fuck_utils.dart';
 
 enum ChildPosition { left, top, right, bottom }
 
@@ -60,21 +61,11 @@ class SuperText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return onTap == null
-        ? buildContainer(
-            (/*this.image == null ? buildChild() :*/ buildDirection()))
-        : (hasInkWell
-            ? InkWell(
+        ? buildContainer(buildDirection())
+        :  OnClick(buildContainer(buildDirection()),
                 onTap: disabled ? null : onTap,
                 onLongPress: onLongPress,
-                child: buildContainer(
-                    /*this.image == null ? buildChild() :*/ buildDirection()))
-            : GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: disabled ? null : onTap,
-                onLongPress: onLongPress,
-                child: buildContainer(
-                  /*this.image == null ? buildChild() :*/ buildDirection(),
-                )));
+                ripple: hasInkWell,);
   }
 
   Widget buildContainer(Widget child) {

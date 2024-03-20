@@ -13,6 +13,7 @@ class OnClick extends StatelessWidget {
     return InkResponse(
       // behavior: HitTestBehavior.opaque,
       onTap: onTap,
+      hoverColor: Colors.transparent,
       canRequestFocus: onTap != null,
       mouseCursor: (onTap == null ? SystemMouseCursors.basic : SystemMouseCursors.click),
       onLongPress: onLongPress,

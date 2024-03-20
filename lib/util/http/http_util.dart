@@ -77,7 +77,26 @@ class HttpUtil {
 
   static dynamic _convertException(Exception e, String url, {Map? params}) {
     LogUtil.e("error: ${e.toString()}\nurl: ${_dio?.options.baseUrl}$url\nparams: ${params?.toString()} ");
-    return {_codeField: -1, _msgField: e.toString()};
+    if(e is SocketException){
+      return {_codeField: -1, _msgField: e.message};
+    }else{
+      var de = e as DioException;
+      String es = "";
+      switch(de.type){
+        case DioExceptionType.connectionTimeout:
+        case DioExceptionType.sendTimeout:
+        case DioExceptionType.receiveTimeout:
+            es = "request timeout";
+            break;
+        case DioExceptionType.connectionError:
+            es = "connection error";
+            break;
+        default:
+            es = e.message??"";
+            break;
+      }
+      return {_codeField: -1, _msgField: es};
+    }
   }
 
   ///get请求

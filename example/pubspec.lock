@@ -101,10 +101,10 @@ packages:
     dependency: "direct main"
     description:
       name: dio
-      sha256: "797e1e341c3dd2f69f2dad42564a6feff3bfb87187d05abb93b9609e6f1645c3"
+      sha256: "49af28382aefc53562459104f64d16b9dfd1e8ef68c862d5af436cc8356ce5a8"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.4.0"
+    version: "5.4.1"
   extended_image:
     dependency: transitive
     description:
@@ -145,6 +145,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "7.0.0"
+  file_saver:
+    dependency: transitive
+    description:
+      name: file_saver
+      sha256: bdebc720e17b3e01aba59da69b6d47020a7e5ba7d5c75bd9194f9618d5f16ef4
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.12"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -206,7 +214,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.38"
+    version: "0.0.40"
   get:
     dependency: "direct main"
     description:
@@ -355,10 +363,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider
-      sha256: a1aa8aaa2542a6bc57e381f132af822420216c80d4781f7aa085ca3229208aaa
+      sha256: b27217933eeeba8ff24845c34003b003b2b22151de3c908d0e679e8fe1aa078b
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   path_provider_android:
     dependency: transitive
     description:

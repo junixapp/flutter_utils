@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:file_saver/file_saver.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:fuck_utils/fuck_utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -32,14 +35,15 @@ class ImageUtil {
   ///key所在节点必须是RepaintBoundary节点，否则会报错，截取 RenderRepaintBoundary 的内容
   static Future<String?> saveWidget2Album(GlobalKey key, {ImageByteFormat format = ImageByteFormat.png,
     String? fileName, int quality = 80}) async {
-    await _requestPermission();
+    // await _requestPermission();
     var bytes = await widget2image(key, format: format);
     if (bytes != null) {
-      final result = await ImageGallerySaver.saveImage(bytes.buffer.asUint8List(),
-          name: fileName,
-          quality: quality,
-          isReturnImagePathOfIOS: true);
-      return result["filePath"] ;
+      return await saveBytes2Album(bytes.buffer.asUint8List(), format: format, fileName: fileName, quality: quality);
+      // final result = await ImageGallerySaver.saveImage(bytes.buffer.asUint8List(),
+      //     name: fileName,
+      //     quality: quality,
+      //     isReturnImagePathOfIOS: true);
+      // return result["filePath"] ;
     }else{
       return null;
     }
@@ -54,12 +58,17 @@ class ImageUtil {
   ///将图片保存到相册，返回路径
   static Future<String?> saveBytes2Album(Uint8List bytes, {ImageByteFormat format = ImageByteFormat.png,
     String? fileName, int quality = 80}) async {
-    await _requestPermission();
-    final result = await ImageGallerySaver.saveImage(bytes,
-        name: fileName,
-        quality: quality,
-        isReturnImagePathOfIOS: true);
-    return result["filePath"] ;
+    if(!GetPlatform.isMobile){
+      return await FileSaver.instance.saveFile(name: fileName?? "${DateUtil.nowMs()}", bytes: bytes,
+      ext: "png", mimeType: MimeType.png);
+    }else{
+      await _requestPermission();
+      final result = await ImageGallerySaver.saveImage(bytes,
+          name: fileName,
+          quality: quality,
+          isReturnImagePathOfIOS: true);
+      return result["filePath"] ;
+    }
   }
 
   ///将图片文件保存到相册，返回路径
