@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 class LogUtil {
@@ -7,12 +8,12 @@ class LogUtil {
   );
 
   static void i(dynamic msg) {
-    if (msg == null) return;
+    if (msg == null || kReleaseMode) return;
     logger.i(msg, time: DateTime.now());
   }
 
   static void e(dynamic msg) {
-    if (msg == null) return;
+    if (msg == null || kReleaseMode) return;
     logger.e(msg, time: DateTime.now());
   }
 

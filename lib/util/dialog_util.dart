@@ -49,11 +49,11 @@ class DialogUtil {
   static Future<void> dismissLoading({int delay = 0}) async {
     if (_isShowLoading) {
       if (delay == 0) {
-        Get.back();
         _isShowLoading = false;
+        Get.back();
       } else {
+        _isShowLoading = false;
         await Future.delayed(Duration(milliseconds: delay), () async {
-          _isShowLoading = false;
           Get.back();
         });
       }
