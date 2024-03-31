@@ -100,17 +100,25 @@ class DialogUtil {
         bgColor: bgColor, radius: radius, width: 340, padding: EdgeInsets.symmetric(horizontal: (Get.width-340)/2));
   }
 
+  ///
+  /// shadowColor 整个对话框的背景色，会铺面整个屏幕，包括状态栏、导航栏
+  /// bgColor 对话框内部容器的背景色
   static Future<T?> showCenter<T>(Widget child, {bool dismissOnTouch = true,
         bool dismissOnBackPressed = true, Color? bgColor, double? radius, double width = 340,
-        EdgeInsets? padding}) async {
+        EdgeInsets? padding, bool fullscreen = false, Color? shadowColor,}) async {
     return await showDialog<T>(
       context: Get.context!,
+      barrierColor: shadowColor,
       barrierDismissible: dismissOnTouch,
       builder: (context) => WillPopScope(
-          child: Dialog(
+          child: fullscreen ?
+              Dialog.fullscreen(backgroundColor: bgColor ?? Theme.of(context).dialogBackgroundColor,
+              child: child,)
+              : Dialog(
             insetPadding: padding,
             clipBehavior: Clip.antiAlias,
             surfaceTintColor: Colors.transparent,
+            shadowColor: Colors.transparent,
             backgroundColor: bgColor ?? Theme.of(context).dialogBackgroundColor,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 10)),
             child: child,),

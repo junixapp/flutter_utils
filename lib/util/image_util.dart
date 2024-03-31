@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:file_saver/file_saver.dart';
@@ -87,5 +88,11 @@ class ImageUtil {
     }else{
       return null;
     }
+  }
+
+  ///前提：你使用了cached_network_image来加载图片，根据图片url返回其缓存的File对象
+  static Future<File?> cacheImageFile(String imageUrl) async {
+    var file = await DefaultCacheManager().getSingleFile(imageUrl);
+    return file;
   }
 }
