@@ -15,10 +15,10 @@ class TokenInterceptor implements InterceptorsWrapper {
 
   @override
   onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    if (ObjectUtil.isEmpty(_token) && tokenCreator!=null) {
+    if (tokenCreator!=null) {
       _token = tokenCreator!();
     }
-    if (ObjectUtil.isNotEmpty(_token)) {
+    if(ObjectUtil.isNotEmpty(_token)) {
       options.headers.addAll({tokenHeaderName: _token});
     }
     return handler.next(options);

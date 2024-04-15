@@ -41,7 +41,10 @@ class WidgetUtil {
           errorText: errorText!=null && errorText.isNotEmpty ? errorText : null,
           errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
           contentPadding: padding ?? EdgeInsets.zero,
-          disabledBorder: InputBorder.none,
+          disabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
+            OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1,
+                color: borderColor ?? Theme.of(context).dividerColor),
+              borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
           enabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
             OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1,
               color: borderColor ?? Theme.of(context).dividerColor) ,
