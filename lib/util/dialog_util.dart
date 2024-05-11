@@ -11,7 +11,8 @@ class DialogUtil {
     _isShowLoading = true;
     await showDialog(context: Get.context!,
         barrierDismissible: dismissOnTouch,
-        builder: (context) => WillPopScope(
+        builder: (context) => PopScope(
+            canPop: dismissOnBackPressed,
             child: Material(type: MaterialType.transparency,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -39,10 +40,7 @@ class DialogUtil {
                   )
                 ],
               ),
-            ),
-            onWillPop: () {
-              return Future.value(dismissOnBackPressed);
-            }));
+            )));
     _isShowLoading = false;
   }
 
@@ -110,7 +108,8 @@ class DialogUtil {
       context: Get.context!,
       barrierColor: shadowColor,
       barrierDismissible: dismissOnTouch,
-      builder: (context) => WillPopScope(
+      builder: (context) => PopScope(
+          canPop: dismissOnBackPressed,
           child: fullscreen ?
               Dialog.fullscreen(backgroundColor: bgColor ?? Theme.of(context).dialogBackgroundColor,
               child: child,)
@@ -121,10 +120,7 @@ class DialogUtil {
             shadowColor: Colors.transparent,
             backgroundColor: bgColor ?? Theme.of(context).dialogBackgroundColor,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 10)),
-            child: child,),
-          onWillPop: () {
-            return Future.value(dismissOnBackPressed);
-          }),
+            child: child,)),
     );
   }
 

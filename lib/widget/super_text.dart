@@ -26,7 +26,7 @@ class SuperText extends StatelessWidget {
   final bool hasInkWell;
   final bool spaceBetween;
   final double shadow;
-  final Color borderColor;
+  final Color? borderColor;
   final double borderWidth;
   final bool disabled;
   final bool expand;
@@ -53,7 +53,7 @@ class SuperText extends StatelessWidget {
       this.shadow = 0,
       this.radius,
       this.constraints,
-      this.borderColor = Colors.transparent,
+      this.borderColor,
       this.borderWidth = 0.0,
       this.disabled = false,
       this.expand = false});
@@ -93,14 +93,14 @@ class SuperText extends StatelessWidget {
           borderRadius:
               radius == null ? borderRadius : BorderRadius.circular(radius!),
           gradient: gradient,
-          border: border ?? Border.all(color: borderColor, width: borderWidth),
-          boxShadow: [
-            if (shadow > 0)
+          border: border ?? Border.all(color: borderColor ?? Colors.transparent, width: borderWidth),
+          boxShadow: shadow > 0 ? [
               BoxShadow(
                   blurRadius: shadow / 2,
                   spreadRadius: shadow,
                   color: const Color(0x10000000))
-          ]),
+          ]: null,
+      ),
       child: child,
     );
   }
