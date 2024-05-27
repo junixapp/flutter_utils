@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:convert';
+import 'dart:io' as io;
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:file_saver/file_saver.dart';
@@ -10,17 +11,34 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fuck_utils/fuck_utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:permission_handler/permission_handler.dart';
+
+class SaveResult{
+  String? path;
+  bool permissionDenied;
+  SaveResult({this.path, this.permissionDenied = false});
+}
 
 ///截图
 class ImageUtil {
   ImageUtil._();
 
-  static Future<Map<Permission, PermissionStatus>> _requestPermission() async {
+  static Future<bool> openAppPermissionSettings(){
+    return openAppSettings();
+  }
+
+  static Future<PermissionStatus> _requestPermission() async {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.storage,
     ].request();
-    return statuses;
+    // statuses.forEach((key, value) {
+    //   LogUtil.i("_requestPermission: ${key.value} => ${value}");
+    // });
+    // if(statuses.values.firstWhereOrNull((e) => e==PermissionStatus.denied
+    //     || e==PermissionStatus.permanentlyDenied)!=null){
+    //   await openAppSettings();
+    //   LogUtil.i("_requestPermission: openAppSettings");
+    // }
+    return statuses.values.first;
   }
 
   ///key所在节点必须是RepaintBoundary节点，否则会报错，截取 RenderRepaintBoundary 的内容
@@ -34,9 +52,8 @@ class ImageUtil {
 
   ///将widget转为图片保存到相册，返回路径
   ///key所在节点必须是RepaintBoundary节点，否则会报错，截取 RenderRepaintBoundary 的内容
-  static Future<String?> saveWidget2Album(GlobalKey key, {ImageByteFormat format = ImageByteFormat.png,
+  static Future<SaveResult?> saveWidget2Album(GlobalKey key, {ImageByteFormat format = ImageByteFormat.png,
     String? fileName, int quality = 80}) async {
-    // await _requestPermission();
     var bytes = await widget2image(key, format: format);
     if (bytes != null) {
       return await saveBytes2Album(bytes.buffer.asUint8List(), format: format, fileName: fileName, quality: quality);
@@ -51,37 +68,43 @@ class ImageUtil {
   }
 
   ///将图片保存到相册，返回路径
-  static Future<String?> saveImage2Album(ByteData bytes, {ImageByteFormat format = ImageByteFormat.png,
+  static Future<SaveResult?> saveImage2Album(ByteData bytes, {ImageByteFormat format = ImageByteFormat.png,
     String? fileName, int quality = 80}) async {
     return await saveBytes2Album(bytes.buffer.asUint8List());
   }
 
   ///将图片保存到相册，返回路径
-  static Future<String?> saveBytes2Album(Uint8List bytes, {ImageByteFormat format = ImageByteFormat.png,
+  static Future<SaveResult?> saveBytes2Album(Uint8List bytes, {ImageByteFormat format = ImageByteFormat.png,
     String? fileName, int quality = 80}) async {
     if(!GetPlatform.isMobile){
-      return await FileSaver.instance.saveFile(name: fileName?? "${DateUtil.nowMs()}", bytes: bytes,
-      ext: "png", mimeType: MimeType.png);
+      return SaveResult(path: await FileSaver.instance.saveFile(name: fileName?? "${DateUtil.nowMs()}", bytes: bytes,
+          ext: "png", mimeType: MimeType.png));
     }else{
-      await _requestPermission();
-      final result = await ImageGallerySaver.saveImage(bytes,
-          name: fileName,
-          quality: quality,
-          isReturnImagePathOfIOS: true);
-      return result["filePath"] ;
+      var permResult = await _requestPermission();
+      if(permResult.isGranted || permResult.isLimited){
+        final result = await ImageGallerySaver.saveImage(bytes,
+            name: fileName,
+            quality: quality,
+            isReturnImagePathOfIOS: true);
+        return SaveResult(path: result["filePath"]);
+      }
+      return SaveResult(permissionDenied: true);
     }
   }
 
   ///将图片文件保存到相册，返回路径
-  static Future<String?> saveFile2Album(String filePath, {String? fileName,}) async {
-    await _requestPermission();
-    final result = await ImageGallerySaver.saveFile(filePath,
-        name: fileName, isReturnPathOfIOS: true);
-    return result["filePath"] ;
+  static Future<SaveResult?> saveFile2Album(String filePath, {String? fileName,}) async {
+    var permResult = await _requestPermission();
+    if(permResult.isGranted || permResult.isLimited){
+      final result = await ImageGallerySaver.saveFile(filePath,
+          name: fileName, isReturnPathOfIOS: true);
+      return SaveResult(path: result["filePath"],);
+    }
+    return SaveResult(permissionDenied: true);
   }
 
   ///前提：你使用了cached_network_image来加载图片，将图片url保存到相册，返回路径
-  static Future<String?> saveCacheImage2Album(String imageUrl, {String? fileName}) async {
+  static Future<SaveResult?> saveCacheImage2Album(String imageUrl, {String? fileName}) async {
     var file = await DefaultCacheManager().getSingleFile(imageUrl);
     if(await file.exists()){
       return await ImageUtil.saveFile2Album(file.path, fileName: fileName);
@@ -91,7 +114,7 @@ class ImageUtil {
   }
 
   ///前提：你使用了cached_network_image来加载图片，根据图片url返回其缓存的File对象
-  static Future<File?> cacheImageFile(String imageUrl) async {
+  static Future<io.File?> cacheImageFile(String imageUrl) async {
     var file = await DefaultCacheManager().getSingleFile(imageUrl);
     return file;
   }
