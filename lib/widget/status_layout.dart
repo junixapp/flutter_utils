@@ -8,6 +8,10 @@ class StatusLayout extends StatefulWidget {
   final VoidCallback? onRetry;
   final double? width, height;
   final bool showLoadingOnce;
+  final Color? errorColor;
+  final String? errorText;
+  final Color? emptyColor;
+  final String? emptyText;
 
   const StatusLayout({
     super.key,
@@ -19,7 +23,11 @@ class StatusLayout extends StatefulWidget {
     this.width,
     this.height,
     this.onRetry,
-    this.showLoadingOnce = false
+    this.showLoadingOnce = false,
+    this.errorColor,
+    this.errorText,
+    this.emptyColor,
+    this.emptyText,
   }) : assert(success != null);
 
   @override
@@ -79,21 +87,20 @@ class _StatusLayoutState extends State<StatusLayout> {
   Widget buildError() {
     return widget.error != null
         ? widget.error!
-        : const Padding(
-            padding: EdgeInsets.all(20),
+        : Padding(
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(
                   Icons.error,
                   size: 42,
-                  color: Color(0XFF999999),
+                  color: widget.errorColor ?? const Color(0XFF999999),
                 ),
-                SizedBox(height: 15),
-                Text(
-                  "加载失败，点击重试",
+                const SizedBox(height: 15),
+                Text(widget.errorText ?? "加载失败，点击重试",
                   style: TextStyle(
-                    color: Color(0XFF999999),
+                    color: widget.errorColor ?? const Color(0XFF999999),
                     fontSize: 16,
                   ),
                 )
@@ -105,14 +112,14 @@ class _StatusLayoutState extends State<StatusLayout> {
   Widget buildEmpty() {
     return widget.empty != null
         ? widget.empty!
-        : const Padding(
-            padding: EdgeInsets.all(10),
+        : Padding(
+            padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('暂无数据',
+                Text(widget.emptyText ?? '暂无数据',
                   style: TextStyle(
-                    color: Color(0xFF9CA1B7),
+                    color: widget.emptyColor ?? const Color(0xFF9CA1B7),
                     fontSize: 12,
                   ),
                 )

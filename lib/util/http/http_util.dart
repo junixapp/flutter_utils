@@ -99,9 +99,14 @@ class HttpUtil {
     }
   }
 
+  static void assetDio(){
+    if(dio==null) throw Exception("call HttpUtil.init first");
+  }
+
   ///get请求
-  static Future<Map<dynamic,dynamic>?> get(String url, {Map<String, dynamic>? params}) async {
+  static Future<Map<String,dynamic>?> get(String url, {Map<String, dynamic>? params}) async {
     try {
+      assetDio();
       var result = await _dio!.get(url, queryParameters: params);
       return result.isSuccessful ? (result.data ?? {}) : null;
     } on DioException catch (e) {
@@ -112,10 +117,11 @@ class HttpUtil {
   }
 
   /// post请求，json编码
-  static Future<Map<dynamic,dynamic>?> post(
+  static Future<Map<String,dynamic>?> post(
     String url, {Map<String, dynamic>? params}
   ) async {
     try {
+      assetDio();
       var result = await _dio!.post(url, data: params);
       var data = ObjectUtil.isEmpty(result.data) ? <String, dynamic>{} : result.data;
       return result.isSuccessful ? data : null;
@@ -128,7 +134,7 @@ class HttpUtil {
 
   /// post请求，form编码
   /// 如需上传文件，则传入MultipartFile类型，如：
-  static Future<Map<dynamic,dynamic>?> postForm(
+  static Future<Map<String,dynamic>?> postForm(
     String url,
     { Map<String, dynamic>? params,
     ProgressCallback? onSendProgress,
@@ -148,8 +154,9 @@ class HttpUtil {
   }
 
   ///直传文件
-  static Future<Map<dynamic,dynamic>?> postFile(String url, File file) async {
+  static Future<Map<String,dynamic>?> postFile(String url, File file) async {
     try {
+      assetDio();
       var result = await _dio!.post(
         url,
         data: MultipartFile.fromFile(file.path),
@@ -163,8 +170,9 @@ class HttpUtil {
   }
 
   ///put请求
-  static Future<Map<dynamic,dynamic>?> put(String url, Map<String, dynamic> params) async {
+  static Future<Map<String,dynamic>?> put(String url, Map<String, dynamic> params) async {
     try {
+      assetDio();
       var result = (await _dio!.put(url, data: FormData.fromMap(params)));
       return result.isSuccessful ? result.data : null;
     } on DioException catch (e) {
@@ -175,8 +183,9 @@ class HttpUtil {
   }
 
   ///直传文件
-  static Future<Map<dynamic,dynamic>?> putFile(String url, File file) async {
+  static Future<Map<String,dynamic>?> putFile(String url, File file) async {
     try {
+      assetDio();
       var result = await _dio!.put(
         url,
         data: MultipartFile.fromFile(file.path),
@@ -190,8 +199,9 @@ class HttpUtil {
   }
 
   ///delete请求
-  static Future<Map<dynamic,dynamic>?> delete(String url, Map<String, dynamic> params) async {
+  static Future<Map<String,dynamic>?> delete(String url, Map<String, dynamic> params) async {
     try {
+      assetDio();
       var result = await _dio!.delete(url, data: FormData.fromMap(params));
       return result.isSuccessful ? result.data : null;
     } on DioException catch (e) {
@@ -209,6 +219,7 @@ class HttpUtil {
     bool newClient = false,
   }) async {
     try {
+      assetDio();
       var client = newClient ? Dio() : _dio!;
       return await client.download(
         url,
