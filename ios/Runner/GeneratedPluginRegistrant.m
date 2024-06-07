@@ -18,10 +18,10 @@
 @import fluttertoast;
 #endif
 
-#if __has_include(<image_gallery_saver/ImageGallerySaverPlugin.h>)
-#import <image_gallery_saver/ImageGallerySaverPlugin.h>
+#if __has_include(<image_gallery_saver2/ImageGallerySaverPlugin.h>)
+#import <image_gallery_saver2/ImageGallerySaverPlugin.h>
 #else
-@import image_gallery_saver;
+@import image_gallery_saver2;
 #endif
 
 #if __has_include(<path_provider_foundation/PathProviderPlugin.h>)

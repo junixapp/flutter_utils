@@ -1,6 +1,6 @@
 name: fuck_utils
 description: Awesome flutter util code.
-version: 0.0.47
+version: 0.0.48
 homepage: https://github.com/li-xiaojun/flutter_utils
 
 environment:
@@ -19,11 +19,11 @@ dependencies:
   shared_preferences: ^2.2.2
   keyboard_dismisser: ^3.0.0
   permission_handler: ^11.1.0
-#  image_gallery_saver: ^2.0.3
-  image_gallery_saver:
-    git:
-      url: https://github.com/knottx/image_gallery_saver.git
-      ref: knottx
+  image_gallery_saver2: 2.0.4
+#  image_gallery_saver:
+#    git:
+#      url: https://github.com/knottx/image_gallery_saver.git
+#      ref: knottx
   file_saver: ^0.2.13
   after_layout: ^1.2.0
   flutter_cache_manager: ^3.3.1

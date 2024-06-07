@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fuck_utils/fuck_utils.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:image_gallery_saver2/image_gallery_saver.dart';
 
 class SaveResult{
   String? path;
