@@ -78,7 +78,8 @@ class HttpUtil {
   static dynamic _convertException(Exception e, String url, {Map? params}) {
     LogUtil.e("error: ${e.toString()}\nurl: ${_dio?.options.baseUrl}$url\nparams: ${params?.toString()} ");
     if(e is SocketException){
-      return {_codeField: -1, _msgField: e.message};
+      // return {_codeField: -1, _msgField: e.message};
+      return null;
     }else{
       var de = e as DioException;
       String es = "";
@@ -95,7 +96,8 @@ class HttpUtil {
             es = e.message??"";
             break;
       }
-      return {_codeField: -1, _msgField: es};
+      return null;
+      // return {_codeField: -1, _msgField: es};
     }
   }
 
@@ -212,7 +214,7 @@ class HttpUtil {
   }
 
   ///下载文件
-  static Future<Response?> download(
+  static Future<Response<dynamic>?> download(
     String url,
     String savePath,
     ProgressCallback? onReceiveProgress, {
