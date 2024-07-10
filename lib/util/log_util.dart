@@ -11,7 +11,7 @@ class LogUtil {
 
   static var logger = Logger(
     printer: PrettyPrinter(printEmojis: true, colors: true,
-    printTime: true),
+    printTime: false),
   );
 
   static void i(dynamic msg) {

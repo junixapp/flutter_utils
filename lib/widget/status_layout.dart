@@ -12,6 +12,7 @@ class StatusLayout extends StatefulWidget {
   final String? errorText;
   final Color? emptyColor;
   final String? emptyText;
+  final Alignment? alignment;
 
   const StatusLayout({
     super.key,
@@ -28,6 +29,7 @@ class StatusLayout extends StatefulWidget {
     this.errorText,
     this.emptyColor,
     this.emptyText,
+    this.alignment,
   }) : assert(success != null);
 
   @override
@@ -47,7 +49,7 @@ class _StatusLayoutState extends State<StatusLayout> {
     return Container(
       width: widget.width,
       height: widget.height,
-      alignment: Alignment.center,
+      alignment: widget.alignment ?? Alignment.center,
       child: buildChild(),
     );
   }
