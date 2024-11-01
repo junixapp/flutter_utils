@@ -21,6 +21,7 @@ class CommonTabBar extends StatefulWidget {
   final double? unselectFontSize;
   final double? tabWidth;
   final double? indicatorHeight;
+  final double? indicatorRadius;
   final double? tabRadius;
   final EdgeInsets? tabPadding;
   final double? padding;
@@ -30,11 +31,12 @@ class CommonTabBar extends StatefulWidget {
   final Color? dividerColor;
   final double? dividerHeight;
   final bool tabEqual;
-  const CommonTabBar(this.tabs, this.onTabChange,{super.key, this.defaultTab = 0, this.height, this.thinIndicator = true,
-    this.tabPadding, this.tabSpace, this.tabWidth, this.padding, this.tabStyle = TabStyle.line, this.selectBold = false,
+
+  const CommonTabBar({super.key, required this.tabs, required this.onTabChange, this.defaultTab = 0, this.height, this.thinIndicator = true,
+    this.tabPadding = EdgeInsets.zero, this.tabSpace, this.tabWidth, this.padding, this.tabStyle = TabStyle.line, this.selectBold = false,
     this.selectColor, this.unselectColor, this.selectBgColor, this.unselectBgColor,
-    this.selectFontSize, this.unselectFontSize, this.indicatorColor, this.indicatorHeight, this.tabRadius,
-    this.dividerColor, this.dividerHeight, this.tabEqual = false});
+    this.selectFontSize, this.unselectFontSize, this.indicatorColor, this.indicatorHeight, this.indicatorRadius, this.tabRadius,
+    this.dividerColor, this.dividerHeight, this.tabEqual = true});
 
   @override
   State<CommonTabBar> createState() => _CommonTabBarState();
@@ -52,57 +54,63 @@ class _CommonTabBarState extends State<CommonTabBar> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return widget.tabStyle==TabStyle.card ? SizedBox(height: widget.height?? 28,
+    var boxHeight = widget.height ?? 40;
+    var indHeight = widget.indicatorHeight ?? 4;
+    return widget.tabStyle==TabStyle.card ? SizedBox(height: boxHeight,
       child: ListView.separated(itemBuilder: (c,i){
-      Color selectColor = widget.selectColor ?? Theme.of(context).primaryColor;
-      Color unselectColor = widget.unselectColor ?? Theme.of(context).primaryColor;
-      double selectSize = widget.selectFontSize ?? 16;
-      double unselectSize = widget.unselectFontSize ?? 16;
-      return SuperContainer(height: widget.height ?? 28, width: widget.tabWidth,
-        padding: widget.tabPadding,
-        color: (currTab == i ? widget.selectBgColor: widget.unselectBgColor) ?? Colors.transparent,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(widget.tabRadius ?? 8),
-            topRight: Radius.circular(widget.tabRadius ?? 8)),
-        child: Text(widget.tabs[i], style: TextStyle(color: currTab == i ? selectColor
-            : unselectColor, fontSize:  currTab == i ? selectSize : unselectSize,
-            fontWeight: currTab == i && widget.selectBold? FontWeight.bold : FontWeight.normal ),),
-        onTap: (){
-        setState(() {
-          var b = widget.onTabChange(i);
-          if(b==true || b==null) currTab = i;
-        });
-        },
-      );
-    }, separatorBuilder: (c,i) => SizedBox(width: widget.tabSpace ?? 4,),
-        padding: EdgeInsets.symmetric(horizontal: widget.padding ?? 0),
-        itemCount: widget.tabs.length, scrollDirection: Axis.horizontal),)
-    : Container(height: widget.height ?? 40,
-      decoration: BoxDecoration(border: Border(bottom: BorderSide(color: widget.dividerColor ?? Theme.of(context).dividerColor,
-        width: widget.dividerHeight ?? 0
+        Color selectColor = widget.selectColor ?? Theme.of(context).primaryColor;
+        Color unselectColor = widget.unselectColor ?? Theme.of(context).primaryColor;
+        double selectSize = widget.selectFontSize ?? 16;
+        double unselectSize = widget.unselectFontSize ?? 16;
+        return SuperContainer(height: boxHeight, width: widget.tabWidth,
+          padding: widget.tabPadding,
+          color: (currTab == i ? widget.selectBgColor: widget.unselectBgColor) ?? Colors.transparent,
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(widget.tabRadius ?? 8),
+              topRight: Radius.circular(widget.tabRadius ?? 8)),
+          child: Text(widget.tabs[i], style: TextStyle(color: currTab == i ? selectColor
+              : unselectColor, fontSize:  currTab == i ? selectSize : unselectSize,
+              fontWeight: currTab == i && widget.selectBold? FontWeight.bold : FontWeight.normal ),),
+          onTap: (){
+            setState(() {
+              var b = widget.onTabChange(i);
+              if(b==true || b==null) currTab = i;
+            });
+          },
+        );
+      }, separatorBuilder: (c,i) => SizedBox(width: widget.tabSpace ?? 0,),
+          padding: EdgeInsets.symmetric(horizontal: widget.padding ?? 0),
+          itemCount: widget.tabs.length, scrollDirection: Axis.horizontal),)
+        : Container(height: boxHeight,
+      decoration: widget.dividerHeight==0 || widget.dividerColor==null ? null
+          : BoxDecoration(border: Border(bottom: BorderSide(color: widget.dividerColor ?? Theme.of(context).dividerColor,
+          width: widget.dividerHeight ?? 0
       ))),
       padding: EdgeInsets.symmetric(horizontal: widget.padding ?? 0),
       child: TabBar(
-      isScrollable: !widget.tabEqual,
-      dividerHeight: 0,
-      padding: widget.tabPadding,
-      // labelPadding: EdgeInsets.symmetric(horizontal: 16),
-      indicatorPadding: EdgeInsets.zero,
-      indicatorColor: widget.indicatorColor ?? widget.selectColor ?? Theme.of(context).primaryColor,
-      indicatorWeight: widget.indicatorHeight ?? 4,
-      indicatorSize: widget.thinIndicator ? TabBarIndicatorSize.label : TabBarIndicatorSize.tab,
-      labelColor: widget.selectColor ?? Theme.of(context).primaryColor,
-      unselectedLabelColor: widget.unselectColor ?? Theme.of(context).colorScheme.tertiary,
-      labelStyle: TextStyle(
-          color: widget.selectColor ?? Theme.of(context).primaryColor, fontSize: widget.selectFontSize ?? 16,
-          fontWeight: widget.selectBold? FontWeight.bold : FontWeight.normal ),
-      unselectedLabelStyle: TextStyle(
-          color: widget.unselectColor ?? Theme.of(context).colorScheme.tertiary,
-          fontSize: widget.unselectFontSize ?? 16),
-      tabs: widget.tabs.map((e) => Tab(text: e,)).toList(),
-      onTap: (i) {
-        widget.onTabChange(i);
-      },
-      controller: tabController,
-    ),);
+        isScrollable: !widget.tabEqual,
+        tabAlignment: widget.tabEqual ? TabAlignment.fill :  TabAlignment.start,
+        dividerHeight: 0,
+        padding: widget.tabPadding,
+        labelPadding: EdgeInsets.symmetric(horizontal: (widget.tabSpace??16)/2),
+        indicatorPadding: EdgeInsets.only(top: boxHeight - indHeight),
+        indicator: BoxDecoration(color: widget.indicatorColor,
+          borderRadius: BorderRadius.circular(widget.indicatorRadius?? 0 ),
+          shape: BoxShape.rectangle,
+        ),
+        indicatorSize: widget.thinIndicator ? TabBarIndicatorSize.label : TabBarIndicatorSize.tab,
+        labelColor: widget.selectColor ?? Theme.of(context).primaryColor,
+        unselectedLabelColor: widget.unselectColor ?? Theme.of(context).colorScheme.tertiary,
+        labelStyle: TextStyle(
+            color: widget.selectColor ?? Theme.of(context).primaryColor, fontSize: widget.selectFontSize ?? 16,
+            fontWeight: widget.selectBold? FontWeight.bold : FontWeight.normal ),
+        unselectedLabelStyle: TextStyle(
+            color: widget.unselectColor ?? Theme.of(context).colorScheme.tertiary,
+            fontSize: widget.unselectFontSize ?? 16),
+        tabs: widget.tabs.map((e) => Tab(text: e,)).toList(),
+        onTap: (i) {
+          widget.onTabChange(i);
+        },
+        controller: tabController,
+      ),);
   }
 }

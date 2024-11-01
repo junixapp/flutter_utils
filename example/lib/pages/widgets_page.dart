@@ -31,10 +31,15 @@ class WidgetsPage extends StatelessWidget {
       }),
       WidgetUtil.textField(context, TextEditingController(), "sdadsa", margin: EdgeInsets.all(15.w),
         borderWidth: 1.w, radius: 10.w, padding: EdgeInsets.all(10.w), borderColor: Colors.red,),
-      CommonTabBar(["试试","dd", "打湿水"], (i){
+      CommonTabBar(tabs: ["card模式","dd", "打湿水"], onTabChange: (i){
 
       }, tabPadding: EdgeInsets.symmetric(horizontal: 10.w), indicatorHeight: 3.w,
-      tabStyle: TabStyle.card, selectBgColor: Colors.red, height: 20.w,
+      tabStyle: TabStyle.card, selectBgColor: Colors.black, selectColor: Colors.white, unselectColor: Colors.grey,
+      tabSpace: 10.w, unselectBgColor: Colors.grey.withAlpha(100),),
+      CommonTabBar(tabs : ["line模式","dd", "打湿水"], onTabChange: (i){
+
+      },  indicatorHeight: 3.w, tabEqual: true, padding: 15.w,
+      tabStyle: TabStyle.line, selectBgColor: Colors.red,
       tabSpace: 10.w, unselectBgColor: Colors.grey,),
     ],),);
   }
