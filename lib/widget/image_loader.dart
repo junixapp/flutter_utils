@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fuck_utils/widget/super_container.dart';
@@ -61,7 +60,7 @@ class ImageLoader extends StatelessWidget {
         foregroundColor: foregroundColor,
         child: Stack(
           children: [
-            Center(child: placeholder),
+            if(placeholder!=null) Center(child: placeholder),
             Positioned(
               left: 0,
               top: 0,
@@ -104,7 +103,11 @@ class ImageLoader extends StatelessWidget {
                         child: placeholder,
                       ),
                     )
-                  : Image.asset(uri, fit: fit,),
+                  : Image.asset(uri, fit: fit, errorBuilder: (c,e,s)=>Container(
+                    color: bgColor,
+                    alignment: Alignment.center,
+                    child: placeholder,
+                  )),
             ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fuck_utils/widget/on_click.dart';
 
-
 class SuperContainer extends StatelessWidget {
   final Widget? child;
   final VoidCallback? onTap;
@@ -13,7 +12,7 @@ class SuperContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final double? opacity;
-  final Color color;
+  final Color? color;
   final Color? foregroundColor;
   final Color borderColor;
   final double borderWidth;
@@ -26,32 +25,34 @@ class SuperContainer extends StatelessWidget {
   final AlignmentGeometry align;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
+  final Gradient? gradient;
 
   const SuperContainer(
       {super.key,
-      this.child,
-      this.onTap,
-      this.onLongPress,
-      this.radius = 0,
-      this.padding,
-      this.disabled = false,
-      this.opacity,
-      this.width,
-      this.margin,
-      this.height,
-      this.color = Colors.transparent,
-      this.align = Alignment.center,
-      this.shadow = 0,
-      this.shadowColor = const Color(0x10000000),
-      this.shadowRadius = 0,
-      this.borderColor = Colors.transparent,
-      this.borderWidth = 0.0,
-      this.bgImgFit = BoxFit.contain,
-      this.bgImgName,
-      this.borderRadius,
-      this.border,
-      this.constraints,
-      this.foregroundColor});
+        this.child,
+        this.onTap,
+        this.onLongPress,
+        this.radius = 0,
+        this.padding,
+        this.disabled = false,
+        this.opacity,
+        this.width,
+        this.margin,
+        this.height,
+        this.color,
+        this.align = Alignment.center,
+        this.shadow = 0,
+        this.shadowColor = const Color(0x10000000),
+        this.shadowRadius = 0,
+        this.borderColor = Colors.transparent,
+        this.borderWidth = 0.0,
+        this.bgImgFit = BoxFit.contain,
+        this.bgImgName,
+        this.borderRadius,
+        this.border,
+        this.constraints,
+        this.gradient,
+        this.foregroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -93,13 +94,14 @@ class SuperContainer extends StatelessWidget {
   BoxDecoration _buildBoxDecoration() {
     return BoxDecoration(
       color: color,
+      gradient: gradient,
       // border: border ?? Border.all(color: borderColor, width: borderWidth),
       borderRadius: borderRadius ?? BorderRadius.circular(radius),
       image: bgImgName != null && bgImgName!.isNotEmpty
           ? DecorationImage(
-              fit: bgImgFit,
-              image: AssetImage(bgImgName!),
-            )
+        fit: bgImgFit,
+        image: AssetImage(bgImgName!),
+      )
           : null,
       boxShadow: [
         if (shadow > 0)
