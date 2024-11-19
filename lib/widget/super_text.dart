@@ -15,7 +15,7 @@ class SuperText extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
   final Color? bgColor;
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry? align;
   final BorderRadiusGeometry? borderRadius;
   final double? radius;
   final Gradient? gradient;
@@ -42,7 +42,7 @@ class SuperText extends StatelessWidget {
       this.padding = const EdgeInsets.all(0),
       this.margin = const EdgeInsets.all(0),
       this.bgColor,
-      this.alignment = Alignment.center,
+      this.align,
       this.borderRadius,
       this.gradient,
       this.border,
@@ -87,7 +87,7 @@ class SuperText extends StatelessWidget {
       height: height,
       padding: padding,
       margin: margin,
-      alignment: alignment,
+      alignment: align,
       decoration: BoxDecoration(
           color: bgColor,
           borderRadius:
@@ -107,8 +107,8 @@ class SuperText extends StatelessWidget {
 
   MainAxisAlignment _fixAlign() {
     if (spaceBetween) return MainAxisAlignment.spaceBetween;
-    if (alignment == Alignment.centerLeft) return MainAxisAlignment.start;
-    if (alignment == Alignment.centerRight) return MainAxisAlignment.end;
+    if (align == Alignment.centerLeft) return MainAxisAlignment.start;
+    if (align == Alignment.centerRight) return MainAxisAlignment.end;
     return MainAxisAlignment.center;
   }
 

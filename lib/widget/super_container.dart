@@ -22,7 +22,7 @@ class SuperContainer extends StatelessWidget {
   final BoxFit bgImgFit;
   final String? bgImgName;
   final BoxConstraints? constraints;
-  final AlignmentGeometry align;
+  final AlignmentGeometry? align;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final Gradient? gradient;
@@ -40,7 +40,7 @@ class SuperContainer extends StatelessWidget {
         this.margin,
         this.height,
         this.color,
-        this.align = Alignment.center,
+        this.align,
         this.shadow = 0,
         this.shadowColor = const Color(0x10000000),
         this.shadowRadius = 0,
@@ -56,28 +56,20 @@ class SuperContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: margin,
-      constraints: constraints,
-      child: OnClick(
-          Opacity(
-            opacity: opacity ?? (disabled ? 0.5 : 1),
-            child: Stack(
-              children: [
-                _buildBackground(),
-                // if (foregroundColor != null) _buildForeground(),
-              ],
-            ),
-          ),
-          onTap: disabled ? null : onTap,
-          onLongPress: onLongPress),
-    );
+    return OnClick(
+        Opacity(
+          opacity: opacity ?? (disabled ? 0.5 : 1),
+          child: _buildChild(),
+        ),
+        onTap: disabled ? null : onTap,
+        onLongPress: onLongPress);
   }
 
-  Widget _buildBackground() {
+  Widget _buildChild() {
     return Container(
       alignment: align,
       padding: padding,
+      constraints: constraints,
       width: width,
       height: height,
       clipBehavior: Clip.antiAlias,
