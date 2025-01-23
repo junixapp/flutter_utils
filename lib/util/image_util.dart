@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:typed_data';
 import 'dart:ui';
@@ -117,5 +116,9 @@ class ImageUtil {
   static Future<io.File?> cacheImageFile(String imageUrl) async {
     var file = await DefaultCacheManager().getSingleFile(imageUrl);
     return file;
+  }
+
+  static void preloadImage(String url){
+    DefaultCacheManager().downloadFile(url);
   }
 }
