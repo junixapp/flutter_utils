@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:fuck_utils/fuck_utils.dart';
-import 'package:get/get.dart';
 
 class SearchContainer extends StatefulWidget {
   final EdgeInsets? margin;
@@ -49,14 +48,14 @@ class _SearchContainerState extends State<SearchContainer> {
     return SuperContainer(margin: widget.margin, padding: widget.padding, radius: widget.radius ?? 0,
     color: widget.bg ?? Colors.transparent, child: Row(children: [
       widget.searchIcon ?? Icon(Icons.search, color: widget.hintColor ?? Colors.grey,),
-        SizedBox(width: 10,),
+        const SizedBox(width: 10,),
         Expanded(child: WidgetUtil.textField(context, controller, widget.hint ?? '',
           fontSize: widget.inputSize ?? 16, hintFontSize: widget.hintSize ?? 16,
           fontColor: widget.inputColor, hintColor: widget.hintColor,
             textAlign: widget.centerText==true ? TextAlign.center : TextAlign.left,
           maxLength: widget.maxLength ?? 50, onSubmit: widget.onSubmit
         )),
-        SizedBox(width: 10,),
+        const SizedBox(width: 10,),
         Obx(() => showClear.value ? OnClick(widget.clearIcon ?? Icon(Icons.clear,
         color: widget.hintColor ?? Colors.grey,), onTap: ()=> controller.text = "",)
           : const SizedBox()),
