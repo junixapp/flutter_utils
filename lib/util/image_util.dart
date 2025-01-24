@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'dart:typed_data';
 import 'dart:ui';
-import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -75,20 +74,16 @@ class ImageUtil {
   ///将图片保存到相册，返回路径
   static Future<SaveResult?> saveBytes2Album(Uint8List bytes, {ImageByteFormat format = ImageByteFormat.png,
     String? fileName, int quality = 80}) async {
-    if(!GetPlatform.isMobile){
-      return SaveResult(path: await FileSaver.instance.saveFile(name: fileName?? "${DateUtil.nowMs()}", bytes: bytes,
-          ext: "png", mimeType: MimeType.png));
-    }else{
-      var permResult = await _requestPermission();
-      if(permResult.isGranted || permResult.isLimited){
-        final result = await ImageGallerySaver.saveImage(bytes,
-            name: fileName,
-            quality: quality,
-            isReturnImagePathOfIOS: true);
-        return SaveResult(path: result["filePath"]);
-      }
-      return SaveResult(permissionDenied: true);
+
+    var permResult = await _requestPermission();
+    if(permResult.isGranted || permResult.isLimited){
+      final result = await ImageGallerySaver.saveImage(bytes,
+          name: fileName,
+          quality: quality,
+          isReturnImagePathOfIOS: true);
+      return SaveResult(path: result["filePath"]);
     }
+    return SaveResult(permissionDenied: true);
   }
 
   ///将图片文件保存到相册，返回路径

@@ -20,7 +20,6 @@ dependencies:
   keyboard_dismisser: ^3.0.0
   permission_handler: ^11.3.1
   image_gallery_saver2: ^2.0.5
-  file_saver: ^0.2.14
   flutter_cache_manager: ^3.3.2
   path: ^1.9.0
   http_parser: ^4.0.2

@@ -153,14 +153,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "7.0.0"
-  file_saver:
-    dependency: transitive
-    description:
-      name: file_saver
-      sha256: "017a127de686af2d2fbbd64afea97052d95f2a0f87d19d25b87e097407bf9c1e"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.2.14"
   fixnum:
     dependency: transitive
     description:
@@ -230,7 +222,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.50"
+    version: "0.0.55"
   get:
     dependency: "direct main"
     description:
