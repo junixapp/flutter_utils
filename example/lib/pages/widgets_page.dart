@@ -29,8 +29,9 @@ class WidgetsPage extends StatelessWidget {
       button(context,"bottom自定义弹窗", (){
         DialogUtil.showBottom( DemoBottomDialog(), radius: 18.w, enableDrag: true);
       }),
-      WidgetUtil.textField(context, TextEditingController(), "sdadsa", margin: EdgeInsets.all(15.w),
-        borderWidth: 1.w, radius: 10.w, padding: EdgeInsets.all(10.w), borderColor: Colors.red,),
+      WidgetUtil.textField(context, TextEditingController(), "hint文字", margin: EdgeInsets.all(15.w),
+        borderWidth: 1.w, radius: 10.w, padding: EdgeInsets.all(10.w), borderColor: Colors.red,
+      fontColor: Colors.blue),
       CommonTabBar(tabs: ["card模式","dd", "打湿水"], onTabChange: (i){
 
       }, tabPadding: EdgeInsets.symmetric(horizontal: 10.w), indicatorHeight: 3.w,

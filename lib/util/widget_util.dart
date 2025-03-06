@@ -15,9 +15,10 @@ class WidgetUtil {
         TextInputAction? inputAction, Color? bgColor, Widget? prefix, Widget? suffix,
         bool autofocus = false
       }){
-    return Padding(padding: margin??EdgeInsets.zero, child: TextField(key: key, controller: controller,
+    return Padding(padding: margin ?? EdgeInsets.zero, child: TextField(key: key, controller: controller,
       maxLines: obscureText==true ?  1:  maxLines,
       maxLength: maxLength,
+      cursorColor: fontColor,
       keyboardType: (maxLines==null&&obscureText!=true) ? TextInputType.multiline : (inputType ?? TextInputType.text),
       enabled: !(disabled ?? false),
       autofocus: autofocus,
@@ -35,18 +36,18 @@ class WidgetUtil {
           filled: bgColor!=null,
           fillColor: bgColor,
           focusedBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
-          OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1, color: Theme.of(context).primaryColor),
+          OutlineInputBorder(borderSide: BorderSide(width: borderWidth ?? 1, color: borderColor ?? Theme.of(context).dividerColor),
               borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
           hintText: hint,
           errorText: errorText!=null && errorText.isNotEmpty ? errorText : null,
           errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
           contentPadding: padding ?? EdgeInsets.zero,
           disabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
-            OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1,
+            OutlineInputBorder(borderSide: BorderSide(width: borderWidth ?? 1,
                 color: borderColor ?? Theme.of(context).dividerColor),
               borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
           enabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
-            OutlineInputBorder(borderSide: BorderSide(width: borderWidth??1,
+            OutlineInputBorder(borderSide: BorderSide(width: borderWidth ?? 1,
               color: borderColor ?? Theme.of(context).dividerColor) ,
                 borderRadius: BorderRadius.circular(radius??0), gapPadding: 0) : InputBorder.none,
           hintStyle: TextStyle(
