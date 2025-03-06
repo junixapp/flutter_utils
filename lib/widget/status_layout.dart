@@ -8,11 +8,14 @@ class StatusLayout extends StatefulWidget {
   final VoidCallback? onRetry;
   final double? width, height;
   final bool showLoadingOnce;
+  final Color? loadingColor;
+  final double? loadingSize;
   final Color? errorColor;
   final String? errorText;
   final Color? emptyColor;
   final String? emptyText;
   final Alignment? alignment;
+  final BoxConstraints? constraints;
 
   const StatusLayout({
     super.key,
@@ -25,11 +28,14 @@ class StatusLayout extends StatefulWidget {
     this.height,
     this.onRetry,
     this.showLoadingOnce = false,
+    this.loadingColor,
+    this.loadingSize,
     this.errorColor,
     this.errorText,
     this.emptyColor,
     this.emptyText,
     this.alignment,
+    this.constraints,
   }) : assert(success != null);
 
   @override
@@ -47,6 +53,7 @@ class _StatusLayoutState extends State<StatusLayout> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: widget.constraints,
       width: widget.width,
       height: widget.height,
       alignment: widget.alignment ?? Alignment.center,
@@ -57,7 +64,7 @@ class _StatusLayoutState extends State<StatusLayout> {
   Widget buildChild() {
     if(widget.status==null) return const SizedBox();
     if(widget.status!.isLoading){
-      if(hasLoading && widget.showLoadingOnce) return buildChild();
+      if(hasLoading && widget.showLoadingOnce) return widget.success ?? const SizedBox();
       return buildLoading();
     }
     if(widget.status!.isError){
@@ -76,14 +83,11 @@ class _StatusLayoutState extends State<StatusLayout> {
     hasLoading = true;
     return widget.loading != null
         ? widget.loading!
-        : const Padding(
-            padding: EdgeInsets.all(20),
-            child: SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(),
-            ),
-          );
+        : SizedBox(
+              width: widget.loadingSize ?? 20,
+              height: widget.loadingSize ?? 20,
+              child: CircularProgressIndicator(color: widget.loadingColor,),
+            );
   }
 
   Widget buildError() {

@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return CommonScaffold(title: "USDF: 属性",
+    return CommonScaffold(title: "Title",
       leftTitle: true,
       leftWidget: Icon(Icons.arrow_back_ios_new, color: Theme.of(context).colorScheme.onPrimary, size: 18.w,),
       onLeftClick: (){
@@ -37,6 +37,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         labelPadding: EdgeInsets.only(bottom: 6.w),
         padding: EdgeInsets.only(top: 10.w),
         labelStyle: TextStyle(fontSize: 16.w),
+        labelColor: Colors.black,
         isScrollable: true,
       ),
       Divider(height: 1.w,),

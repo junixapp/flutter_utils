@@ -1,5 +1,6 @@
 
 import 'package:example/DemoBottomDialog.dart';
+import 'package:example/controllers/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,9 +10,9 @@ import 'package:fuck_utils/util/log_util.dart';
 
 class WidgetsPage extends StatelessWidget {
   const WidgetsPage({super.key});
-
   @override
   Widget build(BuildContext context) {
+    MainController controller = Get.find();
     return SingleChildScrollView(child: Wrap(
       children: [
       button(context,"Loading", (){
@@ -39,9 +40,15 @@ class WidgetsPage extends StatelessWidget {
       tabSpace: 10.w, unselectBgColor: Colors.grey.withAlpha(100),),
       CommonTabBar(tabs : ["line模式","dd", "打湿水"], onTabChange: (i){
 
-      },  indicatorHeight: 3.w, tabEqual: true, padding: 15.w,
+      },  indicatorHeight: 3.w, tabEqual: true, padding: 15.w, indicatorColor: Colors.red,
       tabStyle: TabStyle.line, selectBgColor: Colors.red,
       tabSpace: 10.w, unselectBgColor: Colors.grey,),
+        Obx(()=>StatusLayout(status: controller.data.state.value,
+          height: 40.w,
+          success: SuperText("点击加载数据" ,onTap: (){
+            controller.loadData();
+          },),
+        ))
     ],),);
   }
 
