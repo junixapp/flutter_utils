@@ -4,6 +4,10 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class WidgetUtil {
   WidgetUtil._();
+
+  static final TextInputFormatter phoneFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9]'));
+  static final TextInputFormatter passwordFormatter = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9!#\$_-]'));
+
   ///快捷创建输入框
   static Widget textField(BuildContext context, TextEditingController controller,
       String hint, { Color? fontColor, Color? hintColor, double? fontSize,double? hintFontSize, TextInputType? inputType,
@@ -19,6 +23,7 @@ class WidgetUtil {
       maxLines: obscureText==true ?  1:  maxLines,
       maxLength: maxLength,
       cursorColor: fontColor,
+      inputFormatters: inputFormatters,
       keyboardType: (maxLines==null&&obscureText!=true) ? TextInputType.multiline : (inputType ?? TextInputType.text),
       enabled: !(disabled ?? false),
       autofocus: autofocus,
