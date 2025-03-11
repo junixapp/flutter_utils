@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:fuck_utils/util/object_util.dart';
 
-class TokenInterceptor implements InterceptorsWrapper {
-  String? _token;
-  String tokenHeaderName;
-  Function? tokenCreator;
+///
+/// 用于动态添加header的拦截器
+class DynamicHeaderInterceptor implements InterceptorsWrapper {
+  Map<String,dynamic> Function() headerCreator;
   Function(dynamic)? onHookResponse;
-  TokenInterceptor(this.tokenHeaderName, this.tokenCreator, {this.onHookResponse});
+  DynamicHeaderInterceptor(this.headerCreator, {this.onHookResponse});
 
   @override
   onError(DioException err, ErrorInterceptorHandler handler) {
@@ -15,12 +15,8 @@ class TokenInterceptor implements InterceptorsWrapper {
 
   @override
   onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    if (tokenCreator!=null) {
-      _token = tokenCreator!();
-    }
-    if(ObjectUtil.isNotEmpty(_token)) {
-      options.headers.addAll({tokenHeaderName: _token});
-    }
+    var headers = headerCreator!();
+    options.headers.addAll(headers);
     return handler.next(options);
   }
 

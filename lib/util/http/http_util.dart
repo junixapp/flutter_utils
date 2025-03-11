@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:fuck_utils/util/http/http_formatter.dart';
-import 'package:fuck_utils/util/http/token_interceptor.dart';
 import 'package:fuck_utils/util/log_util.dart';
 import 'package:fuck_utils/util/object_util.dart';
 
@@ -19,7 +18,6 @@ class HttpUtil {
   static String _codeField = "code";
   static String _dataField = "data";
   static String _msgField = "msg";
-  static const String _tokenHeader = "Authorization";
   static dynamic _successCode = 0;
 
   static Dio? get dio => _dio;
@@ -31,8 +29,6 @@ class HttpUtil {
     String? dataField,
     String? msgField,
     String? successCode,
-    String? tokenHeaderName ,
-    Function? tokenCreator,
     Map<String, dynamic>? header,
     Function(dynamic)? onHookResponse,
   }) {
@@ -42,7 +38,6 @@ class HttpUtil {
     _dio!.options.receiveTimeout = Duration(seconds: timeout);
     _dio!.options.baseUrl = baseUrl;
     _dio!.interceptors.add(HttpFormatter());
-    _dio!.interceptors.add(TokenInterceptor(tokenHeaderName ?? _tokenHeader, tokenCreator, onHookResponse: onHookResponse));
     if(ObjectUtil.isNotEmpty(codeField)) _codeField = codeField!;
     if(ObjectUtil.isNotEmpty(dataField)) _dataField = dataField!;
     if(ObjectUtil.isNotEmpty(msgField)) _msgField = msgField!;

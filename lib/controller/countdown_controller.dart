@@ -25,7 +25,7 @@ class CountDownController extends GetxController {
 
   ///倒计时
   void startCountDown() {
-    if (_isClosed) return;
+    if (_isClosed || isCountingDown.value) return;
     isCountingDown.value = true;
     _timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
       if(timer.tick > totalDuration()){
@@ -45,7 +45,7 @@ class CountDownController extends GetxController {
   }
 
   void startCountDown2() {
-    if (_isClosed) return;
+    if (_isClosed || isCountingDown2.value) return;
     isCountingDown2.value = true;
     _timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
       if(timer.tick > totalDuration()){

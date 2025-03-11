@@ -1,6 +1,6 @@
 
-import 'package:example/DemoBottomDialog.dart';
 import 'package:example/controllers/main_controller.dart';
+import 'package:example/demo_bottom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,9 +30,16 @@ class WidgetsPage extends StatelessWidget {
       button(context,"bottom自定义弹窗", (){
         DialogUtil.showBottom( DemoBottomDialog(), radius: 18.w, enableDrag: true);
       }),
-      WidgetUtil.textField(context, TextEditingController(), "hint文字", margin: EdgeInsets.all(15.w),
-        borderWidth: 1.w, radius: 10.w, padding: EdgeInsets.all(10.w), borderColor: Colors.red,
-      fontColor: Colors.blue),
+      Container(padding: EdgeInsets.all(10.w),
+        color: Colors.grey,
+        child: Row(children: [
+        Text("+86",),
+        Expanded(child: WidgetUtil.textField(context, TextEditingController(), "12334",
+            bgColor: Colors.red, maxLength: 10,inputFormatters:[ WidgetUtil.numberFormatter],
+            inputType: TextInputType.number, fontSize: 8.w, hintFontSize: 8.w,
+            fontColor: Colors.blue,bold: true)
+        )
+      ],),),
       CommonTabBar(tabs: ["card模式","dd", "打湿水"], onTabChange: (i){
 
       }, tabPadding: EdgeInsets.symmetric(horizontal: 10.w), indicatorHeight: 3.w,

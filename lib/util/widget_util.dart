@@ -5,7 +5,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 class WidgetUtil {
   WidgetUtil._();
 
-  static final TextInputFormatter phoneFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9]'));
+  static final TextInputFormatter numberFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9]'));
   static final TextInputFormatter passwordFormatter = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9!#\$_-]'));
 
   ///快捷创建输入框
@@ -13,10 +13,9 @@ class WidgetUtil {
       String hint, { Color? fontColor, Color? hintColor, double? fontSize,double? hintFontSize, TextInputType? inputType,
         int maxLength = 100, TextAlign? textAlign, FocusNode? focusNode, bool? obscureText,
         bool? disabled, List<TextInputFormatter>? inputFormatters, Key? key,
-        int? maxLines, String? errorText, Color? errorColor, double? errorFontSize,
-        double? borderWidth, Color? borderColor, double? radius, EdgeInsets? padding,
+        int? maxLines, double? borderWidth, Color? borderColor, double? radius, EdgeInsets? padding,
         bool bold = false, EdgeInsets? margin,  ValueChanged<String>? onSubmit,
-        TextInputAction? inputAction, Color? bgColor, Widget? prefix, Widget? suffix,
+        TextInputAction? inputAction, Color? bgColor,
         bool autofocus = false
       }){
     return Padding(padding: margin ?? EdgeInsets.zero, child: TextField(key: key, controller: controller,
@@ -34,8 +33,8 @@ class WidgetUtil {
       obscureText: obscureText??false,
       onSubmitted: (v)=> onSubmit?.call(v),
       decoration: InputDecoration(
-          prefixIcon: prefix,
-          suffixIcon: suffix,
+          prefixIcon: null,
+          suffixIcon: null,
           isCollapsed: true,
           counterText: "",
           filled: bgColor!=null,
@@ -43,9 +42,6 @@ class WidgetUtil {
           focusedBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
           OutlineInputBorder(borderSide: BorderSide(width: borderWidth ?? 1, color: borderColor ?? Theme.of(context).dividerColor),
               borderRadius: BorderRadius.circular(radius??0)) : InputBorder.none,
-          hintText: hint,
-          errorText: errorText!=null && errorText.isNotEmpty ? errorText : null,
-          errorStyle: TextStyle(color: errorColor, fontSize: errorFontSize),
           contentPadding: padding ?? EdgeInsets.zero,
           disabledBorder: (borderWidth!=null || borderColor!=null|| radius!=null) ?
             OutlineInputBorder(borderSide: BorderSide(width: borderWidth ?? 1,
@@ -55,6 +51,7 @@ class WidgetUtil {
             OutlineInputBorder(borderSide: BorderSide(width: borderWidth ?? 1,
               color: borderColor ?? Theme.of(context).dividerColor) ,
                 borderRadius: BorderRadius.circular(radius??0), gapPadding: 0) : InputBorder.none,
+          hintText: hint,
           hintStyle: TextStyle(
               color: hintColor ?? Theme.of(context).colorScheme.tertiary, fontSize: hintFontSize??(fontSize??16),
               fontWeight: bold ? FontWeight.bold : FontWeight.normal
