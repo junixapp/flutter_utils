@@ -13,11 +13,28 @@ class WidgetsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MainController controller = Get.find();
+    ToastUtil.config(dark: true);
+    HttpUtil.init();
     return SingleChildScrollView(child: Wrap(
       children: [
-      button(context,"Loading", (){
-        DialogUtil.showLoading();
-      }),
+      Obx(()=>button(context,"倒计时: [ ${ controller.isCountingDown.value ? controller.countDownTime.value
+      : '未开始'}]", (){
+        controller.startCountDown();
+        // ToastUtil.toast("正在请求");
+        // DialogUtil.showLoading();
+        // HttpUtil.post("http://18.163.228.71:10001/api/v1/account/register",
+        // params: {
+        //   "autoLogin": true,
+        //   "deviceID": "UE1A.230829.036.A1",
+        //   "invitationCode": "111111",
+        //   "platform": 1,
+        //   "user": {
+        //     "areaCode": "+86",
+        //     "password": "111111",
+        //     "phoneNumber": "18686868686"
+        //   }
+        // });
+      })),
       button(context,"confirm对话框", (){
         DialogUtil.showConfirm(title: "提示", content: "确定要删除东西吗？", bgColor: Colors.amber);
       }),

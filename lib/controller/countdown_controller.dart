@@ -26,6 +26,7 @@ class CountDownController extends GetxController {
   ///倒计时
   void startCountDown() {
     if (_isClosed || isCountingDown.value) return;
+    resetCountDown();
     isCountingDown.value = true;
     _timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
       if(timer.tick > totalDuration()){
@@ -46,6 +47,7 @@ class CountDownController extends GetxController {
 
   void startCountDown2() {
     if (_isClosed || isCountingDown2.value) return;
+    resetCountDown2();
     isCountingDown2.value = true;
     _timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
       if(timer.tick > totalDuration()){
@@ -64,23 +66,29 @@ class CountDownController extends GetxController {
     });
   }
 
-  void stopCount1(){
+  void onStop(){
+
+  }
+
+  void stopCountDown(){
     if(_timer1?.isActive==true) _timer1?.cancel();
   }
-  void stopCount2(){
+  void stopCountDown2(){
     if(_timer2?.isActive==true) _timer2?.cancel();
   }
 
   void reset(){
-    countDownTime = totalDuration().obs;
-    isCountingDown.value = false;
-
-    countDownTime2 = totalDuration().obs;
-    isCountingDown2.value = false;
+    resetCountDown();
+    resetCountDown2();
   }
 
-  void onStop(){
-
+  void resetCountDown(){
+    countDownTime = totalDuration().obs;
+    isCountingDown.value = false;
+  }
+  void resetCountDown2(){
+    countDownTime2 = totalDuration().obs;
+    isCountingDown2.value = false;
   }
 
   @override

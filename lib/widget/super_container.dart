@@ -72,6 +72,7 @@ class SuperContainer extends StatelessWidget {
       constraints: constraints,
       width: width,
       height: height,
+      margin: margin,
       clipBehavior: Clip.antiAlias,
       decoration: _buildBoxDecoration(),
       foregroundDecoration: BoxDecoration(

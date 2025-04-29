@@ -5,8 +5,16 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 class WidgetUtil {
   WidgetUtil._();
 
+  ///整数
   static final TextInputFormatter numberFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9]'));
+  ///小数
+  static final TextInputFormatter decimalFormatter = FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,}'));
+  ///密码
   static final TextInputFormatter passwordFormatter = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9!#\$_-]'));
+  ///字母
+  static final TextInputFormatter letterFormatter = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'));
+  ///数字或字母
+  static final TextInputFormatter numberOrLetterFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]'));
 
   ///快捷创建输入框
   static Widget textField(BuildContext context, TextEditingController controller,

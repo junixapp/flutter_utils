@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:fuck_utils/fuck_utils.dart';
 import 'package:fuck_utils/util/http/http_formatter.dart';
 import 'package:fuck_utils/util/log_util.dart';
 import 'package:fuck_utils/util/object_util.dart';
@@ -30,19 +31,25 @@ class HttpUtil {
     String? msgField,
     String? successCode,
     Map<String, dynamic>? header,
-    Function(dynamic)? onHookResponse,
+    Map<String, dynamic> Function()? headerBuilder,
+    Function(dynamic)? onHookResponse
   }) {
     _dio ??= Dio();
     _dio!.options.sendTimeout = Duration(seconds: timeout);
     _dio!.options.connectTimeout = Duration(seconds: timeout);
     _dio!.options.receiveTimeout = Duration(seconds: timeout);
     _dio!.options.baseUrl = baseUrl;
-    _dio!.interceptors.add(HttpFormatter());
     if(ObjectUtil.isNotEmpty(codeField)) _codeField = codeField!;
     if(ObjectUtil.isNotEmpty(dataField)) _dataField = dataField!;
     if(ObjectUtil.isNotEmpty(msgField)) _msgField = msgField!;
     if(ObjectUtil.isNotEmpty(successCode)) _successCode = successCode!;
     if(header!=null) _dio?.options.headers.addAll(header);
+    if(headerBuilder!=null) {
+      _dio?.interceptors.add(DynamicHeaderInterceptor(headerBuilder,
+        onHookResponse: onHookResponse));
+    }
+
+    _dio!.interceptors.add(HttpFormatter());
   }
 
   ///will auto override the same header
@@ -55,8 +62,7 @@ class HttpUtil {
   }
 
   //业务是否成功
-  static bool isSuccess(Map? map) =>
-      map == null ? false : map[_codeField] == _successCode;
+  static bool isSuccess(Map? res) => res == null ? false : res[_codeField] == _successCode;
 
   static String? getMsg(Map? res) {
     return res == null ? null : res[_msgField]?.toString();
@@ -73,26 +79,22 @@ class HttpUtil {
   static dynamic _convertException(Exception e, String url, {Map? params}) {
     LogUtil.e("error: ${e.toString()}\nurl: ${_dio?.options.baseUrl}$url\nparams: ${params?.toString()} ");
     if(e is SocketException){
-      // return {_codeField: -1, _msgField: e.message};
       return null;
+      // return {_dioErrorField : DioExceptionType.connectionError};
     }else{
       var de = e as DioException;
-      String es = "";
-      switch(de.type){
-        case DioExceptionType.connectionTimeout:
-        case DioExceptionType.sendTimeout:
-        case DioExceptionType.receiveTimeout:
-            es = "request timeout";
-            break;
-        case DioExceptionType.connectionError:
-            es = "connection error";
-            break;
-        default:
-            es = e.message??"";
-            break;
-      }
+      // switch(de.type){
+      //   case DioExceptionType.connectionTimeout:
+      //   case DioExceptionType.sendTimeout:
+      //   case DioExceptionType.receiveTimeout:
+      //       break;
+      //   case DioExceptionType.connectionError:
+      //       break;
+      //   default:
+      //       break;
+      // }
       return null;
-      // return {_codeField: -1, _msgField: es};
+      // return {_dioErrorField : de.type};
     }
   }
 
@@ -101,11 +103,11 @@ class HttpUtil {
   }
 
   ///get请求
-  static Future<Map<String,dynamic>?> get(String url, {Map<String, dynamic>? params}) async {
+  static Future<Map<String,dynamic>> get(String url, {Map<String, dynamic>? params}) async {
     try {
       assetDio();
       var result = await _dio!.get(url, queryParameters: params);
-      return result.isSuccessful ? (result.data ?? {}) : null;
+      return result.isSuccessful ? (result.data ?? <String, dynamic>{}) : null;
     } on DioException catch (e) {
       return _convertException(e, url);
     } on SocketException catch (e) {
@@ -114,14 +116,13 @@ class HttpUtil {
   }
 
   /// post请求，json编码
-  static Future<Map<String,dynamic>?> post(
+  static Future<Map<String,dynamic>> post(
     String url, {Map<String, dynamic>? params}
   ) async {
     try {
       assetDio();
       var result = await _dio!.post(url, data: params);
-      var data = ObjectUtil.isEmpty(result.data) ? <String, dynamic>{} : result.data;
-      return result.isSuccessful ? data : null;
+      return result.isSuccessful ? (result.data ?? <String, dynamic>{}) : null;
     } on DioException catch (e) {
       return _convertException(e, url, params: params);
     } on SocketException catch (e) {
