@@ -63,7 +63,7 @@ class _CommonTabBarState extends State<CommonTabBar> with SingleTickerProviderSt
         double selectSize = widget.selectFontSize ?? 16;
         double unselectSize = widget.unselectFontSize ?? 16;
         return SuperContainer(height: boxHeight, width: widget.tabWidth,
-          padding: widget.tabPadding,
+          padding: widget.tabPadding, align: Alignment.center,
           color: (currTab == i ? widget.selectBgColor: widget.unselectBgColor) ?? Colors.transparent,
           borderRadius: BorderRadius.only(topLeft: Radius.circular(widget.tabRadius ?? 8),
               topRight: Radius.circular(widget.tabRadius ?? 8)),

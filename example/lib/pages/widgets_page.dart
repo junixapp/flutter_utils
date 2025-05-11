@@ -59,8 +59,9 @@ class WidgetsPage extends StatelessWidget {
       ],),),
       CommonTabBar(tabs: ["card模式","dd", "打湿水"], onTabChange: (i){
 
-      }, tabPadding: EdgeInsets.symmetric(horizontal: 10.w), indicatorHeight: 3.w,
-      tabStyle: TabStyle.card, selectBgColor: Colors.black, selectColor: Colors.white, unselectColor: Colors.grey,
+      }, tabPadding: EdgeInsets.symmetric(horizontal: 10.w),
+      tabStyle: TabStyle.card, selectBgColor: Colors.black,
+        selectColor: Colors.white, unselectColor: Colors.grey,
       tabSpace: 10.w, unselectBgColor: Colors.grey.withAlpha(100),),
       CommonTabBar(tabs : ["line模式","dd", "打湿水"], onTabChange: (i){
 

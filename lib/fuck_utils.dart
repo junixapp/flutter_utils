@@ -28,6 +28,7 @@ export 'util/string_util.dart';
 export 'util/toast_util.dart';
 export 'util/widget_util.dart';
 export 'util/image_util.dart';
+export 'util/cache_image_util.dart';
 export 'util/http/http_formatter.dart';
 export 'util/http/http_util.dart';
 export 'util/http/dynamic_header_interceptor.dart';

@@ -14,7 +14,7 @@ class IndexBar extends StatefulWidget {
 
 class _IndexBarState extends State<IndexBar> with AfterLayoutMixin<IndexBar> {
   List<String> list = [
-    "1",
+    "#",
     "A",
     "B",
     "C",

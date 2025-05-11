@@ -21,6 +21,7 @@ class ImageLoader extends StatelessWidget {
   final EdgeInsets? padding;
   final bool blur;
   final bool animated;
+  final bool disabled;
   final Color? imageColor;
   final BlendMode imageColorMode;
   const ImageLoader(
@@ -41,6 +42,7 @@ class ImageLoader extends StatelessWidget {
     this.padding,
     this.blur = false,
     this.animated = false,
+    this.disabled = false,
     this.imageColor,
     this.imageColorMode = BlendMode.srcIn
   });
@@ -50,6 +52,7 @@ class ImageLoader extends StatelessWidget {
     return SuperContainer(
         width: width,
         height: height,
+        disabled: disabled,
         borderRadius: borderRadius ??
             BorderRadius.circular(circle ? (width ?? 0) / 2 : radius),
         borderWidth: borderWidth ?? 0,

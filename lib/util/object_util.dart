@@ -19,7 +19,7 @@ class ObjectUtil {
   }
 
   /// Returns true Two List Is Equal.
-  static bool twoListIsEqual(List? listA, List? listB) {
+  static bool listEqual(List? listA, List? listB) {
     if (listA == listB) return true;
     if (listA == null || listB == null) return false;
     int length = listA.length;
